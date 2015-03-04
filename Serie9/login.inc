@@ -36,7 +36,6 @@ class login {
       return isset(self::$users[$id]) && (self::$users[$id] == $pw);
    }
 
-
    public function has_logon()
    {
       if (isset($_SESSION["login"]))
@@ -55,44 +54,6 @@ class login {
    public function valid_id($id)
    { 
    		return valid($id, '^[0-9]+$');
-   }
-}
-
-
-class login_DB extends login {
-   private $_db;
-
-   function __construct($db)
-   {
-	   $_db = $db;
-   }
-   
-   public function verify_user($id, $pw)
-   {
-   	  $sql = "SELECT `pseudo`, `pass` FROM user WHERE user_id= '$id'";
-   	  
-   	  
-   	  if (!($resource = mysqli_query($_db, $sql))) 
-   	  {
-			return false;
-	  }
-   	  if(mysqli_num_rows($resource) != 1)
-   	  {
-	   	  	return false;
-   	  }
-   	  else
-   	  {
-	   	  $row = mysqli_fetch_assoc($resource);
-	   	  
-	   	  if($row['pass'] == $pw) #ENCODER !
-	   	  {
-		   	 return true; 
-	   	  }
-   	  }
-   	  
-   	  
-   	  
-      return 
    }
 }
 

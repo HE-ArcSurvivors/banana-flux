@@ -6,6 +6,7 @@
 # serveur WWW, sans autre protection. Ne pas y mettre de mot de passe
 # p.ex.!  ou alors protéger (via un .htaccess) ou appeler .php
 require "login.inc";
+require "loginDB.inc";
 
 # supposé sûr
 $self_url = $_SERVER['PHP_SELF'];
@@ -19,16 +20,12 @@ session_start();
 # (suppose que l'utilisateur accepte la session!)
 setcookie(session_name(), session_id(), time() + 3600);
 
-
-
 #Connexion
-if (!($db = mysqli_connect("localhost", "root", "root", "Serie9Ex1")) && !mysqli_connect_errno())
+//if (!($db = mysqli_connect("localhost", "root", "root", "Serie9Ex1")) && !mysqli_connect_errno())
+if (!($db = mysqli_connect("localhost", "root", "", "Serie9Ex1")) && !mysqli_connect_errno())
 {
 	echo "Erreur de connexion a la BDD"; #A revoir
 }
-
-
-
 
 $login = new login_DB($db);
 
