@@ -67,7 +67,7 @@ else {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-      <title>Démonstration</title>
+      <title>D&eacute;monstration</title>
    </head>
    <body>
 <?php
