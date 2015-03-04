@@ -21,8 +21,8 @@ session_start();
 setcookie(session_name(), session_id(), time() + 3600);
 
 #Connexion
-//if (!($db = mysqli_connect("localhost", "root", "root", "Serie9Ex1")) && !mysqli_connect_errno())
-if (!($db = mysqli_connect("localhost", "root", "", "Serie9Ex1")) && !mysqli_connect_errno())
+if (!($db = mysqli_connect("localhost", "root", "root", "Serie9Ex1")) && !mysqli_connect_errno())
+//if (!($db = mysqli_connect("localhost", "root", "", "Serie9Ex1")) && !mysqli_connect_errno())
 {
 	echo "Erreur de connexion a la BDD"; #A revoir
 }

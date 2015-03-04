@@ -16,6 +16,7 @@ class login_DB extends login {
    	  {
 			return false;
 	  }
+	  
    	  if(mysqli_num_rows($resource) != 1)
    	  {
 	   	  	return false;
@@ -24,13 +25,15 @@ class login_DB extends login {
    	  {
 	   	  $row = mysqli_fetch_assoc($resource);
 	   	  
-	   	  if($row['pass'] == $pw) #ENCODER !
+	   	  if($row['pass'] ==  md5($pw))
 	   	  {
 		   	 return true; 
 	   	  }
+	   	  else
+	   	  {
+		   	 return false;
+	   	  }
    	  }
-   	  
-      return true;
    }
 }
 ?>
