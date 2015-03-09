@@ -5,7 +5,7 @@
 # directement exécutables. Leur code sera probablement visible via le
 # serveur WWW, sans autre protection. Ne pas y mettre de mot de passe
 # p.ex.!  ou alors protéger (via un .htaccess) ou appeler .php
-require "login.inc";
+#require "login.inc";
 require "loginDB.inc";
 
 # supposé sûr
@@ -21,13 +21,16 @@ session_start();
 setcookie(session_name(), session_id(), time() + 3600);
 
 #Connexion
-if (!($db = mysqli_connect("localhost", "root", "root", "Serie9Ex1")) && !mysqli_connect_errno())
+/*if (!($db = mysqli_connect("localhost", "root", "1234", "Serie9Ex1")) && !mysqli_connect_errno())
 //if (!($db = mysqli_connect("localhost", "root", "", "Serie9Ex1")) && !mysqli_connect_errno())
 {
 	echo "Erreur de connexion a la BDD"; #A revoir
-}
+}*/
+
+$db = mysqli_connect('localhost', 'root', 'root', 'Serie9Ex1') or die("failed at".mysqli_connect());
 
 $login = new login_DB($db);
+#$login = new login();
 
 # L'utilisateur est-il déjà connecté ?
 if ($login->has_logon())
@@ -113,6 +116,9 @@ else {
 </p>
    <?php
 }
+
+mysqli_close($db);
+
 ?>
 
    </body>
