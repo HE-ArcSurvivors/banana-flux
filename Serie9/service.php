@@ -27,7 +27,8 @@ setcookie(session_name(), session_id(), time() + 3600);
 	echo "Erreur de connexion a la BDD"; #A revoir
 }*/
 
-$db = mysqli_connect('localhost', 'root', 'root', 'Serie9Ex1') or die("failed at".mysqli_connect());
+//$db = mysqli_connect('localhost', 'root', 'root', 'Serie9Ex1') or die("failed at".mysqli_connect());
+$db = mysqli_connect('localhost', 'root', '', 'Serie9Ex1') or die("failed at".mysqli_connect());
 
 $login = new login_DB($db);
 #$login = new login();
