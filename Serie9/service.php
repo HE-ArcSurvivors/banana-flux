@@ -7,6 +7,7 @@
 # p.ex.!  ou alors protéger (via un .htaccess) ou appeler .php
 #require "login.inc";
 require "loginDB.inc";
+require_once "config.php";
 
 # supposé sûr
 $self_url = $_SERVER['PHP_SELF'];
@@ -28,10 +29,16 @@ setcookie(session_name(), session_id(), time() + 3600);
 }*/
 
 //$db = mysqli_connect('localhost', 'root', 'root', 'Serie9Ex1') or die("failed at".mysqli_connect());
-$db = mysqli_connect('localhost', 'root', '', 'Serie9Ex1') or die("failed at".mysqli_connect());
 
-$login = new login_DB($db);
-#$login = new login();
+//Define du config.php
+$db = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die("failed at".mysqli_connect());
+
+if (toggle_connect == 'db')
+{
+	$login = new login_DB($db);
+}else{
+	$login = new login();
+}
 
 # L'utilisateur est-il déjà connecté ?
 if ($login->has_logon())
