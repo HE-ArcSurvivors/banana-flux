@@ -57,7 +57,7 @@ else {
    {
       if (isset($_POST['id']) && $login->valid_id($_POST['id']) && isset($_POST['pw']))
       {
-         if ($login->connect($_POST['id'], $_POST['pw']))
+         if ($login->connect($_POST['id'], md5($_POST['pw'])))
          {
             $id = $login->get_id();
          }
@@ -68,7 +68,7 @@ else {
       }
       else
       {
-         $error = 'paramètres invalides';
+         $error = 'paramètres invalides, le login est numérique';
       }
    }
 }
