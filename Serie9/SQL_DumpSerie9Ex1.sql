@@ -33,4 +33,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `pseudo`, `pass`) VALUES
-(5, 'toto', '81dc9bdb52d04dc20036dbd8313ed055');
+(1, 'truc', md5('truc'));
+
+INSERT INTO `user` (`user_id`, `pseudo`, `pass`) VALUES
+(2, 'truc', md5('demo'));
