@@ -21,9 +21,22 @@
 	      		</div></div>';
 	}
 	
-	for($i=$nbShowed; $i<$nbAdd+$nbShowed; $i++)
-	{
-		echo article("Article"+$i, "Une description", "");
-	}
+    
+
+    $content = file_get_contents('http://www.comptoir-hardware.com/home.xml');
+    $listflux = new SimpleXmlElement($content);
+    
+    
+    //revoir
+    $i=0;
+    foreach($listflux->channel->item as $entry)
+    {   
+    	if($i<=$nbAdd+$nbShowed && $i > $nbShowed)
+    	{
+    		echo article($entry->title, $entry->description, "");
+    	}
+        $i++;
+    }
+ 
 
 ?>
