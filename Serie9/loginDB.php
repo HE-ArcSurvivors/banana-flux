@@ -42,21 +42,25 @@ class login_DB extends login {
 
 	   #SELECT user_id FROM user WHERE (user_id = $id AND pass = '$pw')
 	   #$sql = "SELECT user_id FROM user WHERE (user_id = "$id" AND pass = '"mysqli_escape_string($this->_db, $pw)"')";
-	   $sql = "SELECT user_id FROM user WHERE (user_id = "
+	   $sql = "SELECT COUNT(*) FROM user WHERE (user_id = "
             .mysqli_escape_string($this->_db, $id)
             ." AND pass = '"
             .mysqli_escape_string($this->_db, $pw)
             ."')";
-           
-	   $resource = mysqli_query($this->_db, $sql);
-	   if(!$resource){
-		   echo "connection Error".mysqli_connect_errno();
-	   }
-
-	   if($resource = mysqli_query($this->_db, $sql)) {
-		   return (mysqli_num_rows($resource) == 1);
-	   }
+       $resource = mysqli_query($this->_db, $sql);
        
+	   if(!$resource)
+	   {
+			echo "Connection error: ".mysqli_connect_errno();
+	   }
+	   else
+	   {
+	   		$row = mysqli_fetch_array($resource);
+	   		return ($row[0] == 1);
+	   }
+	   
+
+	   
 	   return 0;
        
    }
