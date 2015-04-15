@@ -1,4 +1,13 @@
-$(function () {
+var currentRSSurl; //ce que l'utilisateur est en train de lire
+
+$(document).ready( function start(){
+	currentRSSurl = prompt("Tu veux lire quoi ?", "http://www.20min.ch/rss/rss.tmpl?type=rubrik&get=313&lang=ro");
+ 	addArticles(12, 0, currentRSSurl);
+ 	spyScroll();
+});
+
+//ajoute des articles si l'utilisateur scroll en bas de la page
+function spyScroll() {
      var $win = $(window);
 
      $win.scroll(function ()
@@ -6,20 +15,13 @@ $(function () {
         if ($win.height() + $win.scrollTop() == $(document).height())
         {
         	//alert("t'en veux plus ??");
-            addArticles(12, $(".article").length);
+            addArticles(12, $(".article").length, currentRSSurl);
         }
      });
-     
-});
+}
 
-$(document).ready( function start(){
- 	//alert("it's work");
- 	addArticles(12, 0);
-});
-
-
-
-function addArticles(nbToAdd, nbShowed)
+//ajoute des articles
+function addArticles(nbToAdd, nbShowed, urlRSS)
 {
 	jQuery.ajax({
 		type: 'POST',
@@ -28,6 +30,7 @@ function addArticles(nbToAdd, nbShowed)
 		data: {
 		  nbadd: nbToAdd,
 		  nbshowed: nbShowed,
+		  rssurl: urlRSS,
 		}, 
 		success: function(data, textStatus, jqXHR) {
 			// La réponse du serveur est contenu dans la variable « data »
