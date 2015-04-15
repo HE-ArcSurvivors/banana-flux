@@ -6,7 +6,7 @@
 # serveur WWW, sans autre protection. Ne pas y mettre de mot de passe
 # p.ex.!  ou alors protéger (via un .htaccess) ou appeler .php
 #require "login.inc";
-require "loginDB.inc";
+require "loginDB.php"; //inc est deprecié et n'est pas reconnu par mon editeur de texte pour les couleurs !!
 require_once "config.php";
 
 # supposé sûr

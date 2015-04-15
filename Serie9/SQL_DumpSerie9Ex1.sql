@@ -36,4 +36,4 @@ INSERT INTO `user` (`user_id`, `pseudo`, `pass`) VALUES
 (1, 'truc', md5('truc'));
 
 INSERT INTO `user` (`user_id`, `pseudo`, `pass`) VALUES
-(2, 'truc', md5('demo'));
+(2, 'demo', md5('demo'));
