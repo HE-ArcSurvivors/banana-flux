@@ -32,22 +32,27 @@ class User {
    
     public function printUser()
     {
-        echo 'Username'.$this->_login.'<br>';
-        echo 'Email'.$this->_email.'<br>';
-        echo 'Icon'.$this->_icon.'<br>';
+        echo '<p>Username: '.$this->_login.'<br>';
+        echo 'Email: '.$this->_email.'<br>';
+        echo 'Icon: '.$this->_icon.'<br></p>';
     }
     
     public function editEmail($email)
     {
         $sql = 'UPDATE user SET user_email = "'.mysqli_escape_string($this->_db, $email).'" 
-        WHERE user_login = "'.mysqli_escape_string($this->_db, $this->_login).'")';
+        WHERE user_login = "'.mysqli_escape_string($this->_db, $this->_login).'"';
             
-	    mysqli_query($this->_db, $sql);
+	    $result = mysqli_query($this->_db, $sql);
 
-        if(mysqli_affected_rows() == 1)
-	    {
-            $this->_email = $email;
-	    }  
+        if ($result === TRUE)
+        {
+            echo "Record updated successfully";
+            $this->_email = $email; 
+        }
+        else 
+        {
+            echo "Error updating record: " . $this->_db->error;
+        }
     }
     
     public function editPass($pass)
