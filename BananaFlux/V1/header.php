@@ -2,6 +2,7 @@
 
 require_once "loginDB.inc";
 require_once "config.php";
+require_once "user.php";
 
 $self_url = $_SERVER['PHP_SELF'];
 

@@ -24,6 +24,7 @@ else
          if ($login->connect($_POST['id'], md5($_POST['pw'])))
          {
             $id = $login->get_id();
+             //$user = new user($db);
          }
          else
          {
