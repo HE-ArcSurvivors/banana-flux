@@ -37,6 +37,11 @@ class User {
         echo 'Icon: '.$this->_icon.'<br></p>';
     }
     
+    public function getEmail()
+    {
+        return $this->_email;
+    }
+    
     public function editEmail($email)
     {
         $sql = 'UPDATE user SET user_email = "'.mysqli_escape_string($this->_db, $email).'" 
@@ -46,7 +51,10 @@ class User {
 
         if ($result === TRUE)
         {
-            echo "Record updated successfully";
+            echo '<div class="info">';
+            echo 'Record updated successfully';
+            echo '</div>';
+            
             $this->_email = $email; 
         }
         else 
@@ -54,6 +62,8 @@ class User {
             echo "Error updating record: " . $this->_db->error;
         }
     }
+    
+    
     
     public function editPass($pass)
     {
