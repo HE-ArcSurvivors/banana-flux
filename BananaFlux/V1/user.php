@@ -10,24 +10,29 @@ class User {
 
     public function __construct($db)
     {
-	   $this->_db = $db;
-       $this->_login = $_SESSION["login"];
-           
-       $sql = 'SELECT user_email, user_icon FROM user WHERE (
+	      $this->_db = $db;
+	      $this->icon = "https://s-media-cache-ak0.pinimg.com/236x/82/0f/52/820f526af6dc24cda8b67b3ddf688532.jpg"; //default icon
+    }
+    
+    public function connect()
+    {
+        $this->_login = $_SESSION["login"];
+        
+        $sql = 'SELECT user_email, user_icon FROM user WHERE (
         user_login = "'.mysqli_escape_string($this->_db, $this->_login).'")';
             
-	   $result = mysqli_query($this->_db, $sql);
+        $result = mysqli_query($this->_db, $sql);
 
-	   if(!$result)
-	   {
+        if(!$result)
+        {
 			echo "Connection error: ".mysqli_connect_errno();
-	   }
-	   else
+        }
+        else
 	   {
-	   		$row = mysqli_fetch_array($result);
+            $row = mysqli_fetch_array($result);
             $this->_email = $row["user_email"];
             $this->_icon = $row["user_icon"];
-	   }   
+	   }
     }
    
     public function printUser()
@@ -88,6 +93,53 @@ class User {
     public function isLogged()
     {
        return true;
+    }
+    
+    private function validateEmail($email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            return "Invalid email address format!";
+        }
+        else
+        {
+            $query = "SELECT COUNT(*) FROM user WHERE user_email = '".$email."'";
+            $resource = mysqli_query($this->_db, $query);
+            $row = mysqli_fetch_array($resource);
+            if($row[0]>=1)
+            {
+                return "Your email address <b>".$email."</b> is already registered.";
+            }
+        }
+        return 1;
+    }
+    
+    public function signUpUser($login, $pass, $email)
+    {
+        $login  = mysqli_real_escape_string($this->_db,$login);
+        $email  = mysqli_real_escape_string($this->_db,$email);
+        $pass   = mysqli_real_escape_string($this->_db,$pass);
+        $icon   = $this->icon;
+        
+        $emailValidity = self::validateEmail($email);
+            
+        if ($emailValidity != 1)
+        {
+            return $emailValidity;
+        }
+        else
+        {
+            $query = "insert into user(user_login,user_email,user_password,user_icon) values('".$login."','".$email."','".$email."','".$icon."')";
+            $resource = mysqli_query($this->_db, $query);
+            if(!$resource)
+            {
+                return "Connection error: ".mysqli_connect_errno()." - Unable to contact the database.";
+            }
+            else
+            {
+                return "You are now Registred and you can Login with your username ".$login;
+            }
+        }
     }
     
     private function verifyUser($login, $pass)
