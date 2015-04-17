@@ -39,24 +39,99 @@ p{
 	overflow: hidden;
 }
 
-
-
-/*Volet /!\ TEMPORAIRE*/
+/*Volet*/
 #leftFlap{
 	position: absolute;
-	left : 10px;
-	top: 20px;
-	z-index: 100;
 
-	width: 100px;
-	height: 200px;
+	/*Interaction JS*/
+	left : -220px;
+	top: 50px;
 	
-	background-color: blue;
+	width: 250px;
+	height: 100px;
+	
 	overflow: hidden;
 	
+	padding: 0px;
+	margin: 0px;
+	
 }
+#leftFlap_Content{
+	height: 100%;
+	
+	background-color: white;
+	display: inline-block;
+	vertical-align: top;
+	width: 220px; 
+	
+	-webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
+	box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
+	
+	
+	padding-right: 0px;
+	margin-right: -4px;/*TODO : Sale marge droite de 4 px incompérhenssible*/
+	
+}
+
+#leftFlap_Content h1{
+	margin-top: 0px;
+	font-size: 20px;
+	text-align: center;
+	background-color: #dbdbdb;
+	line-height: 50px;
+	
+}
+
+#leftFlap_Content h2{
+	margin-top: 0px;
+	font-size: 15px;
+	text-align: center;
+	background-color: #dbdbdb;
+	margin-top: 5px;
+	line-height: 30px;
+	
+}
+
+#leftFlap_Bouton{
+
+	margin-top: 50px;
+	cursor: pointer;
+	padding-left: 0px;
+	margin-left: 0px;
+	display: inline-block;
+	
+	
+	background-color: red;
+	
+	-webkit-box-shadow: 3px 0 3px 0 rgba(0,0,0,0.5);
+	box-shadow: 3px 0 3px 0 rgba(0,0,0,0.5);
+	
+	width: 30px;
+	height: 100px;
+	
+	
+}
+
+#leftFlap_Bouton p{
+	margin: 0px;
+	margin-top:48px;
+	padding: 0px;
+	
+	color: white;
+	font-weight: bold;
+            
+    -webkit-transform: rotate(-90deg);
+       -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+         -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+	}
+
 #articles{
 	width: auto;
+	
+	/*Interaction JS*/
+	padding-left: 10px;
 }
 .blocend{
 	clear: both;
