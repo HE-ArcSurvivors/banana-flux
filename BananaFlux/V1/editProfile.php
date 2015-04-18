@@ -14,8 +14,6 @@ if(isset($_SESSION["login"]))
     }
     
     $user->printUser();
-    
-    echo 'Formulaire:<br/>';
 ?>
 
 <LINK href="style2.css" rel="stylesheet" type="text/css">
@@ -43,23 +41,37 @@ $(function() {
 });
 </script>
 
-    <table>
+    <div id="profil">
+        <h1>Mon profil</h1> 
+        <img src="http://wallpapers55.com/wp-content/uploads/2014/04/artistic-adore-red-panda-wallpaper-150x150.jpg" width="150" height="150" class="image"/>
+        <table class="text">
             <tr>
-                <td><label for="id">
-                    <?php echo $lang["FORM_EDIT_EMAIL_TITLE"]; ?> : </label></td>
+                <td><?php echo $lang["FORM_EDIT_USERNAME_TITLE"]; ?> : </td>
+                <td><?php echo $user->getUsername(); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $lang["FORM_EDIT_EMAIL_TITLE"]; ?> : </td>
                 <td class="click"><?php echo $user->getEmail(); ?></td>
-            </tr>  
+            </tr> 
+            <tr>
+                <td><?php echo $lang["FORM_EDIT_PASSWORD_TITLE"]; ?> : </td>
+                <td class="click"></td>
+            </tr> 
             <tr>
                 <td>
+                    <?php echo $lang["FORM_EDIT_ICON_TITLE"]; ?> : </td>
+                    <td><?php echo $lang["FORM_EDIT_ICON_UNAVAILABLE"]; ?></td>
+            </tr> 
+        </table>
+        <div class="buttonSubmit">
                     <form method="post" name="editProfileForm" action="<?php echo $self_url; ?>">
-                    <input type="submit" />
+                    <input type="submit" value="Valider les modifications"/>
                     <input type="hidden" name="formValidated" value="1" />
                     <input type="hidden" name="newEmail" id="newEmail" value="null" />
                     </form>
-                </td>
-            </tr>
-    </table>
+        </div>
 
+</div>
 
 <?php   
 }

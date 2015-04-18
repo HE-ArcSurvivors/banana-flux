@@ -1,6 +1,9 @@
-.info { 
-
+body { 
     font-family : "Calibri";
+    
+}
+
+.info { 
     
     position: absolute;
     z-index: 101;
@@ -14,4 +17,42 @@
     -webkit-box-shadow: 0 0 5px black;
     -moz-box-shadow:    0 0 5px black;
     box-shadow:         0 0 5px black;
+}
+
+#profil { 
+    
+    margin-left : auto;
+    margin-right : auto;
+    background-color : #FFFFFF;
+    
+    -webkit-box-shadow: 0 0 5px 1px #ADADAD;
+    box-shadow: 0 0 5px 1px #ADADAD;
+    
+    width : 70%;
+    overflow: auto;
+}
+
+#profil h1 {
+    
+    text-align : center;
+    text-transform: uppercase;
+    
+}
+
+#profil .image { 
+    
+    border: 1px dashed #DDD;
+    padding: 5px;
+    background-color: #F8F8F8;
+    float: right;
+    margin : 10px;
+}
+
+#profil .text { 
+    margin : 10px;
+}
+
+#profil .buttonSubmit {
+    text-align : center;
+       
 }

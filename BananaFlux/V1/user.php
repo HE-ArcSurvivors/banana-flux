@@ -37,6 +37,11 @@ class User {
         echo 'Icon: '.$this->_icon.'<br></p>';
     }
     
+    public function getUsername()
+    {
+        return $this->_login;
+    }
+    
     public function getEmail()
     {
         return $this->_email;
@@ -62,8 +67,6 @@ class User {
             echo "Error updating record: " . $this->_db->error;
         }
     }
-    
-    
     
     public function editPass($pass)
     {
