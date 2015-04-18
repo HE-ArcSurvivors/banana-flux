@@ -1,11 +1,17 @@
-var currentRSSurl; //ce que l'utilisateur est en train de lire
+//ce que l'utilisateur est en train de lire
+var id_flux;
+var id_dossier;
+
 var leftFlap_initialposLeft;
 
 $(document).ready( function start(){
+
 	
-	currentRSSurl = prompt("Tu veux lire quoi ?", "http://www.20min.ch/rss/rss.tmpl?type=rubrik&get=313&lang=ro");
+ 	//temporaire
+ 	id_flux = 1;
+ 	id_dossier=null;
  	
- 	addArticles(12, 0, currentRSSurl);
+ 	addArticles(12, 0, id_flux, id_dossier);
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
  	
@@ -62,6 +68,15 @@ function startClicListeners()
      	}
 	 	
 	 });
+	 
+	 $(".flux").on("click", function() {
+		
+		id_flux = $(this).children(".idflux_hidden").text();
+		id_dossier=null;
+		
+		addArticles(12, 0, id_flux, id_dossier);
+		
+	 });
 }
 
 //ajoute des articles si l'utilisateur scroll en bas de la page
@@ -74,7 +89,7 @@ function spyScroll() {
         if ($win.height() + $win.scrollTop() == $(document).height())
         {
         	//alert("t'en veux plus ??");
-            addArticles(12, $(".article").length, currentRSSurl);
+            addArticles(12, $(".article").length, id_flux, id_dossier);
         }
         
         //Move the leftFlap
@@ -103,7 +118,7 @@ function spyResizeWindow(){
 //------------------------------------------------------//
 
 //ajoute des articles
-function addArticles(nbToAdd, nbShowed, urlRSS)
+function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 {
 	jQuery.ajax({
 		type: 'POST',
@@ -112,7 +127,8 @@ function addArticles(nbToAdd, nbShowed, urlRSS)
 		data: {
 		  nbadd: nbToAdd,
 		  nbshowed: nbShowed,
-		  rssurl: urlRSS,
+		  idflux: id_flux,
+		  iddossier: id_dossier,
 		}, 
 		success: function(data, textStatus, jqXHR) {
 			// La réponse du serveur est contenu dans la variable « data »

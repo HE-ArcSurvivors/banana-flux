@@ -1,9 +1,10 @@
 <?php
-	session_start();
+	require_once "header.php";
 	
 	$nbShowed=@$_POST['nbshowed'];
 	$nbAdd=@$_POST['nbadd'];
-	$urlRSS=@$_POST['rssurl'];
+	$id_flux=@$_POST['idflux'];
+	$id_dossier=@$_POST['iddossier'];
 	
 	function cutText($string, $length)
 	{
@@ -62,8 +63,8 @@
     		if($i<=$idlast+$idfirst && $i > $idfirst)
     		{
     			echo article($entry->title, $entry->description, $entry->link, $entry->image);
-    			}
-    			$i++;
+    		}
+    		$i++;
     	}
 
 	}
@@ -71,14 +72,34 @@
 	//http://www.20min.ch/rss/rss.tmpl?type=rubrik&get=313&lang=ro
 	//http://www.jeuxvideo.com/rss/rss.xml
     
-    if(!empty($urlRSS))
-    {
-    	showArticlesRSS($urlRSS, $nbShowed, $nbAdd);
-    }
+	if(empty($id_dossier) && !empty($id_flux))
+	{
+		//afficher flux unique
+		
+		$sql = "SELECT `feed_url` FROM `feed` WHERE `feed_id`=".$id_flux;
+		$resource = mysqli_query($db, $sql);
+		
+		if(!$resource)
+		{
+			echo "Connection error: ".mysqli_connect_errno(); //TODO
+		}
+		else
+		{
+	   		$row = mysqli_fetch_array($resource);
+	   		$urlRSS = $row[0];
+	   		
+	   		showArticlesRSS($urlRSS, $nbShowed, $nbAdd);
+	   }
+
+		
+	}
+	else if(!empty($id_dossier) && empty($id_flux))
+	{
+		//afficher tout les flux du dossier
+	}
     else
     {
-	    echo "<p>Manque l'url...</p>"; //revoir
+	    echo "<p>Erreure AJAX (showArticles.php): Arguments manquants</p>"; //TODO
     }
-     
 
 ?>
