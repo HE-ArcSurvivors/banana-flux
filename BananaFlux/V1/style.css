@@ -126,6 +126,50 @@ p{
          -o-transform: rotate(-90deg);
             transform: rotate(-90deg);
 	}
+	
+.flux, .dossier{
+	width: 100%;
+	background-color: #e9e9e9;
+	margin-top: 5px;
+	
+	cursor: pointer;
+}
+.flux:active{
+	background-color: #b4b4b4;
+}
+.dossierHead{
+	width: 100%;
+	background-color: #dbdbdb;
+}
+
+.dossierHead:active{
+	background-color: #b4b4b4;
+}
+
+.control_elementLeftFlap{
+	float: right;
+	margin-right: 5px;
+}
+.suppr, .edit, .open{
+	margin-left: 3px;
+	margin-top: 5px;
+}
+.urlflux_hidden{
+	display: none;
+}
+
+.flux p, .dossierHead p{
+	padding-left: 5px;
+	display: inline-block;
+}
+
+.dossierHead p{
+	font-weight: bold;
+}
+
+#leftFlap_Content .dossier{
+	
+}
 
 #articles{
 	width: auto;
@@ -133,6 +177,7 @@ p{
 	/*Interaction JS*/
 	padding-left: 10px;
 }
+
 .blocend{
 	clear: both;
 }
