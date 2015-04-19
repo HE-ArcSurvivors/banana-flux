@@ -31,7 +31,7 @@ class Feed {
 		
 		if(!$resource)
 		{
-			echo "Connection error: ".mysqli_connect_errno(); //TODO
+			echo "Connection error: ".mysqli_connect_errno();
 		}
 		else
 		{

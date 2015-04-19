@@ -12,7 +12,7 @@ if(isset($_POST['action']))
         {
              if ($user->login($_POST['username'], md5($_POST['password'])))
              {
-                header('Location: editProfile.php');   
+                header('Location: home.php');   
              }
              else
              {
@@ -40,7 +40,6 @@ if(isset($_POST['action']))
             {
                 if($user->login($login, md5($pass)))
                 {
-                    echo '<div class="informationBox warning">blaaaaaa</div>';
                     header('Location: home.html'); 
                 }
             }
