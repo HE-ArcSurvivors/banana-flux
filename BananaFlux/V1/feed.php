@@ -13,12 +13,16 @@ class Feed {
     private $_tabArticles = array();
     
     private $_db;
+    private $_lang;
+    
 
-    public function __construct($id, $db)
+    public function __construct($id, $db, $lang)
     {
     
     	$this->_db = $db;
     	$this->_id = $id;
+    	$this->_lang = $lang;
+    	
     	
     	
     	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".$id;
@@ -40,8 +44,8 @@ class Feed {
 	   			$this->getArticles();
 	   		}
 	   		else
-	   		{
-		   		echo "<p>Erreur : Arguments incorrectes</p>"; //TODO
+	   		{   		
+		   		echo '<div class="informationBox warning">'.$this->_lang["FEED_NOT_FOUND"].'</div>';
 	   		}
 	   	}
 	}
