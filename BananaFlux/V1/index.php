@@ -16,12 +16,16 @@ if(isset($_POST['action']))
              }
              else
              {
-                $error = 'Connexion échouée';
+                echo '<div class="informationBox warning">';
+                echo $lang["CONNECTION_FAILED"];
+                echo '</div>';
              }
         }
         else
         {
-            $error = 'Paramètres invalides, le login est numérique';
+            echo '<div class="informationBox warning">';
+            echo $lang["CONNECTION_FAILED_INVALID_LOGIN"];
+            echo '</div>';
         }
     }
     elseif($_POST['action']=="signup")
@@ -30,14 +34,15 @@ if(isset($_POST['action']))
         $pass = $_POST['password'];
         $email = $_POST['email'];
         
-        print "Banana, Connection People: <br>";
         if ($login != "" && $pass != "" && $email != "")
         {
-          $message = $user->signUpUser($login, md5($pass), $email);
+            $user->signUpUser($login, md5($pass), $email);
         }
         else
         {
-          $message = "To signup fill all the fields.";
+            echo '<div class="informationBox warning">';
+            echo $lang["SIGNUP_FAILED_MISSINGVALUE"];
+            echo '</div>';
         }
     }
 }
@@ -47,6 +52,7 @@ if(isset($_POST['action']))
 <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="styles/bananaStyle.css"/>
+<script src="scripts/modernizr.custom.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>  
 
 <script>
@@ -59,10 +65,6 @@ if(isset($_POST['action']))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 </head>
 <body>
-
-<?php
- //echo '<b>'.$message.'</b>';
-?>
     
 <div id="tabs" style="width: 480px;">
   <ul>
