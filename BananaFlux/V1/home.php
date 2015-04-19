@@ -102,10 +102,20 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
    </head>
 
    <body>
-      
-      <div id="headbar">
-      	<h1><?php echo $lang["WEBSITE_NAME"]; ?></h1>
-      </div>
+       
+       <div id="headbar">
+           <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
+           <div id="headbar-right">
+               <ul id="navbar">
+                    <li><img src="<?php echo $user->getIcon(); ?>" />
+                        <ul>
+                            <li><a href="editProfile.php">Editer mon profil</a></li>
+                            <li><a href="index.php?action=disconnect">Déconnection</a></li>
+                        </ul></li>
+                </ul>
+           </div>
+       </div>
+
       
       <!--<div id="headfilters">
       	

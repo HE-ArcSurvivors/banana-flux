@@ -5,8 +5,9 @@ require "header.php";
 $user = new User($db,$lang);
 
 if(isset($_POST['action']))
-{          
-    if($_POST['action']=="login")
+{             
+    $action = htmlentities($_POST["action"]);
+    if($action=="login")
     {
         if (isset($_POST['username']) && $user->valid_id($_POST['username']) && isset($_POST['password']))
         {
@@ -28,7 +29,7 @@ if(isset($_POST['action']))
             echo '</div>';
         }
     }
-    elseif($_POST['action']=="signup")
+    elseif($action=="signup")
     {
         $login = $_POST['username'];
         $pass = $_POST['password'];
@@ -51,6 +52,20 @@ if(isset($_POST['action']))
             echo '</div>';
         }
     }
+    
+}
+
+if(isset($_GET['action']))
+{
+    $action = htmlentities($_GET["action"]);
+    if($action == "signout")
+    {
+        echo '<div class="informationBox warning">DECONNECTION';
+        //echo $lang["SIGNUP_FAILED_MISSINGVALUE"];
+        echo '</div>';
+        $user->signOut();
+    }
+
 }
 
 ?>
