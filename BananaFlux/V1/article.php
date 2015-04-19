@@ -6,13 +6,15 @@ class Article {
     private $_description;
     private $_url;
     private $_img;
+    private $_lang;
 
-    public function __construct($title, $description, $url, $img)
+    public function __construct($title, $description, $url, $img, $lang)
     {
 	   $this->_title = $title;
 	   $this->_description = $description;
 	   $this->_url = $url;
 	   $this->_img = $img;
+	   $this->_lang = $lang;
     }
    
 /*
@@ -52,7 +54,7 @@ class Article {
 			$descr = $this->cutText($this->_description, $lengthDescrSansImage);
 		}
 		
-		$descr.='[<a href="'.$this->_url.'" target="_blank">'.$lang["ARTICLES_READ_NEXT"].'</a>]';
+		$descr.='[<a href="'.$this->_url.'" target="_blank">'.$this->_lang["ARTICLES_READ_NEXT"].'</a>]';
 		$title = $this->cutText($this->_title, $lengthTitle);
 		
 		//Return the constructed article

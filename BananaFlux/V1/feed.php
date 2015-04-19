@@ -75,7 +75,7 @@ class Feed {
     
 		foreach($listflux->channel->item as $entry)
 		{   
-			$article = new article($entry->title, $entry->description, $entry->link, $entry->image);
+			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $this->_lang);
 			array_push($this->_tabArticles, $article);
     	}
     }
