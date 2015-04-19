@@ -14,7 +14,7 @@ class User {
     public function __construct($db,$lang)
     {
         $this->_db = $db;
-        $this->icon = "https://s-media-cache-ak0.pinimg.com/236x/82/0f/52/820f526af6dc24cda8b67b3ddf688532.jpg"; //default icon
+        $this->icon = "icon/default_icon_banana.png";
         $this->lang = $lang;
     }
     
@@ -187,8 +187,8 @@ class User {
                 echo '<div class="informationBox warning">';
                 echo $this->lang["SIGNUP_EMAIL_ALREADYUSED"];
                 echo '</div>';
+                return false;
             }
-            return false;
         }
         return true;
     }
@@ -202,25 +202,27 @@ class User {
         
         $emailValidity = self::validateEmail($email);
             
-        if ($emailValidity != 1)
+        if (!$emailValidity)
         {
-            return $emailValidity;
+            return false;
         }
         else
         {
-            $query = "INSERT INTO user(user_login,user_email,user_password,user_icon) VALUES('".$login."','".$email."','".$email."','".$icon."')";
+            $query = "INSERT INTO user(user_login,user_email,user_password,user_icon) VALUES('".$login."','".$email."','".$pass."','".$icon."')";
             $resource = mysqli_query($this->_db, $query);
             if(!$resource)
             {
                 echo '<div class="informationBox warning">';
                 echo $this->lang["ERROR_CONNECTION_NUMBER"].' '.mysqli_connect_errno();
                 echo '</div>';
+                return false;
             }
             else
             {
                 echo '<div class="informationBox info">';
                 echo $this->lang["SIGNUP_SUCCESS"];
                 echo '</div>';
+                return true;
             }
         }
     }
