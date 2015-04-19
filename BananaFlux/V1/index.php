@@ -2,7 +2,7 @@
 
 require "header.php";
 
-$user = new User($db);
+$user = new User($db,$lang);
 $login = new login_DB($db);
 
 if(isset($_POST['action']))
