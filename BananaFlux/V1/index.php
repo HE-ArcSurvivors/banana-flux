@@ -40,7 +40,6 @@ if(isset($_POST['action']))
             {
                 if($user->login($login, md5($pass)))
                 {
-                    echo '<div class="informationBox warning">blaaaaaa</div>';
                     header('Location: home.html'); 
                 }
             }
