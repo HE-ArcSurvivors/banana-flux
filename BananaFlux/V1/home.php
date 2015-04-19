@@ -52,16 +52,24 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
    	        <link rel="stylesheet" href="styles/bananaStyle.css"/>
    	        <script type="text/javascript" src="scripts/jquery-2.1.3.min.js"></script>
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
-   	        
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-   	        
+            <script type="text/javascript" src="scripts/lightbox.js"></script>
    </head>
 
    <body>
-      
-      <div id="headbar">
-      	<h1>Banana Flux</h1>
-      </div>
+       
+       <div id="headbar">
+           <div id="headbar-left"><h1>Banana Flux</h1></div>
+           <div id="headbar-right">
+	           <ul id="navbar">
+                    <li><img src="<?php echo $user->getIcon(); ?>" />
+                        <ul>
+                            <li><a href="editProfile.php">Editer mon profil</a></li>
+                            <li><a href="index.php?action=disconnect">Déconnection</a></li>
+                        </ul></li>
+                </ul>
+           </div>
+       </div>
       
       <!--<div id="headfilters">
       	
@@ -139,6 +147,9 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
       
       <div class="blocend"></div> <!-- Stop the evil float -->
 
-      
+      <div id="popup" class="popup_block">
+			
+			<p class="ClosePupup">Fermer</p>
+		</div>
    </body>
 </html>
