@@ -25,55 +25,54 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 	
 	if(!$resource)
 	{
-		return "Connection error: ".mysqli_connect_errno();
+		return $lang["CONNECTION_FAILED"].mysqli_connect_errno();
 	}
 	else
 	{
 		$toShow = "";
-		if(mysqli_num_rows($resource) != 0)
-		{	
-			$curentFolder_id=null;
-			while ($record = mysqli_fetch_assoc ($resource))
+		
+		$curentFolder_id=null;
+		while ($record = mysqli_fetch_assoc ($resource))
+		{
+			if($record['folder_id']!=$curentFolder_id)
 			{
-				if($record['folder_id']!=$curentFolder_id)
+				//end old folder
+				if($curentFolder_id != null)
 				{
-					//end old folder
-					if($curentFolder_id != null)
-					{
-						$toShow.="</div>";
-					}
-					
-					$curentFolder_id =$record['folder_id'];
-					
-					//new folder
-					$toShow .='<div class="dossier">
-					   <div class="dossierHead">
-						   <p>'.$record['folder_name'].'</p>
-					   		<span class="control_elementLeftFlap">
-					   			<span class="open fa fa-plus-square-o"></span>
-					   			<span class="edit fa fa-pencil-square-o"></span>
-					   			<span class="suppr fa fa-times"></span>
-					   		</span>
-					   		<span class="iddossier_hidden">'.$record['folder_id'].'</span>
-					   </div>';
-					
+					$toShow.="</div>";
 				}
 				
-				//print flux
+				$curentFolder_id =$record['folder_id'];
 				
-				$toShow .='<div class="flux">
-				   		<p>'.$record['feed_title'].'</p>
+				//new folder
+				$toShow .='<div class="dossier">
+				   <div class="dossierHead">
+					   <p>'.$record['folder_name'].'</p>
 				   		<span class="control_elementLeftFlap">
+				   			<span class="open fa fa-plus-square-o"></span>
 				   			<span class="edit fa fa-pencil-square-o"></span>
 				   			<span class="suppr fa fa-times"></span>
 				   		</span>
-				   		<span class="idflux_hidden">'.$record['feed_id'].'</span>
-				   		</div>';
-				 
+				   		<span class="iddossier_hidden">'.$record['folder_id'].'</span>
+				   </div>';
+				
 			}
 			
-			$toShow.="</div>"; //close the last folder
+			//print flux
+			
+			$toShow .='<div class="flux">
+			   		<p>'.$record['feed_title'].'</p>
+			   		<span class="control_elementLeftFlap">
+			   			<span class="edit fa fa-pencil-square-o"></span>
+			   			<span class="suppr fa fa-times"></span>
+			   		</span>
+			   		<span class="idflux_hidden">'.$record['feed_id'].'</span>
+			   		</div>';
+			 
 		}
+		
+		$toShow.="</div>"; //close the last folder
+		
 		return $toShow;
 	}
 	
@@ -91,30 +90,22 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
    <head>
    	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
    	  
-   	        <title>Banana Flux - home</title>
+   	        <title><?php echo $lang["WEBSITE_NAME"]; ?> <?php echo $lang["WEBPAGE_SEPARATOR"]; ?> <?php echo $lang["WEBPAGE_HOME"]; ?></title>
    	        
    	        <link rel="stylesheet" href="styles/font-awesome.min.css"/>
    	        <link rel="stylesheet" href="styles/bananaStyle.css"/>
    	        <script type="text/javascript" src="scripts/jquery-2.1.3.min.js"></script>
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
+   	        
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-            <script type="text/javascript" src="scripts/lightbox.js"></script>
+   	        
    </head>
 
    <body>
-       
-       <div id="headbar">
-           <div id="headbar-left"><h1>Banana Flux</h1></div>
-           <div id="headbar-right">
-	           <ul id="navbar">
-                    <li><img src="<?php echo $user->getIcon(); ?>" />
-                        <ul>
-                            <li><a href="editProfile.php">Editer mon profil</a></li>
-                            <li><a href="index.php?action=disconnect">Déconnection</a></li>
-                        </ul></li>
-                </ul>
-           </div>
-       </div>
+      
+      <div id="headbar">
+      	<h1><?php echo $lang["WEBSITE_NAME"]; ?></h1>
+      </div>
       
       <!--<div id="headfilters">
       	
@@ -129,8 +120,8 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
       
       <div id="leftFlap">
 		   <div id="leftFlap_Content">
-			   <h1>Dossiers</h1>
-			   <h2>Personnels</h2>
+			   <h1><?php echo $lang["FLUX_FOLDERS"]; ?></h1>
+			   <h2><?php echo $lang["FLUX_PERSONAL"]; ?></h2>
 			   
 			   <!--
 			   <div class="dossier">
@@ -169,9 +160,9 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 			   		echo $dossiers;
 			   ?>
 			   
-			   <h2>Par défaut</h2>
+			   <h2><?php echo $lang["FLUX_DEFAULT"]; ?></h2>
 			   
-			   <h1>Flux</h1>
+			   <h1><?php echo $lang["FLUX_FLUX"]; ?></h1>
 			   
 			   <!--
 			   <div class="flux">
@@ -193,7 +184,7 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 			   -->
 	
 		   </div>
-		   <div id="leftFlap_Bouton"><p>Ouvrir</p></div>
+		   <div id="leftFlap_Bouton"><p><?php echo $lang["FLUX_OPEN"]; ?></p></div>
 	  </div>
 	      
 	  <div id="articles">
@@ -202,9 +193,6 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
       
       <div class="blocend"></div> <!-- Stop the evil float -->
 
-      <div id="popup" class="popup_block">
-			
-			<p class="ClosePupup">Fermer</p>
-		</div>
+      
    </body>
 </html>

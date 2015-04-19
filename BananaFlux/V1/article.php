@@ -23,7 +23,7 @@ class Article {
 */
     private function cutText($string, $length)
 	{
-		//Hard cut ! amélioration possible
+		//Hard cut ! amï¿½lioration possible
 		if(strlen($string)>$length)
 		{
 			$string = substr ($string, 0, $length).'...'; 
@@ -52,7 +52,7 @@ class Article {
 			$descr = $this->cutText($this->_description, $lengthDescrSansImage);
 		}
 		
-		$descr.='[<a href="'.$this->_url.'" target="_blank">Lire la suite</a>]';
+		$descr.='[<a href="'.$this->_url.'" target="_blank">'.$lang["ARTICLES_READ_NEXT"].'</a>]';
 		$title = $this->cutText($this->_title, $lengthTitle);
 		
 		//Return the constructed article
