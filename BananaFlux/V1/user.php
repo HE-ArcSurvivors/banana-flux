@@ -6,12 +6,14 @@ class User {
     private $email;
     private $icon;
     
+    private $lang;
     private $_db;
 
-    public function __construct($db)
+    public function __construct($db,$lang)
     {
-	      $this->_db = $db;
-	      $this->icon = "https://s-media-cache-ak0.pinimg.com/236x/82/0f/52/820f526af6dc24cda8b67b3ddf688532.jpg"; //default icon
+        $this->_db = $db;
+        $this->icon = "https://s-media-cache-ak0.pinimg.com/236x/82/0f/52/820f526af6dc24cda8b67b3ddf688532.jpg"; //default icon
+        $this->lang = $lang;
     }
     
     public function connect()
@@ -54,30 +56,83 @@ class User {
     
     public function editEmail($email)
     {
-        $sql = 'UPDATE user SET user_email = "'.mysqli_escape_string($this->_db, $email).'" 
-        WHERE user_login = "'.mysqli_escape_string($this->_db, $this->_login).'"';
-            
-	    $result = mysqli_query($this->_db, $sql);
+        if(filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            $sql = 'UPDATE user SET user_email = "'.mysqli_escape_string($this->_db, $email).'" 
+            WHERE user_login = "'.mysqli_escape_string($this->_db, $this->_login).'"';
 
-        if ($result === TRUE)
+            $result = mysqli_query($this->_db, $sql);
+
+            if ($result === TRUE)
+            {            
+                $this->_email = $email; 
+                return true;
+            }
+            else 
+            {
+                echo '<div class="informationBox warning">';
+                echo $this->lang["ERROR_NUMBER"].' '.$this->_db->error.'</div>';
+            }    
+        }
+        else
         {
-            echo '<div class="info">';
-            echo 'Record updated successfully';
+            echo '<div class="informationBox warning">';
+            echo $this->lang["EMAIL_UNVALID"];
             echo '</div>';
-            
-            $this->_email = $email; 
-        }
-        else 
-        {
-            echo "Error updating record: " . $this->_db->error;
         }
     }
     
-    public function editPass($pass)
+    public function editPass($passwordOLD,$passwordNEW)
     {
-       return true;
+        if($this->checkCurrentPassword(md5($passwordOLD)))
+        {
+            $sql = 'UPDATE user SET user_password = "'.mysqli_escape_string($this->_db, md5($passwordNEW)).'" 
+            WHERE user_login = "'.mysqli_escape_string($this->_db, $this->_login).'"';
+
+            $result = mysqli_query($this->_db, $sql);
+
+            if ($result === TRUE)
+            {            
+                return true;
+            }
+            else 
+            {
+                echo '<div class="informationBox warning">';
+                echo $this->lang["ERROR_NUMBER"].' '.$this->_db->error.'</div>';
+            }   
+        }
+        else
+        {
+            echo '<div class="informationBox warning">';
+            echo $this->lang["EDIT_PASSWORD_OLD_NOTEQUAL"];
+            echo '</div>';
+        }
     }
     
+    public function checkCurrentPassword($password)
+    {
+        $sql = 'SELECT count(*) FROM user WHERE (
+        user_login = "'.mysqli_escape_string($this->_db, $this->_login).'"
+        AND user_password = "'.mysqli_escape_string($this->_db, $password).'")';
+        
+        $result = mysqli_query($this->_db, $sql);
+        
+        if($result)
+        {
+            $row = mysqli_fetch_array($result);
+            return ($row[0] == 1);   
+        }
+    }
+    
+    public function getIcon()
+    {
+        $sql = 'SELECT user_icon FROM user WHERE (user_login = "'.$this->_login.'")';
+        
+        $result = mysqli_query($this->_db, $sql);
+        $row = mysqli_fetch_array($result);
+
+        return $row["user_icon"];
+    }
     public function editIcon($icon)
     {
        return true;

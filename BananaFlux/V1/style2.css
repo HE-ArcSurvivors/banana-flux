@@ -3,14 +3,12 @@ body {
     
 }
 
-.info { 
-    
+.informationBox { 
     position: absolute;
     z-index: 101;
     top: 0;
     left: 0;
     right: 0;
-    background: #fde073;
     text-align: center;
     line-height: 2;
     overflow: hidden; 
@@ -19,8 +17,36 @@ body {
     box-shadow:         0 0 5px black;
 }
 
+.info { 
+    background: #fde073;
+}
+
+.warning {
+    background: #C00000;
+}
+
+.cssanimations.csstransforms .informationBox {
+        -webkit-transform: translateY(-50px);
+        -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+        -moz-transform:    translateY(-50px);
+        -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
+}
+
+@-webkit-keyframes slideDown 
+{
+    0%, 100% { -webkit-transform: translateY(-50px); }
+    10%, 90% { -webkit-transform: translateY(0px); }
+}
+
+@-moz-keyframes slideDown 
+{
+    0%, 100% { -moz-transform: translateY(-50px); }
+    10%, 90% { -moz-transform: translateY(0px); }
+}
+
+
+
 #profil { 
-    
     margin-left : auto;
     margin-right : auto;
     background-color : #FFFFFF;
@@ -33,10 +59,9 @@ body {
 }
 
 #profil h1 {
-    
+
     text-align : center;
     text-transform: uppercase;
-    
 }
 
 #profil .image { 
@@ -55,4 +80,27 @@ body {
 #profil .buttonSubmit {
     text-align : center;
        
+}
+
+#profil .editButton {
+    align: right;
+    width: 20px;
+    height: 20px;
+    background: url("http://www.lastrose.com/media/iconmonstr-edit-10-icon-300x300.png");
+}
+
+#profil .formContent {
+    display: table-cell;
+}
+
+#profil .formEdit {
+    display: none;
+}
+
+#profil .formEditRow { 
+    display : none;   
+}
+
+.inputText {
+    width  : 200px;
 }
