@@ -12,7 +12,7 @@ if(isset($_POST['action']))
         {
              if ($user->login($_POST['username'], md5($_POST['password'])))
              {
-                header('Location: editProfile.php');   
+                header('Location: home.php');   
              }
              else
              {
