@@ -5,7 +5,6 @@ var id_dossier;
 var leftFlap_initialposLeft;
 
 $(document).ready( function start(){
-
 	
  	//temporaire
  	id_flux = 1;
@@ -122,7 +121,7 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 {
 	jQuery.ajax({
 		type: 'POST',
-		url: 'showArticles.php',
+		url: 'srvAjax/showArticles.php',
 		
 		data: {
 		  nbadd: nbToAdd,
