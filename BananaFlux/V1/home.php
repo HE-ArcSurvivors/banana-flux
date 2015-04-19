@@ -30,49 +30,50 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 	else
 	{
 		$toShow = "";
-		
-		$curentFolder_id=null;
-		while ($record = mysqli_fetch_assoc ($resource))
-		{
-			if($record['folder_id']!=$curentFolder_id)
+		if(mysqli_num_rows($resource) != 0)
+		{	
+			$curentFolder_id=null;
+			while ($record = mysqli_fetch_assoc ($resource))
 			{
-				//end old folder
-				if($curentFolder_id != null)
+				if($record['folder_id']!=$curentFolder_id)
 				{
-					$toShow.="</div>";
+					//end old folder
+					if($curentFolder_id != null)
+					{
+						$toShow.="</div>";
+					}
+					
+					$curentFolder_id =$record['folder_id'];
+					
+					//new folder
+					$toShow .='<div class="dossier">
+					   <div class="dossierHead">
+						   <p>'.$record['folder_name'].'</p>
+					   		<span class="control_elementLeftFlap">
+					   			<span class="open fa fa-plus-square-o"></span>
+					   			<span class="edit fa fa-pencil-square-o"></span>
+					   			<span class="suppr fa fa-times"></span>
+					   		</span>
+					   		<span class="iddossier_hidden">'.$record['folder_id'].'</span>
+					   </div>';
+					
 				}
 				
-				$curentFolder_id =$record['folder_id'];
+				//print flux
 				
-				//new folder
-				$toShow .='<div class="dossier">
-				   <div class="dossierHead">
-					   <p>'.$record['folder_name'].'</p>
+				$toShow .='<div class="flux">
+				   		<p>'.$record['feed_title'].'</p>
 				   		<span class="control_elementLeftFlap">
-				   			<span class="open fa fa-plus-square-o"></span>
 				   			<span class="edit fa fa-pencil-square-o"></span>
 				   			<span class="suppr fa fa-times"></span>
 				   		</span>
-				   		<span class="iddossier_hidden">'.$record['folder_id'].'</span>
-				   </div>';
-				
+				   		<span class="idflux_hidden">'.$record['feed_id'].'</span>
+				   		</div>';
+				 
 			}
 			
-			//print flux
-			
-			$toShow .='<div class="flux">
-			   		<p>'.$record['feed_title'].'</p>
-			   		<span class="control_elementLeftFlap">
-			   			<span class="edit fa fa-pencil-square-o"></span>
-			   			<span class="suppr fa fa-times"></span>
-			   		</span>
-			   		<span class="idflux_hidden">'.$record['feed_id'].'</span>
-			   		</div>';
-			 
+			$toShow.="</div>"; //close the last folder
 		}
-		
-		$toShow.="</div>"; //close the last folder
-		
 		return $toShow;
 	}
 	
