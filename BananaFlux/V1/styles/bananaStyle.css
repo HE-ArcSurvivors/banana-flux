@@ -32,6 +32,16 @@ p{
 	padding-top: 4px;
 }
 
+#headbar-left {
+    float: left;
+    width: 70%;
+}
+
+#headbar-right {
+    float: left;
+    width: 30%;
+}
+
 #headfilters{
 	width: 100%;
 	height: 10px;
