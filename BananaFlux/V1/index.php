@@ -84,9 +84,6 @@ if(isset($_POST['action']))
 </head>
 <body background = "images/banana_orgie.jpg">
 
-<?php
- echo '<b>'.$message.'</b>';
-?>
 <div class="centerVertical">
   <center><h1>The Banana Flu(x)</h1></center>
   <div id="tabs" class="centerHorizontal" style="width: 480px;">
@@ -119,7 +116,7 @@ if(isset($_POST['action']))
     </div>
   
     <div id="tabs-2">
-      <form action="" method="post">
+      <form action="#tabs-2" method="post">
         <table class="loginSignUpTable">
           <tr>
             <td>
