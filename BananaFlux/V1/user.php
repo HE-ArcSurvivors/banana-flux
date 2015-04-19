@@ -14,7 +14,7 @@ class User {
     public function __construct($db,$lang)
     {
         $this->_db = $db;
-        $this->icon = "https://s-media-cache-ak0.pinimg.com/236x/82/0f/52/820f526af6dc24cda8b67b3ddf688532.jpg"; //default icon
+        $this->icon = "icon/default_icon_banana.png";
         $this->lang = $lang;
     }
     
@@ -171,7 +171,11 @@ class User {
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            return "Invalid email address format!";
+            echo '<div class="informationBox warning">';
+            echo $this->lang["SIGNUP_EMAIL_INVALID"];
+            echo '</div>';
+            
+            return false;
         }
         else
         {
@@ -180,10 +184,13 @@ class User {
             $row = mysqli_fetch_array($resource);
             if($row[0]>=1)
             {
-                return "Your email address <b>".$email."</b> is already registered.";
+                echo '<div class="informationBox warning">';
+                echo $this->lang["SIGNUP_EMAIL_ALREADYUSED"];
+                echo '</div>';
+                return false;
             }
         }
-        return 1;
+        return true;
     }
     
     public function signUpUser($login, $pass, $email)
@@ -195,21 +202,27 @@ class User {
         
         $emailValidity = self::validateEmail($email);
             
-        if ($emailValidity != 1)
+        if (!$emailValidity)
         {
-            return $emailValidity;
+            return false;
         }
         else
         {
-            $query = "insert into user(user_login,user_email,user_password,user_icon) values('".$login."','".$email."','".$email."','".$icon."')";
+            $query = "INSERT INTO user(user_login,user_email,user_password,user_icon) VALUES('".$login."','".$email."','".$pass."','".$icon."')";
             $resource = mysqli_query($this->_db, $query);
             if(!$resource)
             {
-                return "Connection error: ".mysqli_connect_errno()." - Unable to contact the database.";
+                echo '<div class="informationBox warning">';
+                echo $this->lang["ERROR_CONNECTION_NUMBER"].' '.mysqli_connect_errno();
+                echo '</div>';
+                return false;
             }
             else
             {
-                return "You are now Registred and you can Login with your username ".$login;
+                echo '<div class="informationBox info">';
+                echo $this->lang["SIGNUP_SUCCESS"];
+                echo '</div>';
+                return true;
             }
         }
     }
@@ -224,7 +237,9 @@ class User {
 
 	   if(!$result)
 	   {
-			echo "Connection error: ".mysqli_connect_errno();
+            echo '<div class="informationBox warning">';
+            echo $this->lang["ERROR_CONNECTION_NUMBER"].' '.mysqli_connect_errno();
+            echo '</div>';
 	   }
 	   else
 	   {
