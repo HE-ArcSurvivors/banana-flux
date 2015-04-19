@@ -1,10 +1,10 @@
 <?php
 
-require_once "loginDB.inc";
+//require_once "loginDB.inc";
 require_once "config.php";
 require_once "user.php";
 
-$lang = parse_ini_file("FR-fr.ini");
+$lang = parse_ini_file("lang/FR-fr.ini");
     
 $self_url = $_SERVER['PHP_SELF'];
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once "valid.inc";
+
 class User {
 
     private $login;
@@ -16,7 +18,7 @@ class User {
         $this->lang = $lang;
     }
     
-    public function connect()
+    public function loadUser()
     {
         $this->_login = $_SESSION["login"];
         
@@ -140,17 +142,29 @@ class User {
     
     public function logIn($login, $pass)
     {
-       return true;
-    }
-    
-    public function logOut()
-    {
-       return true;
+        if ($this->verify_user($login, $pass))
+        {
+            $_SESSION["login"] = $login;
+            $this->loadUser();
+            return 1;
+        }
+        return 0;
     }
     
     public function isLogged()
     {
-       return true;
+        if (isset($_SESSION["login"]))
+        {
+            $this->_id = $_SESSION["login"];
+            return 1;
+        }
+        return 0;
+    }
+        
+    public function logOut()
+    { 
+        unset($_SESSION["login"]);
+        unset($this->_id);
     }
     
     private function validateEmail($email)
@@ -199,10 +213,32 @@ class User {
             }
         }
     }
-    
-    private function verifyUser($login, $pass)
-    {
-       return true;
+
+   public function verify_user($login, $password)
+   {    
+        $sql = 'SELECT count(*) FROM user WHERE (
+        user_login = "'.mysqli_escape_string($this->_db, $login).'"
+        AND user_password = "'.mysqli_escape_string($this->_db, $password).'")';
+            
+	   $result = mysqli_query($this->_db, $sql);
+
+	   if(!$result)
+	   {
+			echo "Connection error: ".mysqli_connect_errno();
+	   }
+	   else
+	   {
+	   		$row = mysqli_fetch_array($result);
+	   		return ($row[0] == 1);
+	   }   
+       
+	   return 0;
+       
+   }
+
+    public function valid_id($id)
+    { 
+   	    return valid($id, '^[a-zA-Z0-9]+$');
     }
 }
 
