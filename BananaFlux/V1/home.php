@@ -1,3 +1,44 @@
+<?php 
+
+require "header.php";
+
+if(isset($_SESSION["login"]))
+{
+    $user = new User($db, $lang);
+    $user->loadUser();
+    
+    $dossiers = printFeed($user, $db); 
+}
+else
+{
+	header('Location: index.php');
+}
+
+
+function printFeed($user, $db)
+{
+	$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name`, `feed`.`feed_id`, `feed`.`feed_title`, `feed`.`feed_url` FROM `feed`, `feed_folder`, `folder`, `user`
+WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` = `folder`.`folder_id` AND `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user->getUsername().'" ORDER BY `folder`.`folder_name` ASC';
+
+	
+	$resource = mysqli_query($db, $sql);
+	
+	if(!$resource)
+	{
+		echo "Connection error: ".mysqli_connect_errno();
+	}
+	else
+	{
+	   	$row = mysqli_fetch_array($resource);
+	   	
+	   	print_r($row);
+	}
+
+
+}
+
+?>
+
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
