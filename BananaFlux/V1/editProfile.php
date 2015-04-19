@@ -58,7 +58,7 @@ if(isset($_SESSION["login"]))
     <title>Banana Flux - Welcome</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 </head>
-<link href="styles/style2.css" rel="stylesheet" type="text/css" />
+<link href="styles/bananaStyle.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="scripts/modernizr.custom.js"></script>
 <script type="text/javascript" charset="utf-8">

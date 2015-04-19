@@ -46,7 +46,7 @@ if(isset($_POST['action']))
 
 <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet" href="styles/bananaWithStyle.css"/>
+<link rel="stylesheet" href="styles/bananaStyle.css"/>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>  
 
 <script>
