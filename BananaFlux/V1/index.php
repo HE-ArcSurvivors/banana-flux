@@ -36,7 +36,14 @@ if(isset($_POST['action']))
         
         if ($login != "" && $pass != "" && $email != "")
         {
-            $user->signUpUser($login, md5($pass), $email);
+            if($user->signUpUser($login, md5($pass), $email))
+            {
+                if($user->login($login, md5($pass)))
+                {
+                    echo '<div class="informationBox warning">blaaaaaa</div>';
+                    header('Location: home.html'); 
+                }
+            }
         }
         else
         {
