@@ -129,7 +129,7 @@ if(isset($_GET['action']))
     </div>
   
     <div id="tabs-2">
-      <form action="" method="post">
+      <form action="#tabs-2" method="post">
         <table class="loginSignUpTable">
           <tr>
             <td>

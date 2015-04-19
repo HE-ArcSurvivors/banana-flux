@@ -167,7 +167,7 @@ class User {
         unset($this->_id);
     }
     
-    private function validateEmail($email)
+    private function validateEmailAndUser($email,$login)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
@@ -189,6 +189,19 @@ class User {
                 echo '</div>';
                 return false;
             }
+            else
+            {
+                $query = "SELECT COUNT(*) FROM user WHERE user_login = '".$login."'";
+                $resource = mysqli_query($this->_db, $query);
+                $row = mysqli_fetch_array($resource);
+                if($row[0]>=1)
+                {
+                    echo '<div class="informationBox warning">';
+                    echo $this->lang["SIGNUP_USER_ALREADYUSED"];
+                    echo '</div>';
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -200,9 +213,9 @@ class User {
         $pass   = mysqli_real_escape_string($this->_db,$pass);
         $icon   = $this->icon;
         
-        $emailValidity = self::validateEmail($email);
+        $emailAndUserValidity = self::validateEmailAndUser($email,$login);
             
-        if (!$emailValidity)
+        if (!$emailAndUserValidity)
         {
             return false;
         }
@@ -233,22 +246,21 @@ class User {
         user_login = "'.mysqli_escape_string($this->_db, $login).'"
         AND user_password = "'.mysqli_escape_string($this->_db, $password).'")';
             
-	   $result = mysqli_query($this->_db, $sql);
+        $result = mysqli_query($this->_db, $sql);
 
-	   if(!$result)
-	   {
+        if(!$result)
+        {
             echo '<div class="informationBox warning">';
             echo $this->lang["ERROR_CONNECTION_NUMBER"].' '.mysqli_connect_errno();
             echo '</div>';
-	   }
-	   else
-	   {
+        }
+        else
+        {
 	   		$row = mysqli_fetch_array($result);
 	   		return ($row[0] == 1);
-	   }   
-       
-	   return 0;
-       
+        }   
+    
+        return 0;
    }
 
     public function valid_id($id)

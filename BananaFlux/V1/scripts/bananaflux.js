@@ -6,7 +6,7 @@ var leftFlap_initialposLeft;
 
 $(document).ready( function start(){
 	
- 	//temporaire
+ 	//temporaire : nécessitera de récupérer les flux de la communautée
  	id_flux = 1;
  	id_dossier=null;
  	
@@ -137,6 +137,7 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 			
 			if(nbShowed==0){
 				elemAdd.empty();
+				$(window).scrollTop(0);
 			}
 			
 			elemAdd.append(data);
