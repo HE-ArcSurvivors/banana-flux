@@ -47,11 +47,11 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 				//new folder
 				$toShow .='<div class="dossier">
 				   <div class="dossierHead">
-					   <p>'.$record['folder_name'].'</p>
+					    <p class="nameFolder">'.$record['folder_name'].'</p>
 				   		<span class="control_elementLeftFlap">
 				   			<span class="open fa fa-plus-square-o"></span>
-				   			<span class="edit fa fa-pencil-square-o"></span>
-				   			<span class="suppr fa fa-times"></span>
+				   			<span class="editFolder edit fa fa-pencil-square-o"></span>
+				   			<span class="deleteFolder suppr fa fa-times"></span>
 				   		</span>
 				   		<span class="iddossier_hidden">'.$record['folder_id'].'</span>
 				   </div>';
@@ -98,11 +98,10 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
    	        
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-   	        
    </head>
 
    <body>
-       
+
        <div id="headbar">
            <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
            <div id="headbar-right">
@@ -202,7 +201,6 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 	  </div>
       
       <div class="blocend"></div> <!-- Stop the evil float -->
-
-      
+    
    </body>
 </html>

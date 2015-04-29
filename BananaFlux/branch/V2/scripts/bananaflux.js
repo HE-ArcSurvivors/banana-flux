@@ -13,15 +13,15 @@ $(document).ready( function start(){
  	addArticles(12, 0, id_flux, id_dossier);
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
- 	
+
  	updateLeftFlapSize();
  	
  	//start listeners
  	spyScroll();
  	spyResizeWindow();
  	startClicListeners();
- 	
 });
+
 
 function OpenLeftFlap(duration)
 {
@@ -45,7 +45,6 @@ function updateLeftFlapSize()
 {
 	$("#leftFlap").height($(window).height());
 }
-
 
 //------------------------------------------------------//
 //----------------------LISTENERS-----------------------//
@@ -76,6 +75,18 @@ function startClicListeners()
 		addArticles(12, 0, id_flux, id_dossier);
 		
 	 });
+    
+    $(".deleteFolder").on("click", function() { 
+        id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
+        deleteFolder(id_dossier,$(this).parent());
+    });
+    
+    $(".editFolder").on("click", function() { 
+        id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
+        folder_new_name = "OK";
+        editFolder(id_dossier,folder_new_name,$(this).parent());
+    });
+    
 }
 
 //ajoute des articles si l'utilisateur scroll en bas de la page
@@ -110,8 +121,6 @@ function spyResizeWindow(){
 	});
 }
 
-
-
 //------------------------------------------------------//
 //-------------------------AJAX-------------------------//
 //------------------------------------------------------//
@@ -144,7 +153,74 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert("erreure addArticles");
+			alert("Error addArticles");
 		}
 	});
+}
+
+function deleteFolder(id_dossier, parent)
+{
+    jQuery.ajax({
+        type: 'POST',
+        url: 'srvAjax/manageFolders.php',
+        
+        data : {
+            action: "deleteFolder",
+            id: id_dossier
+        },
+        
+        success: function(data, textStatus, jqXHR) {
+            if(data == true)
+            {
+                parent.parent().css("display","none");
+                parent.parent().parent().find(".flux").css("display","none");
+                
+                var html = $('body');
+                html.append('<div class="informationBox info">Le dossier a été supprimé avec succès</div>');
+                $('informationBox').toggleClass('animation');
+            }
+            else
+            {
+                var html = $('body');
+                html.append(data);
+                $('informationBox').toggleClass('animation');
+            }
+        },
+        
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+			alert("Error manageFolders > DeleteFolder");
+		}
+                
+    });
+}
+
+function editFolder(id_dossier, folder_new_name, parent)
+{   
+    jQuery.ajax({
+        type: 'POST',
+        url: 'srvAjax/manageFolders.php',
+        
+        data : {
+            action: "editFolder",
+            id: id_dossier,
+            folder_name: folder_new_name
+        },
+        
+        success: function(data, textStatus, jqXHR) {
+            if(data == true)
+            {
+                parent.parent().find(".nameFolder").text(folder_new_name);
+            }
+            else
+            {
+                console.log(data);
+            }
+        },
+        
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+			alert("Error manageFolders > EditFolder");
+		}      
+    });
 }

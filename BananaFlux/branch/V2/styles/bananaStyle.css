@@ -200,8 +200,6 @@ p{
 	
 	width: 30px;
 	height: 100px;
-	
-	
 }
 
 #leftFlap_Bouton p{
@@ -246,15 +244,21 @@ p{
 	margin-left: 3px;
 	margin-top: 5px;
 }
+
 .idflux_hidden{
 	display: none;
 }
-
 
 .flux p, .dossierHead p{
 	padding-left: 5px;
 	display: inline-block;
 }
+
+.deleteFolder { 
+    
+}
+
+.editFolder { }
 
 .iddossier_hidden{
 	display: none;
@@ -334,6 +338,11 @@ p{
     -webkit-box-shadow: 0 0 5px black;
     -moz-box-shadow:    0 0 5px black;
     box-shadow:         0 0 5px black;
+    
+    -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
 }
 
 .info { 
@@ -342,13 +351,6 @@ p{
 
 .warning {
     background: #C00000;
-}
-
-.cssanimations.csstransforms .informationBox {
-        -webkit-transform: translateY(-50px);
-        -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
-        -moz-transform:    translateY(-50px);
-        -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
 }
 
 @-webkit-keyframes slideDown 
@@ -467,4 +469,31 @@ input[type=password]:focus
   border-color: #51a7e8;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1),0 0 5px rgba(81,167,232,0.5);
   outline: none;
+}
+
+
+/* TEST */
+
+
+.ui-dialog .ui-dialog-content {
+padding:2em
+}
+div.container {
+width:960px;
+height:610px;
+margin:50px auto;
+font-family:'Droid Serif',serif;
+position:relative
+}
+div.main {
+width:320px;
+margin-top:35px;
+float:left;
+padding:10px 55px 25px;
+background-color:rgba(204,204,191,0.51);
+border:15px solid #fff;
+box-shadow:0 0 10px;
+border-radius:2px;
+font-size:13px;
+text-align:center
 }
