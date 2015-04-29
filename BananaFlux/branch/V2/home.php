@@ -75,9 +75,6 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 		
 		return $toShow;
 	}
-	
-	
-
 
 }
 
@@ -133,6 +130,8 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 			   <h1><?php echo $lang["FLUX_FOLDERS"]; ?></h1>
 			   <h2><?php echo $lang["FLUX_PERSONAL"]; ?></h2>
 			   
+			   
+			   
 			   <!--
 			   <div class="dossier">
 				   <div class="dossierHead">
@@ -169,6 +168,7 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
 			   <?php
 			   		echo $dossiers;
 			   ?>
+			   <p class="addFlux boutonStyle">Ajouter un flux</p>
 			   
 			   <h2><?php echo $lang["FLUX_DEFAULT"]; ?></h2>
 			   
@@ -203,6 +203,10 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
       
       <div class="blocend"></div> <!-- Stop the evil float -->
 
+     
+      <!-- Popups -->
+     <div id="popup_addflux" class="popup_block">
+	 </div>
       
    </body>
 </html>
