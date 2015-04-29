@@ -1,3 +1,5 @@
+#! /bin/bash
+set -e
 echo "Starting the script, tmp files will be created"
 cd /Applications/MAMP/htdocs/BananaRocket
 mkdir mirror
