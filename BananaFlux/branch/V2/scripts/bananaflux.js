@@ -11,6 +11,7 @@ $(document).ready( function start(){
  	id_dossier=null;
  	
  	addArticles(12, 0, id_flux, id_dossier);
+ 	printDossier();
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
  	
@@ -67,8 +68,7 @@ function startClicListeners()
      	}
 	 	
 	 });
-	 
-	 $(".flux").on("click", function() {
+	 $('#dossiers_user').on("click", '.flux', function() {
 		
 		id_flux = $(this).children(".idflux_hidden").text();
 		id_dossier=null;
@@ -144,25 +144,40 @@ function startClicListeners()
 		});
 		
 		$('#popup_addflux').on("click", '.addFlux_popup',  function(){ 	
-			popup = $('#popup_addflux');
+			var popup = $('#popup_addflux');
+			var html = $('body');
 			
-			checkedFolder = $('input[type=radio][name=addFluxPopup_folder]:checked');
-			folder_id = checkedFolder.attr('id');
+			var checkedFolder = $('input[type=radio][name=addFluxPopup_folder]:checked');
+			var folder_id = checkedFolder.attr('id');
 			
-			if(folder_id != undefined){	
-				alert(checkedFolder.attr('id'));
-			}
-			else{
-				alert("Selectionnez un dossier !");
-			}
+			var url_flux = $('#addFluxPopup_flux_url').val();
+			var name_flux = $('#addFluxPopup_flux_name').val();
 			
-			url_flux = $('#addFluxPopup_flux_url').val();
+			errors = "";
 			
-			if(Url_Valide(url_flux))
+			if(folder_id == undefined)
 			{
-				alert("url_valide !");
+				errors += "Selectionnez un dossier <br/>";
+				
+			}
+			if(!Url_Valide(url_flux))
+			{
+				errors += "URL invalide <br/>";
+			}
+			if(name_flux == "")
+			{
+				errors += "Nom du flux manquant <br/>";
 			}
 			
+			if(errors == "")
+			{
+				addFluxURL(folder_id, name_flux,  url_flux);
+			}
+			else
+			{
+				html.append('<div class="informationBox warning">'+errors+'</div>');
+				$('informationBox').toggleClass('animation');
+			}
 			
 		});
 }
@@ -171,8 +186,11 @@ function startClicListeners()
 
 function Url_Valide(UrlTest)
 {
-  var regexp = new RegExp("^((http|https):\/\/)?(www[.])?([a-zA-Z0-9]|-)+([.][a-zA-Z0-9(-|\/|=|?)?]+&)+$");
-  return regexp.test(UrlTest);
+  var regexp = new RegExp("/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/");
+  //return regexp.test(UrlTest);
+  
+  //TODO !
+  return true;
 }	
 
 
@@ -243,6 +261,68 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			alert("erreure addArticles");
+		}
+	});
+}
+
+function addFluxURL(id_dossier, nom_flux, url_flux)
+{
+	jQuery.ajax({
+		type: 'POST',
+		url: 'srvAjax/addFluxUrl.php',
+		
+		data: {
+		  	iddossier: id_dossier,
+		  	nomflux: nom_flux,
+		  	urlflux: url_flux,
+		}, 
+		success: function(data, textStatus, jqXHR) {
+			// La réponse du serveur est contenu dans la variable « data »
+			// On peut faire ce qu'on veut avec ici
+			if(data=="ok")
+			{
+				var html = $('body');
+				html.append('<div class="informationBox info">Ajout OK :)</div>');
+				$('informationBox').toggleClass('animation');
+				printDossier(); // update the left flap
+				
+				//close the popup
+				$.when( $('.popup_block').fadeOut())
+				   .done(function() { 
+						$('#fade').fadeOut();
+				   });
+			}
+			else
+			{
+				msg = '<div class="informationBox warning">'+data+'</div>';
+				
+				var html = $('body');
+				html.append(msg);
+				$('informationBox').toggleClass('animation');
+			}
+						
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("erreure addFluxURL");
+		}
+	});
+}
+
+
+function printDossier()
+{
+	jQuery.ajax({
+		type: 'POST',
+		url: 'srvAjax/showDossiers.php',
+		
+		success: function(data, textStatus, jqXHR) {
+			// La réponse du serveur est contenu dans la variable « data »
+			// On peut faire ce qu'on veut avec ici
+			$('#dossiers_user').empty().append(data);
+						
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("erreure printDossier");
 		}
 	});
 }
