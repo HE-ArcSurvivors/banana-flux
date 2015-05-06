@@ -30,7 +30,12 @@ else
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
+            <script type="text/javascript" src="scripts/manageProfile.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
+    
+            <script type="application/javascript">
+            var jLang = <?php echo json_encode($lang); ?>;
+            </script>
    </head>
 
    <body>
@@ -41,7 +46,7 @@ else
                <ul id="navbar">
                     <li><img src="<?php echo $user->getIcon(); ?>" />
                         <ul>
-                            <li><a href="editProfile.php">Editer mon profil</a></li>
+                            <li class="editProfileButton">Editer mon profil</li>
                             <li><a href="index.php?action=disconnect">Déconnection</a></li>
                         </ul></li>
                 </ul>
@@ -145,7 +150,10 @@ else
        
      <!-- MANAGE FOLDERS -->
      <div id="popup_editFolder" class="popup_block"></div>
-     <div id="popup_deleteFolder" class="popup_block"></div>   
+     <div id="popup_deleteFolder" class="popup_block"></div>  
+       
+      <!-- MANAGE PROFIEL -->
+       <div id="popup_editProfile" class="popup_block"></div>
 
 </body>
 </html>

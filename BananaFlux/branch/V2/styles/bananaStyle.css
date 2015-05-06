@@ -368,62 +368,12 @@ p{
 
 /*PROFIL*/
 
-#profil { 
-    margin-left : auto;
-    margin-right : auto;
-    background-color : #FFFFFF;
-    
-    -webkit-box-shadow: 0 0 5px 1px #ADADAD;
-    box-shadow: 0 0 5px 1px #ADADAD;
-    
-    width : 70%;
-    overflow: auto;
-}
-
-#profil h1 {
-
-    text-align : center;
-    text-transform: uppercase;
-}
-
-#profil .image {  
+.imageProfile {  
     border: 1px dashed #DDD;
     padding: 5px;
     background-color: #F8F8F8;
     float: right;
     margin : 10px;
-}
-
-#profil .text { 
-    margin : 10px;
-}
-
-#profil .buttonSubmit {
-    text-align : center;
-       
-}
-
-#profil .editButton {
-    align: right;
-    width: 20px;
-    height: 20px;
-    background: url("http://www.lastrose.com/media/iconmonstr-edit-10-icon-300x300.png");
-}
-
-#profil .formContent {
-    display: table-cell;
-}
-
-#profil .formEdit {
-    display: none;
-}
-
-#profil .formEditRow { 
-    display : none;   
-}
-
-#profil .inputText {
-    width  : 200px;
 }
 
 /* FORMULAIRES */

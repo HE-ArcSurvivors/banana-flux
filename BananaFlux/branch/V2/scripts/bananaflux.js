@@ -113,6 +113,30 @@ function startClicListeners()
         $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
     
     });
+    
+    $("#headbar").on("click", '.editProfileButton', function() {
+        
+        console.log("HEADBAR CLICK");
+        var popID = "popup_editProfile"; //pop-up a afficher
+        getEditProfilePopup('#' + popID);        
+       
+        var popWidth = 800; //L'argeur de la popup
+        $('#' + popID).fadeIn().css({'width': popWidth});
+							
+        //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
+        var popMargLeft = ($('#' + popID).width() + 80) / 2;
+
+        //On affecte le margin pour centrer la popup verticalement
+        $('#' + popID).css({
+            'margin-left' : -popMargLeft
+        });
+
+        //Effet fade-in du fond opaque
+        $('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
+        //Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
+        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+        
+    });
                  
     $('#popup_editFolder').on("click", '.editFolderButton',  function(){ 	
  	

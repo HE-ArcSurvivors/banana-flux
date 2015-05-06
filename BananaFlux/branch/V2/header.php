@@ -1,6 +1,5 @@
 <?php
 
-//require_once "loginDB.inc";
 require_once "config.php";
 require_once "user.php";
 
