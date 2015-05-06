@@ -30,11 +30,10 @@ else
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
    	        
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-   	        
    </head>
 
    <body>
-       
+
        <div id="headbar">
            <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
            <div id="headbar-right">
@@ -141,7 +140,5 @@ else
      
       <!-- Popups -->
      <div id="popup_addflux" class="popup_block">
-	 </div>
-      
-   </body>
+	 </div>   </body>
 </html>
