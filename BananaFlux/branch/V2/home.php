@@ -57,13 +57,8 @@ else
        <div id="headbar">
            <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
            <div id="headbar-right">
-               <ul id="navbar">
-                    <li><img src="<?php echo $user->getIcon(); ?>" />
-                        <ul>
-                            <li class="editProfileButton">Editer mon profil</li>
-                            <li><a href="index.php?action=disconnect">Déconnection</a></li>
-                        </ul></li>
-                </ul>
+               <img src="menu/editProfile.png" class="editProfileButton" />
+               <a href="index.php?action=disconnect"><img src="menu/exit.png" alt="Déconnection" /></a>
            </div>
        </div>
        

@@ -13,7 +13,7 @@
         header('Location: index.php');
     }
     
-    if($action == "printForm")
+    if($action == "print")
     {
 ?>
 
@@ -60,6 +60,48 @@
 
 
 <?php
+    }
+    else if($action == "edit")
+    {
+        $email = htmlentities($_POST['email']);
+        if(!isEqual($user->getEmail(),$email))
+        {
+            if($user->editEmail($email))
+            {
+                echo '<div class="informationBox info">';
+                echo $lang["EDIT_EMAIL_SUCCESS"];
+                echo '</div>';
+            }
+            else
+            {
+                echo '<div class="informationBox warning">';
+                echo $lang["EDIT_EMAIL_UNSUCCESS"];
+                echo '</div>';
+            }
+        }
+
+        $passwordNEW = htmlentities($_POST["passwordNEW"]);
+        $passwordRepeat = htmlentities($_POST["passwordRepeat"]);
+        $passwordOLD = htmlentities($_POST["passwordOLD"]);
+        
+        if($passwordNEW != "")
+        {
+            if(isEqual($passwordNEW,$passwordRepeat))
+            {
+                if($user->editPass($passwordOLD,$passwordNEW))
+                {
+                    echo '<div class="informationBox info">';
+                    echo $lang["EDIT_PASSWORD_SUCCESS"];
+                    echo '</div>'; 
+                }
+            }
+            else
+            {
+                echo '<div class="informationBox warning">';
+                echo $lang["EDIT_PASSWORD_NEW_NOTEQUAL"];
+                echo '</div>';
+            }
+        }
     }
 
 ?>
