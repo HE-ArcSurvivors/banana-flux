@@ -68,12 +68,27 @@ function startClicListeners()
 		
 	 });
 
-    $(".deleteFolder").on("click", function() { 
+    $('#dossiers_user').on("click", '.deleteFolder',function() { 
+        
         id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
-        deleteFolder(id_dossier,$(this).parent());
+        name_dossier = $(this).parent().parent().find(".nameFolder").text();
+        
+        var popID = "popup_deleteFolder"; //pop-up a afficher
+        getDeleteFolderPopup('#' + popID, name_dossier, id_dossier);        
+       
+        var popWidth = 600;
+        $('#' + popID).fadeIn().css({'width': popWidth});
+        var popMargLeft = ($('#' + popID).width() + 80) / 2;
+
+        $('#' + popID).css({
+            'margin-left' : -popMargLeft
+        });
+
+        $('body').append('<div id="fade"></div>');
+        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
     });
     
-    $(".editFolder").on("click", function() { 
+    $("#dossiers_user").on("click", '.editFolder', function() { 
         
         name_dossier = $(this).parent().parent().find(".nameFolder").text();
         id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
@@ -81,7 +96,7 @@ function startClicListeners()
         var popID = "popup_editFolder"; //pop-up a afficher
         getEditFolderPopup('#' + popID,name_dossier,id_dossier);        
        
-        var popWidth = 370; //L'argeur de la popup
+        var popWidth = 400; //L'argeur de la popup
         $('#' + popID).fadeIn().css({'width': popWidth});
 							
         //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
@@ -104,9 +119,27 @@ function startClicListeners()
         popup = $('#popup_editFolder');
         
         id_dossier = popup.find('.iddossier_hidden').text();
-        folder_new_name = document.querySelector('#folder_newname').value; //popup.find('#folder_newname').val;
+        folder_new_name = document.querySelector('#folder_newname').value;
         
         editFolder(id_dossier,folder_new_name,$(this).parent());
+        
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
+    });
+    
+    $('#popup_deleteFolder').on("click", '.deleteFolderValidate',  function(){ 	
+ 	
+        popup = $('#popup_deleteFolder');
+        
+        id_dossier = popup.find('.iddossier_hidden').text();
+        
+        deleteFolder(id_dossier);
+        
+        printDossier();
         
         $.when($('.popup_block').fadeOut()).done(function() { 
             $('#fade').fadeOut();
