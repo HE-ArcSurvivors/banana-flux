@@ -35,20 +35,19 @@ else
    	        
    	        <script type="text/javascript">
 			$(document).ready(function() {
-			$('#searchbar-input').on('input', function() {
-				var searchKeyword = $(this).val();
-				if (searchKeyword.length >= 3) {
-					$.post('srvAjax/search.php', { keywords: searchKeyword }, function(data) {
-						$('tr#searchResults').empty()
-						$('tr#searchResults').append('<tr><td>' + "ID" + '</td>' + '<td>' + "Name" + '<td><tr>');
-						$.each(data, function() {
-							$('tr#searchResults').append('<tr><td>' + this.id + '</td>' + '<td>' + this.title + '<td><tr>');
-						});
-						
-				}, "json");
-			}
-		});
-	});
+				$('#searchbar-input').on('input', function() {
+					var searchKeyword = $(this).val();
+					if (searchKeyword.length >= 3) {
+						$.post('srvAjax/search.php', { keywords: searchKeyword }, function(data) {
+							$('tr#searchResults').empty()
+							$('tr#searchResults').append('<tr><td>' + "ID" + '</td>' + '<td>' + "Name" + '<td><tr>');
+							$.each(data, function() {
+								$('tr#searchResults').append('<tr><td>' + this.id + '</td>' + '<td>' + this.title + '<td><tr>');
+							});
+						}, "json");
+					}
+				});
+			});
 	</script>
    </head>
 
