@@ -94,6 +94,7 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
    	        <script type="text/javascript" src="scripts/jquery-2.1.3.min.js"></script>
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
    	        
+            <script type="text/javascript" src="scripts/manageFolders.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
    </head>
 
@@ -202,6 +203,8 @@ WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` =
       
       <div class="blocend"></div> <!-- Stop the evil float -->
       <!-- Popups -->
-     <div id="popup_addflux" class="popup_block">
-	 </div>   </body>
+     <div id="popup_addflux" class="popup_block"></div>
+     <div id="popup_editFolder" class="popup_block"></div>
+
+</body>
 </html>

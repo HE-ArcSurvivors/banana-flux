@@ -22,7 +22,6 @@ $(document).ready( function start(){
  	startClicListeners();
 });
 
-
 function OpenLeftFlap(duration)
 {
 	var add = $("#leftFlap").width()-$("#leftFlap_Bouton").width();
@@ -82,9 +81,44 @@ function startClicListeners()
     });
     
     $(".editFolder").on("click", function() { 
+        
+        name_dossier = $(this).parent().parent().find(".nameFolder").text();
         id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
-        folder_new_name = "OK";
+        
+        var popID = "popup_editFolder"; //pop-up a afficher
+        getEditFolderPopup('#' + popID,name_dossier,id_dossier);        
+       
+        var popWidth = 370; //L'argeur de la popup
+        $('#' + popID).fadeIn().css({'width': popWidth});
+							
+        //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
+        var popMargLeft = ($('#' + popID).width() + 80) / 2;
+
+        //On affecte le margin pour centrer la popup verticalement
+        $('#' + popID).css({
+            'margin-left' : -popMargLeft
+        });
+
+        //Effet fade-in du fond opaque
+        $('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
+        //Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
+        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+    
+    });
+                 
+    $('#popup_editFolder').on("click", '.editFolderButton',  function(){ 	
+ 	
+        popup = $('#popup_editFolder');
+        
+        id_dossier = popup.find('.iddossier_hidden').text();
+        folder_new_name = document.querySelector('#folder_newname').value; //popup.find('#folder_newname').val;
+        
         editFolder(id_dossier,folder_new_name,$(this).parent());
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
     });
 
 //POPUP
@@ -92,13 +126,9 @@ function startClicListeners()
 				var courantid = $(this).attr('id');
 
 				//affichage de la popup
-				
-			
 				var verifpopup = $('#popup_addflux').attr('class'); // Si la popup existe elle a un nom de class
 				if(verifpopup != undefined) // la popup existe
 				{	
-				
-				
 					jQuery.ajax({
 						type: 'POST',
 						url: 'srvAjax/popupAddFlux.php',
@@ -123,21 +153,17 @@ function startClicListeners()
 									'margin-left' : -popMargLeft
 								});
 								
-			
-								
 								//Effet fade-in du fond opaque
 								$('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
 								//Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
-								$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
-								
-								
+								$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();	
 							});
 							
 							
 														
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
-							alert("erreure PopupAddFlux");
+							alert("Error PopupAddFlux");
 						}
 					});
 					
@@ -145,8 +171,8 @@ function startClicListeners()
 					
 		});
 		
-		$('#popup_addflux').on("click", '.close_popup',  function(){ 
-			$.when( $('.popup_block').fadeOut())
+		$('.popup_block').on("click", '.close_popup',  function(){ 
+			$.when($('.popup_block').fadeOut())
 				   .done(function() { 
 						$('#fade').fadeOut();
 				   });
@@ -251,71 +277,4 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 			alert("Error addArticles");
 		}
 	});
-}
-
-function deleteFolder(id_dossier, parent)
-{
-    jQuery.ajax({
-        type: 'POST',
-        url: 'srvAjax/manageFolders.php',
-        
-        data : {
-            action: "deleteFolder",
-            id: id_dossier
-        },
-        
-        success: function(data, textStatus, jqXHR) {
-            if(data == true)
-            {
-                parent.parent().css("display","none");
-                parent.parent().parent().find(".flux").css("display","none");
-                
-                var html = $('body');
-                html.append('<div class="informationBox info">Le dossier a été supprimé avec succès</div>');
-                $('informationBox').toggleClass('animation');
-            }
-            else
-            {
-                var html = $('body');
-                html.append(data);
-                $('informationBox').toggleClass('animation');
-            }
-        },
-        
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-			alert("Error manageFolders > DeleteFolder");
-		}
-                
-    });
-}
-
-function editFolder(id_dossier, folder_new_name, parent)
-{   
-    jQuery.ajax({
-        type: 'POST',
-        url: 'srvAjax/manageFolders.php',
-        
-        data : {
-            action: "editFolder",
-            id: id_dossier,
-            folder_name: folder_new_name
-        },
-        
-        success: function(data, textStatus, jqXHR) {
-            if(data == true)
-            {
-                parent.parent().find(".nameFolder").text(folder_new_name);
-            }
-            else
-            {
-                console.log(data);
-            }
-        },
-        
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-			alert("Error manageFolders > EditFolder");
-		}      
-    });
 }
