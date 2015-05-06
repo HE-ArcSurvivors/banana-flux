@@ -43,6 +43,20 @@ p{
     width: 30%;
 }
 
+#searchbar{
+	width: 100%;
+}
+
+#searchbar-input{
+	height: 40px;
+	width: 50%;
+	text-align: center;
+}
+
+#searchbar-button{
+	display: none;
+}
+
 #navbar {
 	list-style: none;
 	position: relative;
