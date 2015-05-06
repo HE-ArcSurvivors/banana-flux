@@ -5,13 +5,13 @@ var id_dossier;
 var leftFlap_initialposLeft;
 
 $(document).ready( function start(){
-	
+    
  	//temporaire : nécessitera de récupérer les flux de la communautée
  	id_flux = 1;
  	id_dossier=null;
  	
+    printDossier();
  	addArticles(12, 0, id_flux, id_dossier);
- 	printDossier();
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
 
@@ -66,6 +66,7 @@ function startClicListeners()
      	}
 	 	
 	 });
+    
 	 $('#dossiers_user').on("click", '.flux', function() {
 		
 		id_flux = $(this).children(".idflux_hidden").text();
@@ -74,13 +75,28 @@ function startClicListeners()
 		addArticles(12, 0, id_flux, id_dossier);
 		
 	 });
-
-    $(".deleteFolder").on("click", function() { 
+    
+    $('#dossiers_user').on("click", '.deleteFolder',function() { 
+        
         id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
-        deleteFolder(id_dossier,$(this).parent());
+        name_dossier = $(this).parent().parent().find(".nameFolder").text();
+        
+        var popID = "popup_deleteFolder"; //pop-up a afficher
+        getDeleteFolderPopup('#' + popID, name_dossier, id_dossier);        
+       
+        var popWidth = 600;
+        $('#' + popID).fadeIn().css({'width': popWidth});
+        var popMargLeft = ($('#' + popID).width() + 80) / 2;
+
+        $('#' + popID).css({
+            'margin-left' : -popMargLeft
+        });
+
+        $('body').append('<div id="fade"></div>');
+        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
     });
     
-    $(".editFolder").on("click", function() { 
+    $("#dossiers_user").on("click", '.editFolder', function() { 
         
         name_dossier = $(this).parent().parent().find(".nameFolder").text();
         id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
@@ -88,7 +104,7 @@ function startClicListeners()
         var popID = "popup_editFolder"; //pop-up a afficher
         getEditFolderPopup('#' + popID,name_dossier,id_dossier);        
        
-        var popWidth = 370; //L'argeur de la popup
+        var popWidth = 400; //L'argeur de la popup
         $('#' + popID).fadeIn().css({'width': popWidth});
 							
         //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
@@ -111,9 +127,27 @@ function startClicListeners()
         popup = $('#popup_editFolder');
         
         id_dossier = popup.find('.iddossier_hidden').text();
-        folder_new_name = document.querySelector('#folder_newname').value; //popup.find('#folder_newname').val;
+        folder_new_name = document.querySelector('#folder_newname').value;
         
         editFolder(id_dossier,folder_new_name,$(this).parent());
+        
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
+    });
+    
+    $('#popup_deleteFolder').on("click", '.deleteFolderValidate',  function(){ 	
+ 	
+        popup = $('#popup_deleteFolder');
+        
+        id_dossier = popup.find('.iddossier_hidden').text();
+        
+        deleteFolder(id_dossier);
+        
+        printDossier();
         
         $.when($('.popup_block').fadeOut()).done(function() { 
             $('#fade').fadeOut();
@@ -121,7 +155,7 @@ function startClicListeners()
 	
     });
 
-//POPUP
+    //POPUP
 	 $('.addFlux').on('click', function(){
 				var courantid = $(this).attr('id');
 
@@ -338,7 +372,7 @@ function addFluxURL(id_dossier, nom_flux, url_flux)
 						
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert("erreure addFluxURL");
+			alert("erreur addFluxURL");
 		}
 	});
 }
@@ -346,6 +380,7 @@ function addFluxURL(id_dossier, nom_flux, url_flux)
 
 function printDossier()
 {
+    console.log("OK");
 	jQuery.ajax({
 		type: 'POST',
 		url: 'srvAjax/showDossiers.php',
@@ -354,6 +389,7 @@ function printDossier()
 			// La réponse du serveur est contenu dans la variable « data »
 			// On peut faire ce qu'on veut avec ici
 			$('#dossiers_user').empty().append(data);
+            
 						
 		},
 		error: function(jqXHR, textStatus, errorThrown) {

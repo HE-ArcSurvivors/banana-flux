@@ -34,17 +34,16 @@
 						$curentFolder_id =$record['folder_id'];
 						
 						//new folder
-						$toShow .='<div class="dossier">
-						   <div class="dossierHead">
-							   <p>'.$record['folder_name'].'</p>
-						   		<span class="control_elementLeftFlap">
-						   			<span class="open fa fa-plus-square-o"></span>
-						   			<span class="edit fa fa-pencil-square-o"></span>
-						   			<span class="suppr fa fa-times"></span>
-						   		</span>
-						   		<span class="iddossier_hidden">'.$record['folder_id'].'</span>
-						   </div>';
-						
+                        $toShow .='<div class="dossier">
+                           <div class="dossierHead">
+                                <p class="nameFolder">'.$record['folder_name'].'</p>
+                                <span class="control_elementLeftFlap">
+                                    <span class="open fa fa-plus-square-o"></span>
+                                    <span class="editFolder edit fa fa-pencil-square-o"></span>
+                                    <span class="deleteFolder suppr fa fa-times"></span>
+                                </span>
+                                <span class="iddossier_hidden">'.$record['folder_id'].'</span>
+                           </div>';
 					}
 					
 					//print flux

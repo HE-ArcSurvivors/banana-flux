@@ -141,7 +141,10 @@ else
      
       <!-- Popups -->
      <div id="popup_addflux" class="popup_block"></div>
+       
+     <!-- MANAGE FOLDERS -->
      <div id="popup_editFolder" class="popup_block"></div>
+     <div id="popup_deleteFolder" class="popup_block"></div>   
 
 </body>
 </html>
