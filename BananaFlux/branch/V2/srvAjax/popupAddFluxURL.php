@@ -42,9 +42,9 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 	
 	
 	echo '
-<h1>Ajouter un flux</h1>
+<h1>'.$lang["ADD_A_FLUX"].'</h1>
 
-<h2>Dossier</h2>
+<h2>'.$lang["FOLDER"].'</h2>
 
 <div class="popup_content">
 <p>
@@ -53,7 +53,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 </div>
  
 <h2>
-	<label for="flux_name">Nom du flux à ajouter</label>
+	<label for="flux_name">'.$lang["ADD_FLUX_NAME"].'</label>
 </h2>
 
 <div class="popup_content">
@@ -63,7 +63,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 </div>
 
 <h2>
-	<label for="flux_url">Url du flux à ajouter</label>
+	<label for="flux_url">'.$lang["ADD_FLUX_URL"].'</label>
 </h2>
 
 <div class="popup_content">
@@ -72,7 +72,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 </p>
 </div>
 
-<p class="boutonStyle addFluxURLpopup_Ajouter">Ajouter</p>
-<p class="boutonStyle close_popup">Abandonner</p>';
+<p class="boutonStyle addFluxURLpopup_Ajouter">'.$lang["ADD"].'</p>
+<p class="boutonStyle close_popup">'.$lang["ABORT"].'</p>';
 
 ?>
