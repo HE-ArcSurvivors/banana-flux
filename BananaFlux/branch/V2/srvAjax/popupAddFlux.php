@@ -53,15 +53,25 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 </div>
  
 <h2>
+	<label for="flux_name">Nom du flux à ajouter</label>
+</h2>
+
+<div class="popup_content">
+<p>
+	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name"/>
+</p>
+</div>
+
+<h2>
 	<label for="flux_url">Url du flux à ajouter</label>
 </h2>
 
 <div class="popup_content">
 <p>
 	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url"/>
-	</p>
+</p>
 </div>
- 
+
 <p class="boutonStyle addFlux_popup">Ajouter</p>
 <p class="boutonStyle close_popup">Abandonner</p>';
 
