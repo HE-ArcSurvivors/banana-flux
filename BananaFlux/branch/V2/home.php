@@ -101,7 +101,7 @@ else
 			   -->
 			   
 			   <div id="dossiers_user">
-
+				   <!-- ici les dossiers -->
 			   </div>
 			   <p class="addFlux boutonStyle">Ajouter un flux</p>
 			   
@@ -140,7 +140,12 @@ else
 
      
       <!-- Popups -->
-     <div id="popup_addflux" class="popup_block"></div>
+     <div id="popup_addflux" class="popup_block">
+	     <p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p>
+	     <p class="boutonStyle addFluxPopup_ajouter">Ajouter</p>
+	     <p class="boutonStyle close_popup">Abandonner</p>
+     </div>
+     <div id="popup_addfluxURL" class="popup_block"></div>
      <div id="popup_editFolder" class="popup_block"></div>
 
 </body>

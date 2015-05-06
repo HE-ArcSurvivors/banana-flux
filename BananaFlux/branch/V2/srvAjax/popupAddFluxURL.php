@@ -72,7 +72,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 </p>
 </div>
 
-<p class="boutonStyle addFlux_popup">Ajouter</p>
+<p class="boutonStyle addFluxURLpopup_Ajouter">Ajouter</p>
 <p class="boutonStyle close_popup">Abandonner</p>';
 
 ?>

@@ -4,14 +4,19 @@ var id_dossier;
 
 var leftFlap_initialposLeft;
 
+
+//
+//	$(document).ready
+//	Se produit à la fin du rechargement du DOM
+//
 $(document).ready( function start(){
 	
  	//temporaire : nécessitera de récupérer les flux de la communautée
  	id_flux = 1;
  	id_dossier=null;
  	
- 	addArticles(12, 0, id_flux, id_dossier);
  	printDossier();
+ 	addArticles(12, 0, id_flux, id_dossier);
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
 
@@ -23,28 +28,7 @@ $(document).ready( function start(){
  	startClicListeners();
 });
 
-function OpenLeftFlap(duration)
-{
-	var add = $("#leftFlap").width()-$("#leftFlap_Bouton").width();
-	$("#leftFlap").animate({left:"+="+add} ,duration);
-	$("#articles").animate({paddingLeft:"+="+add} ,duration);
-	
-	$("#leftFlap_Bouton").empty().append("<p>Fermer</p>");
-}
 
-function CloseLeftFlap(duration)
-{
-	var add = $("#leftFlap").width()-$("#leftFlap_Bouton").width();
-	$("#leftFlap").animate({left:"-="+add} ,duration);
-	$("#articles").animate({paddingLeft:"-="+add} ,duration);
-	
-	$("#leftFlap_Bouton").empty().append("<p>Ouvrir</p>");
-}
-
-function updateLeftFlapSize()
-{
-	$("#leftFlap").height($(window).height());
-}
 
 //------------------------------------------------------//
 //----------------------LISTENERS-----------------------//
@@ -52,6 +36,10 @@ function updateLeftFlapSize()
 
 function startClicListeners()
 {
+    //
+	//	click listener on #leftFlap_Bouton
+	//	Ouvre ou ferme le volet gauche
+	//
 	$("#leftFlap_Bouton").on("click", function() {
 
 	 	left = $("#leftFlap").css("left");
@@ -66,6 +54,11 @@ function startClicListeners()
      	}
 	 	
 	 });
+	 
+	 //
+	 //	click listener on .flux
+	 //	afficher les articles du flux
+	 //
 	 $('#dossiers_user').on("click", '.flux', function() {
 		
 		id_flux = $(this).children(".idflux_hidden").text();
@@ -121,115 +114,105 @@ function startClicListeners()
 	
     });
 
-//POPUP
-	 $('.addFlux').on('click', function(){
-				var courantid = $(this).attr('id');
+    //
+	//	click listener on .addFlux
+	//	Appartient au volet gauche
+	//  TODO ! (en cours)
+	//
+ 	$('.addFlux').on('click', function(){
+			var courantid = $(this).attr('id');
 
-				//affichage de la popup
-				var verifpopup = $('#popup_addflux').attr('class'); // Si la popup existe elle a un nom de class
-				if(verifpopup != undefined) // la popup existe
-				{	
-					jQuery.ajax({
-						type: 'POST',
-						url: 'srvAjax/popupAddFlux.php',
-						
-						success: function(data, textStatus, jqXHR) {
-							// La réponse du serveur est contenu dans la variable « data »
-							// On peut faire ce qu'on veut avec ici
-							
-							$.when($("#popup_addflux").empty().append(data)).done(function() {
-								
-								var popID = "popup_addflux"; //pop-up a afficher
-								var popWidth = 650; //L'argeur de la popup
-							
-								//Faire apparaitre la pop-up
-								$('#' + popID).fadeIn().css({'width': popWidth});
-							
-								//Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
-								var popMargLeft = ($('#' + popID).width() + 80) / 2;
-							
-								//On affecte le margin pour centrer la popup verticalement
-								$('#' + popID).css({
-									'margin-left' : -popMargLeft
-								});
-								
-								//Effet fade-in du fond opaque
-								$('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
-								//Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
-								$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();	
-							});
-							
-							
-														
-						},
-						error: function(jqXHR, textStatus, errorThrown) {
-							alert("Error PopupAddFlux");
-						}
-					});
-					
-				}
-					
-		});
+			showPopup("popup_addflux", '<p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p><p class="boutonStyle addFluxPopup_ajouter">Ajouter</p><p class="boutonStyle close_popup">Abandonner</p>');
+	});
 		
-		$('.popup_block').on("click", '.close_popup',  function(){ 
-			$.when($('.popup_block').fadeOut())
-				   .done(function() { 
-						$('#fade').fadeOut();
-				   });
-		});
+	//
+	//	click listener on .addFluxPopup_addFluxURL
+	//	Appartient à #popup_addflux
+	//  TODO ! (en cours)
+	//
+	$('.popup_block').on("click", '.addFluxPopup_addFluxURL',  function(){ 
+		$.when($('.popup_block').fadeOut())
+			   .done(function() { 
+											
+						jQuery.ajax({
+							type: 'POST',
+							url: 'srvAjax/popupAddFluxURL.php',
+							
+							success: function(data, textStatus, jqXHR) {
+								
+								showPopup("popup_addfluxURL", data);
+															
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								alert("erreur PopupAddFlux");
+							}
+						});
+					
+					
+			   });
+	});
+	
+	//
+	//	click listener on .close_popup
+	//	Appartient à .popup_block (all popup)
+	//	Ferme toutes les popups
+	//
+	$('.popup_block').on("click", '.close_popup',  function(){ 
+		$.when($('.popup_block').fadeOut())
+			   .done(function() { 
+					$('#fade').fadeOut();
+			   });
+	});
+	
+	//
+	//	click listener on .addFluxURLpopup_Ajouter
+	//	Appartient à #popup_addfluxURL
+	//	Valide les entrées de l'utilisateur et soumet à "addFluxURL()"
+	//
+	$('#popup_addfluxURL').on("click", '.addFluxURLpopup_Ajouter',  function(){ 	
+		var popup = $('#popup_addfluxURL');
+		var html = $('body');
 		
-		$('#popup_addflux').on("click", '.addFlux_popup',  function(){ 	
-			var popup = $('#popup_addflux');
-			var html = $('body');
+		var checkedFolder = $('input[type=radio][name=addFluxPopup_folder]:checked');
+		var folder_id = checkedFolder.attr('id');
+		
+		var url_flux = $('#addFluxPopup_flux_url').val();
+		var name_flux = $('#addFluxPopup_flux_name').val();
+		
+		errors = "";
+		
+		if(folder_id == undefined)
+		{
+			errors += "Selectionnez un dossier <br/>";
 			
-			var checkedFolder = $('input[type=radio][name=addFluxPopup_folder]:checked');
-			var folder_id = checkedFolder.attr('id');
-			
-			var url_flux = $('#addFluxPopup_flux_url').val();
-			var name_flux = $('#addFluxPopup_flux_name').val();
-			
-			errors = "";
-			
-			if(folder_id == undefined)
-			{
-				errors += "Selectionnez un dossier <br/>";
-				
-			}
-			if(!Url_Valide(url_flux))
-			{
-				errors += "URL invalide <br/>";
-			}
-			if(name_flux == "")
-			{
-				errors += "Nom du flux manquant <br/>";
-			}
-			
-			if(errors == "")
-			{
-				addFluxURL(folder_id, name_flux,  url_flux);
-			}
-			else
-			{
-				html.append('<div class="informationBox warning">'+errors+'</div>');
-				$('informationBox').toggleClass('animation');
-			}
-			
-		});
+		}
+		if(!Url_Valide(url_flux))
+		{
+			errors += "URL invalide <br/>";
+		}
+		if(name_flux == "")
+		{
+			errors += "Nom du flux manquant <br/>";
+		}
+		
+		if(errors == "")
+		{
+			addFluxURL(folder_id, name_flux,  url_flux);
+		}
+		else
+		{
+			html.append('<div class="informationBox warning">'+errors+'</div>');
+			$('informationBox').toggleClass('animation');
+		}
+		
+	});
 }
 
-
-
-function Url_Valide(UrlTest)
-{
-  var regexp = new RegExp("/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/");
-  //return regexp.test(UrlTest);
-  
-  //TODO !
-  return true;
-}	
-
-
-//ajoute des articles si l'utilisateur scroll en bas de la page
+//
+//	spyScroll
+//	ajoute des articles si l'utilisateur scroll en bas de la page
+//  met a jour la position du volet gauche pour qu'il suive l'écran
+//
 function spyScroll() {
      var $win = $(window);
 
@@ -255,19 +238,27 @@ function spyScroll() {
      });
 }
 
+//
+//	spyResizeWindow
+//  met a jour la hauteur du volet gauche au redimentionnement de la fenêtre
+//
 function spyResizeWindow(){
 	$(window).resize(function() {
 		updateLeftFlapSize();
 	});
 }
 
-
-
 //------------------------------------------------------//
 //-------------------------AJAX-------------------------//
 //------------------------------------------------------//
 
-//ajoute des articles
+//
+//  addArticles (AJAX)
+//	ajoute des articles aux articles de la page
+// 	nbToAdd 			: nombre d'article a afficher
+//  nbShowed 			: nombre d'aricle déjà affiché sur la page
+//	id_flux, id_dossier : quoi afficher
+//
 function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 {
 	jQuery.ajax({
@@ -300,6 +291,11 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 	});
 }
 
+//
+//	addFluxURL (AJAX)
+//	ajoute un flux à la base de données
+// 	a partir de : id_dossier, nom_flux, url_flux et de l'user en session
+//
 function addFluxURL(id_dossier, nom_flux, url_flux)
 {
 	jQuery.ajax({
@@ -338,12 +334,72 @@ function addFluxURL(id_dossier, nom_flux, url_flux)
 						
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert("erreure addFluxURL");
+			alert("erreur addFluxURL");
 		}
 	});
 }
 
 
+//------------------------------------------------------//
+//----------------Utilitaires validation----------------//
+//------------------------------------------------------//	
+
+//
+//	Url_Valide
+//	valide une URL d'un fichier xml
+//	TODO /!\
+//
+function Url_Valide(UrlTest)
+{
+  var regexp = new RegExp("/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/");
+  //return regexp.test(UrlTest);
+  
+  //TODO !
+  return true;
+}
+
+//------------------------------------------------------//
+//----------------Utilitaires interface-----------------//
+//------------------------------------------------------//	
+
+
+//
+//	OpenLeftFlap
+//	Ouvre le volet gauche
+//
+function OpenLeftFlap(duration)
+{
+	var add = $("#leftFlap").width()-$("#leftFlap_Bouton").width();
+	$("#leftFlap").animate({left:"+="+add} ,duration);
+	$("#articles").animate({paddingLeft:"+="+add} ,duration);
+	
+	$("#leftFlap_Bouton").empty().append("<p>Fermer</p>");
+}
+
+//
+//	CloseLeftFlap
+//	Ferme le volet gauche
+//
+function CloseLeftFlap(duration)
+{
+	var add = $("#leftFlap").width()-$("#leftFlap_Bouton").width();
+	$("#leftFlap").animate({left:"-="+add} ,duration);
+	$("#articles").animate({paddingLeft:"-="+add} ,duration);
+	
+	$("#leftFlap_Bouton").empty().append("<p>Ouvrir</p>");
+}
+
+
+function updateLeftFlapSize()
+{
+	$("#leftFlap").height($(window).height());
+}
+
+//
+//	printDossier (AJAX)
+//	met a jour les dossier de l'utilisateur dans le volet
+//  gauche
+//
 function printDossier()
 {
 	jQuery.ajax({
@@ -360,4 +416,37 @@ function printDossier()
 			alert("erreure printDossier");
 		}
 	});
+}
+
+//
+//	showPopup
+//	affiche la popup avec l'id "popID" (sans # !) 
+//	et remplace par "data" (HTML) son contenu 
+//
+function showPopup(popID, data)
+{
+	var verifpopup = $("#"+popID).attr('class'); // Si la popup existe elle a un nom de class
+	if(verifpopup != undefined) // la popup existe
+	{	
+		$.when($("#"+popID).empty().append(data)).done(function() {
+									
+			var popWidth = 650; //L'argeur de la popup
+								
+			//Faire apparaitre la pop-up
+			$('#' + popID).fadeIn().css({'width': popWidth});
+								
+			//Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
+			var popMargLeft = ($('#' + popID).width() + 80) / 2;
+								
+			//On affecte le margin pour centrer la popup verticalement
+			$('#' + popID).css({
+					'margin-left' : -popMargLeft
+			});
+									
+			//Effet fade-in du fond opaque
+			$('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
+			//Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
+			$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();	
+		});
+	}
 }
