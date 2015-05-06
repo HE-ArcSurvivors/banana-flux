@@ -28,7 +28,7 @@
 	
 		if(!$resource)
 		{
-			echo "URL déjà existant";
+			echo $lang["URL_EXIST"];
 		}
 		else
 		{

@@ -28,15 +28,29 @@ else
    	        <link rel="stylesheet" href="styles/bananaStyle.css"/>
    	        <script type="text/javascript" src="scripts/jquery-2.1.3.min.js"></script>
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
+   	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
             <script type="text/javascript" src="scripts/manageProfile.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-    
-            <script type="application/javascript">
+<script type="application/javascript">
             var jLang = <?php echo json_encode($lang); ?>;
-            </script>
-   </head>
+            </script><script type="text/javascript">
+			$(document).ready(function() {
+				$('#searchbar-input').on('input', function() {
+					var searchKeyword = $(this).val();
+					if (searchKeyword.length >= 3) {
+						$.post('srvAjax/search.php', { keywords: searchKeyword }, function(data) {
+							$('tr#searchResults').empty()
+							$('tr#searchResults').append('<tr><td>' + "ID" + '</td>' + '<td>' + "Name" + '<td><tr>');
+							$.each(data, function() {
+								$('tr#searchResults').append('<tr><td>' + this.id + '</td>' + '<td>' + this.title + '<td><tr>');
+							});
+						}, "json");
+					}
+				});
+			});
+	</script>   </head>
 
    <body>
 
@@ -52,6 +66,22 @@ else
                 </ul>
            </div>
        </div>
+       
+       
+		<div id="searchbar" align="center">
+		<form method="post" role="form">
+       		<input type="text" id="searchbar-input" name="searchbar-input" placeholder="Search by title, #topic or URL" />
+       		<button id="searchbar-button" display="none">Search</button>
+       	</form>
+       	</div>
+       	
+       	<table align="center">
+    		<thead>
+        		<tr id="searchResults" align="center">
+        		</tr>
+		    </thead>
+    	<tbody></tbody>
+		</table>
 
       
       <!--<div id="headfilters">

@@ -179,7 +179,7 @@ function startClicListeners()
  	$('.addFlux').on('click', function(){
 			var courantid = $(this).attr('id');
 
-			showPopup("popup_addflux", '<p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p><p class="boutonStyle addFluxPopup_ajouter">Ajouter</p><p class="boutonStyle close_popup">Abandonner</p>');
+			showPopup("popup_addflux", '<p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p><p class="boutonStyle addFluxPopup_ajouter">Ajouter</p><p class="boutonStyle close_popup">Abandonner</p>', 650);
 	});
 		
 	//
@@ -197,7 +197,7 @@ function startClicListeners()
 							
 							success: function(data, textStatus, jqXHR) {
 								
-								showPopup("popup_addfluxURL", data);
+								showPopup("popup_addfluxURL", data, 650);
 															
 							},
 							error: function(jqXHR, textStatus, errorThrown) {
@@ -480,15 +480,13 @@ function printDossier()
 //	affiche la popup avec l'id "popID" (sans # !) 
 //	et remplace par "data" (HTML) son contenu 
 //
-function showPopup(popID, data)
+function showPopup(popID, data, popWidth)
 {
 	var verifpopup = $("#"+popID).attr('class'); // Si la popup existe elle a un nom de class
 	if(verifpopup != undefined) // la popup existe
 	{	
 		$.when($("#"+popID).empty().append(data)).done(function() {
-									
-			var popWidth = 650; //L'argeur de la popup
-								
+																	
 			//Faire apparaitre la pop-up
 			$('#' + popID).fadeIn().css({'width': popWidth});
 								
