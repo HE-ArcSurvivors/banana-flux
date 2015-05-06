@@ -6,19 +6,15 @@
     
     if($action == "deleteFolder")
     {
-        //NEED TO EMPTY LINKS BETWEEN FOLDERS AND FEED
-        //NEED TO MOVE LOST FEED INTO DEFAULT FOLDER
+        $sqlEmpty = 'DELETE FROM feed_folder WHERE folder_id = "'.mysqli_escape_string($db, $id_folder).'"';
+        $resultEmpty = mysqli_query($db, $sqlEmpty);
         
-        $sqlCheck = 'SELECT COUNT(*) FROM feed_folder WHERE folder_id = "'.mysqli_escape_string($db, $id_folder).'"';
-        $resultCheck = mysqli_query($db, $sqlCheck);
-        $row = mysqli_fetch_array($resultCheck);
-        
-        if($row[0] == 0)
+        if(mysqli_affected_rows($db) > 0)
         {
             $sql = 'DELETE FROM folder WHERE folder_id = "'.mysqli_escape_string($db, $id_folder).'"';
             $result = mysqli_query($db, $sql);
 
-            if ($result === TRUE)
+            if (mysqli_affected_rows($db) > 0)
             {            
                 echo true;
             }
@@ -29,7 +25,7 @@
         }
         else
         {
-           echo '<div class="informationBox warning">Le dossier n\'est pas vide</div>';
+            echo $db->error;
         }
     }
     else if($action == "editFolder")
