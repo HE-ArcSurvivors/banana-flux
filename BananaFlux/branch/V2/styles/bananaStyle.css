@@ -574,3 +574,13 @@ input[type=password]:focus
 	height:25px;
 	font-size:15px;
 }
+
+
+/**popupAddFlux**/
+#box_select_flux{
+	max-height: 300px;
+	overflow-y: scroll;
+}
+#box_select_flux h1{
+
+}

@@ -153,9 +153,18 @@ function startClicListeners()
 	//  TODO ! (en cours)
 	//
  	$('.addFlux').on('click', function(){
-			var courantid = $(this).attr('id');
-
-			showPopup("popup_addflux", '<p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p><p class="boutonStyle addFluxPopup_ajouter">Ajouter</p><p class="boutonStyle close_popup">Abandonner</p>', 650);
+		jQuery.ajax({
+				type: 'POST',
+				url: 'srvAjax/popupAddFlux.php',
+				
+				success: function(data, textStatus, jqXHR) {
+					
+					showPopup("popup_addflux", data, 650);						
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert("erreur PopupAddFlux");
+				}
+		});
 	});
 		
 	//
@@ -165,24 +174,24 @@ function startClicListeners()
 	//
 	$('.popup_block').on("click", '.addFluxPopup_addFluxURL',  function(){ 
 		$.when($('.popup_block').fadeOut())
-			   .done(function() { 
-											
-						jQuery.ajax({
-							type: 'POST',
-							url: 'srvAjax/popupAddFluxURL.php',
-							
-							success: function(data, textStatus, jqXHR) {
-								
-								showPopup("popup_addfluxURL", data, 650);
-															
-							},
-							error: function(jqXHR, textStatus, errorThrown) {
-								alert("erreur PopupAddFlux");
-							}
-						});
+		   .done(function() { 
+										
+				jQuery.ajax({
+					type: 'POST',
+					url: 'srvAjax/popupAddFluxURL.php',
 					
-					
-			   });
+					success: function(data, textStatus, jqXHR) {
+						
+						showPopup("popup_addfluxURL", data, 650);
+													
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alert("erreur PopupAddFluxURL");
+					}
+				});
+			
+				
+		   });
 	});
 	
 	//
