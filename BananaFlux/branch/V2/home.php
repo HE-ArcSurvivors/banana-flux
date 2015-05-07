@@ -31,9 +31,11 @@ else
    	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
+            <script type="text/javascript" src="scripts/manageProfile.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-   	        
-   	        <script type="text/javascript">
+<script type="application/javascript">
+            var jLang = <?php echo json_encode($lang); ?>;
+            </script><script type="text/javascript">
 			$(document).ready(function() {
 				$('#searchbar-input').on('input', function() {
 					var searchKeyword = $(this).val();
@@ -48,21 +50,15 @@ else
 					}
 				});
 			});
-	</script>
-   </head>
+	</script>   </head>
 
    <body>
 
        <div id="headbar">
            <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
            <div id="headbar-right">
-               <ul id="navbar">
-                    <li><img src="<?php echo $user->getIcon(); ?>" />
-                        <ul>
-                            <li><a href="editProfile.php">Editer mon profil</a></li>
-                            <li><a href="index.php?action=disconnect">Déconnection</a></li>
-                        </ul></li>
-                </ul>
+               <img src="menu/editProfile.png" class="editProfileButton" />
+               <a href="index.php?action=disconnect"><img src="menu/exit.png" alt="Déconnection" /></a>
            </div>
        </div>
        
@@ -179,7 +175,10 @@ else
        
      <!-- MANAGE FOLDERS -->
      <div id="popup_editFolder" class="popup_block"></div>
-     <div id="popup_deleteFolder" class="popup_block"></div>   
+     <div id="popup_deleteFolder" class="popup_block"></div>  
+       
+      <!-- MANAGE PROFIEL -->
+       <div id="popup_editProfile" class="popup_block"></div>
 
 </body>
 </html>

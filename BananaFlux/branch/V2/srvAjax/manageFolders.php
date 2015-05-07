@@ -46,6 +46,4 @@
             echo $db->error;
         } 
     }
-
-    
 ?>

@@ -65,7 +65,7 @@ function editFolder(id_dossier, folder_new_name, parent)
     });
 }
 
-function getEditFolderPopup(id_popup, folderCurrentName, folderID)
+function getEditFolderPopup(folderCurrentName, folderID)
 {
     var data = '<h1>Renommer "';
     data += folderCurrentName;
@@ -78,11 +78,10 @@ function getEditFolderPopup(id_popup, folderCurrentName, folderID)
     data += '</span>';
     data += '<p class="boutonStyle editFolderButton">Modifier</p>';
     data += '<p class="boutonStyle close_popup">Annuler</p>';
-    
-    $(id_popup).empty().append(data);
+    return data;
 }
 
-function getDeleteFolderPopup(id_popup, folderName, folderID)
+function getDeleteFolderPopup(folderName, folderID)
 {
     var data = '<h1>Supprimer "';
     data += folderName;
@@ -101,5 +100,5 @@ function getDeleteFolderPopup(id_popup, folderName, folderID)
     data += '<p class="boutonStyle deleteFolderValidate">Supprimer</p>';
     data += '<p class="boutonStyle close_popup">Annuler</p>';
     
-    $(id_popup).empty().append(data);
+    return data;
 }

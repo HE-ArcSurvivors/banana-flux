@@ -38,7 +38,7 @@ p{
 }
 
 #headbar-right {
-    /*text-align: right;*/
+    text-align: right;
     float: left;
     width: 30%;
 }
@@ -57,83 +57,8 @@ p{
 	display: none;
 }
 
-#navbar {
-	list-style: none;
-	position: relative;
-	display: inline-table;
-}
-
-#navbar:after
-{
-    content: ""; clear: both; display: block;
-}
-
-#navbar ul
-{
-	display: none;
-}
-
-#navbar li
-{
-	float: right;
-   	list-style: none; 
-    width: 150px;
-}
-
-#navbar li:hover > ul
-{
-    display: block;
-}
-
-#navbar li:hover
-{
-    background: #4b545f;
-	background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
-    background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
-    background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
-}
-
-#navbar li:hover a {
-    color: #fff;
-}
-	
-#navbar li a {
-    display: block; 
-    color: #757575; 
-    text-decoration: none;
-}
-
-#navbar ul {
-	background: #5f6975; 
-    border-radius: 0px; 
-    padding: 0;
-	position: absolute; 
-    top: 100%;
-}
-
-#navbar ul li {
-    float: none; 
-    border-top: 1px solid #6b727c;
-    border-bottom: 1px solid #575f6a;
-    position: relative;
-}
-
-#navbar ul li a
-{
-    padding: 5px 10px;
-    color: #fff;
-}	
-
-#navbar ul li a:hover
-{
-    background: #4b545f;
-}
-
 #headbar img { 
-    height: 50px;
-    border: 1px dashed #DDD;
-    padding: 5px;
-    background-color: #F8F8F8;
+    height: 30px;
     margin : 10px;
 }
 
@@ -382,62 +307,12 @@ p{
 
 /*PROFIL*/
 
-#profil { 
-    margin-left : auto;
-    margin-right : auto;
-    background-color : #FFFFFF;
-    
-    -webkit-box-shadow: 0 0 5px 1px #ADADAD;
-    box-shadow: 0 0 5px 1px #ADADAD;
-    
-    width : 70%;
-    overflow: auto;
-}
-
-#profil h1 {
-
-    text-align : center;
-    text-transform: uppercase;
-}
-
-#profil .image {  
+.imageProfile {  
     border: 1px dashed #DDD;
     padding: 5px;
     background-color: #F8F8F8;
     float: right;
     margin : 10px;
-}
-
-#profil .text { 
-    margin : 10px;
-}
-
-#profil .buttonSubmit {
-    text-align : center;
-       
-}
-
-#profil .editButton {
-    align: right;
-    width: 20px;
-    height: 20px;
-    background: url("http://www.lastrose.com/media/iconmonstr-edit-10-icon-300x300.png");
-}
-
-#profil .formContent {
-    display: table-cell;
-}
-
-#profil .formEdit {
-    display: none;
-}
-
-#profil .formEditRow { 
-    display : none;   
-}
-
-#profil .inputText {
-    width  : 200px;
 }
 
 /* FORMULAIRES */

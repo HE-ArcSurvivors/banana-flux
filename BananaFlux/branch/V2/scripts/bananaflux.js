@@ -41,7 +41,7 @@ function startClicListeners()
 	//	Ouvre ou ferme le volet gauche
 	//
 	$("#leftFlap_Bouton").on("click", function() {
-
+        
 	 	left = $("#leftFlap").css("left");
 
 	 	if(left == leftFlap_initialposLeft) //open
@@ -60,85 +60,33 @@ function startClicListeners()
 	 //	afficher les articles du flux
 	 //
 	 $('#dossiers_user').on("click", '.flux', function() {
-		
+         
 		id_flux = $(this).children(".idflux_hidden").text();
 		id_dossier=null;
 		
 		addArticles(12, 0, id_flux, id_dossier);
-		
+         
 	 });
 
+    
+    
+    // ****** MANAGE FOLDERS ****** //
+    // DELETE FOLDER
     $('#dossiers_user').on("click", '.deleteFolder',function() { 
         
         id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
         name_dossier = $(this).parent().parent().find(".nameFolder").text();
+        popID = "popup_deleteFolder";
         
-        var popID = "popup_deleteFolder"; //pop-up a afficher
-        getDeleteFolderPopup('#' + popID, name_dossier, id_dossier);        
-       
-        var popWidth = 600;
-        $('#' + popID).fadeIn().css({'width': popWidth});
-        var popMargLeft = ($('#' + popID).width() + 80) / 2;
-
-        $('#' + popID).css({
-            'margin-left' : -popMargLeft
-        });
-
-        $('body').append('<div id="fade"></div>');
-        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
-    });
-    
-    $("#dossiers_user").on("click", '.editFolder', function() { 
-        
-        name_dossier = $(this).parent().parent().find(".nameFolder").text();
-        id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
-        
-        var popID = "popup_editFolder"; //pop-up a afficher
-        getEditFolderPopup('#' + popID,name_dossier,id_dossier);        
-       
-        var popWidth = 400; //L'argeur de la popup
-        $('#' + popID).fadeIn().css({'width': popWidth});
-							
-        //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
-        var popMargLeft = ($('#' + popID).width() + 80) / 2;
-
-        //On affecte le margin pour centrer la popup verticalement
-        $('#' + popID).css({
-            'margin-left' : -popMargLeft
-        });
-
-        //Effet fade-in du fond opaque
-        $('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
-        //Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
-        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
-    
-    });
-                 
-    $('#popup_editFolder').on("click", '.editFolderButton',  function(){ 	
- 	
-        popup = $('#popup_editFolder');
-        
-        id_dossier = popup.find('.iddossier_hidden').text();
-        folder_new_name = document.querySelector('#folder_newname').value;
-        
-        editFolder(id_dossier,folder_new_name,$(this).parent());
-        
-        printDossier();
-        
-        $.when($('.popup_block').fadeOut()).done(function() { 
-            $('#fade').fadeOut();
-		});
-	
+        showPopup(popID,getDeleteFolderPopup(name_dossier,id_dossier),600); 
     });
     
     $('#popup_deleteFolder').on("click", '.deleteFolderValidate',  function(){ 	
  	
         popup = $('#popup_deleteFolder');
-        
         id_dossier = popup.find('.iddossier_hidden').text();
-        
+
         deleteFolder(id_dossier);
-        
         printDossier();
         
         $.when($('.popup_block').fadeOut()).done(function() { 
@@ -146,8 +94,99 @@ function startClicListeners()
 		});
 	
     });
+    
+    // EDIT FOLDER
+    $("#dossiers_user").on("click", '.editFolder', function() { 
+        
+        name_dossier = $(this).parent().parent().find(".nameFolder").text();
+        id_dossier = $(this).parent().parent().find(".iddossier_hidden").text();
+        popID = "popup_editFolder";
+        
+        showPopup(popID,getEditFolderPopup(name_dossier,id_dossier),400);    
+    });
+    
+    $('#popup_editFolder').on("click", '.editFolderButton',  function(){ 	
+ 	
+        popup = $('#popup_editFolder');
+        id_dossier = popup.find('.iddossier_hidden').text();
+        folder_new_name = document.querySelector('#folder_newname').value;
+        
+        editFolder(id_dossier,folder_new_name,$(this).parent());
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
+    });
+    
+    
+    // ****** MANAGE PROFILE ****** //
+    $("#headbar").on("click", '.editProfileButton', function() {
+        
+        var popID = "popup_editProfile"; //pop-up a afficher    
+       
+        jQuery.ajax({
+            type: 'POST',
+            url: 'srvAjax/manageProfile.php',
 
-    //
+            data : {
+                action: "print",
+            },
+
+            success: function(data, textStatus, jqXHR) {
+                showPopup(popID,data,600);
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                alert("Error manageProfile > getEditProfilePopup");
+            }   
+        });
+        
+    });
+                 
+    $('#popup_editProfile').on("click", '.editProfileValidate',  function(){ 	
+ 	
+        popup = $('#popup_editProfile');
+        
+        jQuery.ajax({
+            type: 'POST',
+            url: 'srvAjax/manageProfile.php',
+
+            data : {
+                action: "edit",
+                email: document.querySelector('#email').value,
+                passwordNEW: document.querySelector('#passwordNEW').value,
+                passwordRepeat: document.querySelector('#passwordRepeat').value,
+                passwordOLD: document.querySelector('#passwordOLD').value 
+            },
+
+            success: function(data, textStatus, jqXHR) {
+                var html = $('body');
+                html.append(data);
+                $('informationBox').toggleClass('animation');
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                alert("Error manageProfile > editProfile");
+            }   
+        });
+        
+        //editProfile(id_dossier,folder_new_name,$(this).parent());
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
+    });
+    
+    
+    
+    
+
 	//	click listener on .addFlux
 	//	Appartient au volet gauche
 	//  TODO ! (en cours)
