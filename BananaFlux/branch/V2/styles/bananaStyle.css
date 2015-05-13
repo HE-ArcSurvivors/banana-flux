@@ -455,7 +455,35 @@ input[type=password]:focus
 #box_select_flux{
 	max-height: 300px;
 	overflow-y: scroll;
-}
-#box_select_flux h1{
 
 }
+#box_select_flux .select_flux{
+	margin: 2px;
+	margin-bottom: 10px;
+	background-color: #e2e2e2;
+	padding: 5px;
+	cursor:
+}
+#box_select_flux .select_flux:hover{
+	background-color: #d1d1d1;
+	cursor:pointer;
+}
+#box_select_flux .select_flux h1{
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	text-align: left;
+	font-size: 16px;
+	line-height: 18px;
+}
+#box_select_flux .select_flux p{
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	font-size: 12px;
+	line-height: 15px;
+}
+#box_select_flux .select_flux .hidden_idflux{
+	display: none;
+}
+

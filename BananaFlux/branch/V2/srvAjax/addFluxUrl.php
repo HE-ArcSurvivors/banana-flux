@@ -11,8 +11,7 @@
     	$user = new User($db, $lang);
     	$user->loadUser();
     	
-    	addFluxURL($user->getUsername(), $db, $flux_name, $flux_URL, $flux_dossier_id);
-    	echo "ok";
+    	echo addFluxURL($user->getUsername(), $db, $flux_name, $flux_URL, $flux_dossier_id);
     }	
     else
     {
@@ -28,7 +27,7 @@
 	
 		if(!$resource)
 		{
-			echo $lang["URL_EXIST"];
+			return $lang["URL_EXIST"];
 		}
 		else
 		{
@@ -38,7 +37,11 @@
 	
 			if(!$resource)
 			{
-				echo "ERROR INCONITO";
+				return $lang["INSERT_UNKNOWN_ERROR"];
+			}
+			else
+			{
+				return "ok";
 			}
 		}
 	}

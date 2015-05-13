@@ -22,7 +22,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 				$folder_id =$record['folder_id'];
 				$folder_name =$record['folder_name'];
 				
-				$folders.='<input type="radio" id="'.$folder_id.'" name="addFluxPopup_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
+				$folders.='<input type="radio" id="'.$folder_id.'" name="addFluxURLPopup_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
 			}
 			
 			return $folders;
