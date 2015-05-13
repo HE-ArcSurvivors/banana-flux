@@ -26,7 +26,6 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 			}
 			
 			return $folders;
-	
 		}
 	}
 	

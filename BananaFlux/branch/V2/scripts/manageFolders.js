@@ -40,13 +40,13 @@ function editFolder(id_dossier, folder_new_name, parent)
         url: 'srvAjax/manageFolders.php',
         
         data : {
-            action: "addFolder",
+            action: "editFolder",
             id: id_dossier,
             folder_name: folder_new_name
         },
         
         success: function(data, textStatus, jqXHR) {
-            if(data == true)
+            if(data == "SUCCESS")
             {                
                 var html = $('body');
                 html.append('<div class="informationBox info">Le dossier a été modifié avec succès</div>');

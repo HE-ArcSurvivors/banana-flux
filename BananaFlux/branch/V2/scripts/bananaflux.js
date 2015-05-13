@@ -120,6 +120,26 @@ function startClicListeners()
 	
     });
     
+    // ADD A FOLDER
+    $('.addFolder').on('click', function(){
+        popID = "popup_newFolder";
+        showPopup(popID,getNewFolderPopup(),600);
+	});
+    
+	$('#popup_newFolder').on("click", '.createFolderValidate',  function(){ 	
+ 	 	
+        popup = $('#popup_editProfile');
+        folder_new_name = document.querySelector('#folder_newname').value;
+
+        createFolder(folder_new_name);
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
+    });
+    
     
     // ****** MANAGE PROFILE ****** //
     $("#headbar").on("click", '.editProfileButton', function() {
@@ -183,11 +203,7 @@ function startClicListeners()
 	
     });
 
-	//	click listener on .addFlux
-	//	Appartient au volet gauche
-	//  TODO ! (en cours)
-	//
- 	$('.addFlux').on('click', function(){
+	$('.addFlux').on('click', function(){
 		jQuery.ajax({
 				type: 'POST',
 				url: 'srvAjax/popupAddFlux.php',
@@ -202,7 +218,6 @@ function startClicListeners()
 		});
 	});
 		
-    
 	//
 	//	click listener on .addFluxPopup_addFluxURL
 	//	Appartient à #popup_addflux
@@ -229,25 +244,6 @@ function startClicListeners()
 				
 		   });
 	});
-    
-    $('.addFolder').on('click', function(){
-        popID = "popup_newFolder";
-        showPopup(popID,getNewFolderPopup(),600);
-	});
-    
-	$('#popup_newFolder').on("click", '.createFolderValidate',  function(){ 	
- 	 	
-        popup = $('#popup_editProfile');
-        folder_new_name = document.querySelector('#folder_newname').value;
-
-        createFolder(folder_new_name);
-        printDossier();
-        
-        $.when($('.popup_block').fadeOut()).done(function() { 
-            $('#fade').fadeOut();
-		});
-	
-    });
 
 	//
 	//	click listener on .close_popup

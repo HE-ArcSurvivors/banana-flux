@@ -38,9 +38,9 @@
             
        $result = mysqli_query($db, $sql);
 
-        if ($result === TRUE)
+        if ($result)
         {            
-            echo true;
+            echo "SUCCESS";
         }
         else 
         {
