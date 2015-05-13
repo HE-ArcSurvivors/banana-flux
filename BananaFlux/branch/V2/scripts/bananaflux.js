@@ -182,10 +182,6 @@ function startClicListeners()
 		});
 	
     });
-    
-    
-    
-    
 
 	//	click listener on .addFlux
 	//	Appartient au volet gauche
@@ -197,6 +193,7 @@ function startClicListeners()
 			showPopup("popup_addflux", '<p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p><p class="boutonStyle addFluxPopup_ajouter">Ajouter</p><p class="boutonStyle close_popup">Abandonner</p>', 650);
 	});
 		
+    
 	//
 	//	click listener on .addFluxPopup_addFluxURL
 	//	Appartient à #popup_addflux
@@ -223,7 +220,26 @@ function startClicListeners()
 					
 			   });
 	});
+    
+    $('.addFolder').on('click', function(){
+        popID = "popup_newFolder";
+        showPopup(popID,getNewFolderPopup(),600);
+	});
+    
+	$('#popup_newFolder').on("click", '.createFolderValidate',  function(){ 	
+ 	 	
+        popup = $('#popup_editProfile');
+        folder_new_name = document.querySelector('#folder_newname').value;
+
+        createFolder(folder_new_name);
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
 	
+    });
+
 	//
 	//	click listener on .close_popup
 	//	Appartient à .popup_block (all popup)

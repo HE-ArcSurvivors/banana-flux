@@ -27,7 +27,7 @@ function deleteFolder(id_dossier, parent)
         
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
-			alert("Error manageFolders > DeleteFolder");
+			alert("Error manageFolders > eleteFolder");
 		}
                 
     });
@@ -40,7 +40,7 @@ function editFolder(id_dossier, folder_new_name, parent)
         url: 'srvAjax/manageFolders.php',
         
         data : {
-            action: "editFolder",
+            action: "addFolder",
             id: id_dossier,
             folder_name: folder_new_name
         },
@@ -60,7 +60,38 @@ function editFolder(id_dossier, folder_new_name, parent)
         
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
-			alert("Error manageFolders > EditFolder");
+			alert("Error manageFolders > editFolder");
+		}      
+    });
+}
+
+function createFolder(folder_new_name)
+{   
+    jQuery.ajax({
+        type: 'POST',
+        url: 'srvAjax/manageFolders.php',
+        
+        data : {
+            action: "addFolder",
+            folder_name: folder_new_name
+        },
+        
+        success: function(data, textStatus, jqXHR) {
+            if(data == "SUCCESS")
+            {               
+                var html = $('body');
+                html.append('<div class="informationBox info">Le dossier a été ajouté avec succès</div>');
+                $('informationBox').toggleClass('animation');
+            }
+            else
+            {
+                console.log(data);
+            }
+        },
+        
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+			alert("Error manageFolders > newFolder");
 		}      
     });
 }
@@ -98,6 +129,22 @@ function getDeleteFolderPopup(folderName, folderID)
     data += '</span>';
     
     data += '<p class="boutonStyle deleteFolderValidate">Supprimer</p>';
+    data += '<p class="boutonStyle close_popup">Annuler</p>';
+    
+    return data;
+}
+
+function getNewFolderPopup()
+{
+    var data = '<h1>Ajouter un nouveau dossier</h1>';
+    
+    data += '<div class="popup_content">';
+    
+    data += '<div class="popup_content"><p><label>Nom du dossier : ';
+    data += '<input type="text" id="folder_newname" name="folder_newname"/>';
+    data += '</label></p></div>';
+    
+    data += '<p class="boutonStyle createFolderValidate">Créer</p>';
     data += '<p class="boutonStyle close_popup">Annuler</p>';
     
     return data;

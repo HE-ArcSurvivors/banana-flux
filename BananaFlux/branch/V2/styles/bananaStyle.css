@@ -442,7 +442,7 @@ input[type=password]:focus
 	background-color:#707070;
 	cursor:pointer;
 }
-.addFlux{
+.addFlux, .addFolder{
 	margin-top: 5px;
 	padding-top:0px;
 	padding-bottom: 0px;
