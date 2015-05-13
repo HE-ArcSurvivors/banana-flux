@@ -55,7 +55,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 				$folder_id =$record['folder_id'];
 				$folder_name =$record['folder_name'];
 				
-				$folders.='<input type="radio" id="'.$folder_id.'" name="addFluxPopup_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
+				$folders.='<input type="radio" id="'.$folder_id.'" class="folder_radioInput" name="addFluxPopup_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
 			}
 			
 			return $folders;
@@ -87,8 +87,8 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 		</p>
 		</div>
 		
-		<p class="boutonStyle addFluxPopup_addFluxURL">je ne trouve pas ce que je veux :/</p>
-		<p class="boutonStyle close_popup">Abandonner</p>
+		<p class="boutonStyle addFluxPopup_addFluxURL">'.$lang["I_DONT_FIND"].'</p>
+		<p class="boutonStyle close_popup">'.$lang["ABORT"].'</p>
 		';
     	
     }	
