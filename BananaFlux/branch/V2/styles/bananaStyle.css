@@ -114,11 +114,11 @@ p{
 }
 
 #leftFlap_Content h2{
-	margin-top: 0px;
+
 	font-size: 15px;
 	text-align: center;
 	background-color: #dbdbdb;
-	margin-top: 5px;
+	margin-top: 15px;
 	line-height: 30px;
 	
 }
@@ -444,10 +444,15 @@ input[type=password]:focus
 }
 .addFlux, .addFolder{
 	margin-top: 5px;
+	margin-bottom: 5px;
 	padding-top:0px;
 	padding-bottom: 0px;
 	height:25px;
 	font-size:15px;
+}
+
+#dossiers_user{
+	margin-bottom: 15px;
 }
 
 
