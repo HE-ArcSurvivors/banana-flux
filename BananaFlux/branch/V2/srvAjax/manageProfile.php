@@ -19,6 +19,7 @@
 
 <h1>Mon profil</h1> 
 
+<div class="popup_content">
 <img src="<?php echo $user->getIcon(); ?>" width="150" height="150" class="imageProfile"/>
 
 <form method="post" name="editProfileForm" action="<?php echo $self_url; ?>">
@@ -58,6 +59,7 @@
 <p class="boutonStyle editProfileValidate"><?php echo $lang["FORM_EDIT_VALIDATE"]; ?></p>
 <p class="boutonStyle close_popup">Annuler</p>
 
+</div>
 
 <?php
     }

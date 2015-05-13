@@ -4,6 +4,7 @@ require_once "valid.inc";
 
 class User {
 
+    private $id;
     private $login;
     private $email;
     private $icon;
@@ -22,7 +23,7 @@ class User {
     {
         $this->_login = $_SESSION["login"];
         
-        $sql = 'SELECT user_email, user_icon FROM user WHERE (
+        $sql = 'SELECT user_id, user_email, user_icon FROM user WHERE (
         user_login = "'.mysqli_escape_string($this->_db, $this->_login).'")';
             
         $result = mysqli_query($this->_db, $sql);
@@ -32,11 +33,12 @@ class User {
 			echo "Connection error: ".mysqli_connect_errno();
         }
         else
-	   {
+	    {
             $row = mysqli_fetch_array($result);
             $this->_email = $row["user_email"];
             $this->_icon = $row["user_icon"];
-	   }
+            $this->_id = $row["user_id"];
+	    }
     }
    
     public function printUser()
@@ -135,9 +137,15 @@ class User {
 
         return $row["user_icon"];
     }
+    
     public function editIcon($icon)
     {
        return true;
+    }
+    
+    public function getID()
+    {
+        return $this->_id;
     }
     
     public function logIn($login, $pass)

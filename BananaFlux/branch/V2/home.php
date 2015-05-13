@@ -31,7 +31,6 @@ else
    	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
-            <script type="text/javascript" src="scripts/manageProfile.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
 <script type="application/javascript">
             var jLang = <?php echo json_encode($lang); ?>;
@@ -133,9 +132,8 @@ else
 			   <div id="dossiers_user">
 				   <!-- ici les dossiers -->
 			   </div>
-			   <p class="addFlux boutonStyle">Ajouter un flux</p>
-			   
-			   <h2><?php echo $lang["FLUX_DEFAULT"]; ?></h2>
+			   <p class="addFlux boutonStyle"><?php echo $lang["ADD_A_FEED"]; ?></p>
+			   <p class="addFolder boutonStyle"><?php echo $lang["CREATE_A_FOLDER"]; ?></p>
 			   
 			   <h1><?php echo $lang["FLUX_FLUX"]; ?></h1>
 			   
@@ -175,7 +173,8 @@ else
        
      <!-- MANAGE FOLDERS -->
      <div id="popup_editFolder" class="popup_block"></div>
-     <div id="popup_deleteFolder" class="popup_block"></div>  
+     <div id="popup_deleteFolder" class="popup_block"></div> 
+     <div id="popup_newFolder" class="popup_block"></div>
        
       <!-- MANAGE PROFIEL -->
        <div id="popup_editProfile" class="popup_block"></div>
