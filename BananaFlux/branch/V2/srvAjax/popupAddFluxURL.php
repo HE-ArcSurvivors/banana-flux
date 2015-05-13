@@ -6,7 +6,7 @@
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name` FROM `folder`, `user`
 WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_id.'" ORDER BY `folder`.`folder_name` ASC';
 	
-	$resource = mysqli_query($db, $sql);
+		$resource = mysqli_query($db, $sql);
 	
 		if(!$resource)
 		{
@@ -16,7 +16,6 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 		{
 			$folders = "";
 			
-			$curentFolder_id=null;
 			while ($record = mysqli_fetch_assoc ($resource))
 			{
 				$folder_id =$record['folder_id'];
@@ -26,6 +25,32 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 			}
 			
 			return $folders;
+		}
+	}
+	
+	function getTags($db)
+	{
+		$sql= 'SELECT `tag_id`, `tag_name` FROM `tag`';
+		
+		$resource = mysqli_query($db, $sql);
+	
+		if(!$resource)
+		{
+			return $lang["CONNECTION_FAILED"].mysqli_connect_errno();
+		}
+		else
+		{
+			$tags = "";
+			
+			while ($record = mysqli_fetch_assoc ($resource))
+			{
+				$tag_id =$record['tag_id'];
+				$tag_name =$record['tag_name'];
+				
+				$tags.='<input type="checkbox" id="'.$tag_id.'" class="tags_checkboxInput" name="addFluxURLPopup_tag" value="'.$tag_id.'"/><label for="'.$tag_id.'">'.$tag_name.'</label>';
+			}
+			
+			return $tags;
 		}
 	}
 	
@@ -48,6 +73,14 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 <div class="popup_content">
 <p>
 	'.getFolders($user->getUsername(), $db).'
+</p>
+</div>
+
+<h2>'.$lang["ADD_FLUX_GLOBAL_TAG"].'</h2>
+
+<div class="popup_content">
+<p>
+	'.getTags($db).'
 </p>
 </div>
  

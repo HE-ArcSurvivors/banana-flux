@@ -221,7 +221,6 @@ function startClicListeners()
 	//
 	//	click listener on .addFluxPopup_addFluxURL
 	//	Appartient à #popup_addflux
-	//  TODO ! (en cours)
 	//
 	$('.popup_block').on("click", '.addFluxPopup_addFluxURL',  function(){ 
 		$.when($('.popup_block').fadeOut())
@@ -272,6 +271,15 @@ function startClicListeners()
 		var url_flux = $('#addFluxPopup_flux_url').val();
 		var name_flux = $('#addFluxPopup_flux_name').val();
 		
+		
+		//tags
+		var checkedTags = document.querySelectorAll('input[type=checkbox][name=addFluxURLPopup_tag]:checked');
+		
+		var TagsIDs = [];
+		for (var i = 0; i < checkedTags.length; i++) {
+			TagsIDs.push(checkedTags.item(i).id);
+		}
+		
 		errors = "";
 		
 		if(folder_id == undefined || folder_id == null)
@@ -290,7 +298,7 @@ function startClicListeners()
 		
 		if(errors == "")
 		{
-			addFluxURL(folder_id, name_flux,  url_flux);
+			addFluxURL(folder_id, name_flux,  url_flux, TagsIDs);
 		}
 		else
 		{
@@ -413,17 +421,20 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 //	addFluxURL (AJAX)
 //	ajoute un flux à la base de données et dans un dossier
 // 	a partir de : id_dossier, nom_flux, url_flux et de l'user en session
+//  ajoute au flux les tags contenu dans "tagsIDs"
 //
-function addFluxURL(id_dossier, nom_flux, url_flux)
+function addFluxURL(id_dossier, nom_flux, url_flux, tagsIDs)
 {
 	jQuery.ajax({
 		type: 'POST',
 		url: 'srvAjax/addFluxUrl.php',
 		
 		data: {
+			dataType: "json",
 		  	iddossier: id_dossier,
 		  	nomflux: nom_flux,
 		  	urlflux: url_flux,
+		  	tagsids: JSON.stringify(tagsIDs),
 		}, 
 		success: function(data, textStatus, jqXHR) {
 			// La réponse du serveur est contenu dans la variable « data »

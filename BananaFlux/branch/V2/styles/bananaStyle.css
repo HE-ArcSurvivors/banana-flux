@@ -492,8 +492,9 @@ input[type=password]:focus
 	display: none;
 }
 
-.folder_radioInput{
+.folder_radioInput, .tags_checkboxInput{
 	margin-left: 10px;
 	margin-right: 5px;
 }
+
 
