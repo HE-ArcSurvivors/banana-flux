@@ -67,8 +67,22 @@ function startClicListeners()
 		addArticles(12, 0, id_flux, id_dossier);
          
 	 });
-
-    
+	 
+	 //
+	 //	click listener on .dossierHead
+	 //	afficher les articles des flux du dossier
+	 //
+	 $('#dossiers_user').on("click", '.dossierHead', function() {
+         
+		id_flux = null;
+		id_dossier = $(this).find(".iddossier_hidden").text();
+		//alert (id_dossier);
+		
+		addArticles(12, 0, id_flux, id_dossier);
+         
+	 });
+	 
+	 
     
     // ****** MANAGE FOLDERS ****** //
     // DELETE FOLDER

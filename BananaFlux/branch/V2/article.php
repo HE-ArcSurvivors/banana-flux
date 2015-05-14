@@ -6,14 +6,17 @@ class Article {
     private $_description;
     private $_url;
     private $_img;
+    private $_pubDate;
     private $_lang;
 
-    public function __construct($title, $description, $url, $img, $lang)
+    public function __construct($title, $description, $url, $img, $pubDate, $lang)
     {
 	   $this->_title = $title;
 	   $this->_description = $description;
 	   $this->_url = $url;
 	   $this->_img = $img;
+	   
+	   $this->_pubDate = new DateTime($pubDate);
 	   $this->_lang = $lang;
     }
    
@@ -64,12 +67,17 @@ class Article {
 	      		</div>
 	      		'.$showImg.'
 	      		<div class="article_descritption">
+	      			<p>'.$this->_pubDate->format('d.m.Y H:i').'</p>
 	      			<p>'.$descr.'</p>
+	      			
 	      		</div>
 	      		</div></div>';
-
     }
     
+    public function getCompareDate()
+    {
+	    return $this->_pubDate->format('U');
+    }
     
 }
 
