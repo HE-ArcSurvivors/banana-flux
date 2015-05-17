@@ -57,6 +57,25 @@ p{
 	display: none;
 }
 
+#searchbar-result-table{
+	margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /*-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border:solid black 1px;*/
+}
+
+#searchbar-search-results{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#searchbar-search-td{
+	
+}
+
 #headbar img { 
     height: 30px;
     margin : 10px;
@@ -154,11 +173,11 @@ p{
 }
 
 #leftFlap_Content h2{
-	margin-top: 0px;
+
 	font-size: 15px;
 	text-align: center;
 	background-color: #dbdbdb;
-	margin-top: 5px;
+	margin-top: 15px;
 	line-height: 30px;
 	
 }
@@ -484,10 +503,15 @@ input[type=password]:focus
 }
 .addFlux, .addFolder{
 	margin-top: 5px;
+	margin-bottom: 5px;
 	padding-top:0px;
 	padding-bottom: 0px;
 	height:25px;
 	font-size:15px;
+}
+
+#dossiers_user{
+	margin-bottom: 15px;
 }
 
 
@@ -495,7 +519,41 @@ input[type=password]:focus
 #box_select_flux{
 	max-height: 300px;
 	overflow-y: scroll;
-}
-#box_select_flux h1{
 
 }
+#box_select_flux .select_flux{
+	margin: 2px;
+	margin-bottom: 10px;
+	background-color: #e2e2e2;
+	padding: 5px;
+	cursor:
+}
+#box_select_flux .select_flux:hover{
+	background-color: #d1d1d1;
+	cursor:pointer;
+}
+#box_select_flux .select_flux h1{
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	text-align: left;
+	font-size: 16px;
+	line-height: 18px;
+}
+#box_select_flux .select_flux p{
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	font-size: 12px;
+	line-height: 15px;
+}
+#box_select_flux .select_flux .hidden_idflux{
+	display: none;
+}
+
+.folder_radioInput, .tags_checkboxInput{
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+

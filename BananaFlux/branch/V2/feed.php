@@ -24,7 +24,6 @@ class Feed {
     	$this->_lang = $lang;
     	
     	
-    	
     	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".$id;
 		$resource = mysqli_query($db, $sql);
 		
@@ -48,6 +47,11 @@ class Feed {
 		   		echo '<div class="informationBox warning">'.$this->_lang["FEED_NOT_FOUND"].'</div>';
 	   		}
 	   	}
+	}
+	
+	public function getTabArticles()
+	{
+		return $this->_tabArticles;
 	}
     
    	public function getArticlesFeed($idfirst, $idlast)
@@ -75,7 +79,7 @@ class Feed {
     
 		foreach($listflux->channel->item as $entry)
 		{   
-			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $this->_lang);
+			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $entry->pubDate, $this->_lang);
 			array_push($this->_tabArticles, $article);
     	}
     }

@@ -68,8 +68,22 @@ function startClicListeners()
 		addArticles(12, 0, id_flux, id_dossier);
          
 	 });
-
-    
+	 
+	 //
+	 //	click listener on .dossierHead
+	 //	afficher les articles des flux du dossier
+	 //
+	 $('#dossiers_user').on("click", '.dossierHead', function() {
+         
+		id_flux = null;
+		id_dossier = $(this).find(".iddossier_hidden").text();
+		//alert (id_dossier);
+		
+		addArticles(12, 0, id_flux, id_dossier);
+         
+	 });
+	 
+	 
     
     // ****** MANAGE FOLDERS ****** //
     // DELETE FOLDER
@@ -222,7 +236,6 @@ function startClicListeners()
 	//
 	//	click listener on .addFluxPopup_addFluxURL
 	//	Appartient à #popup_addflux
-	//  TODO ! (en cours)
 	//
 	$('.popup_block').on("click", '.addFluxPopup_addFluxURL',  function(){ 
 		$.when($('.popup_block').fadeOut())
@@ -245,6 +258,8 @@ function startClicListeners()
 				
 		   });
 	});
+	
+	
 
 	//
 	//	click listener on .close_popup
@@ -267,15 +282,24 @@ function startClicListeners()
 		var popup = $('#popup_addfluxURL');
 		var html = $('body');
 		
-		var checkedFolder = $('input[type=radio][name=addFluxPopup_folder]:checked');
+		var checkedFolder = $('input[type=radio][name=addFluxURLPopup_folder]:checked');
 		var folder_id = checkedFolder.attr('id');
 		
 		var url_flux = $('#addFluxPopup_flux_url').val();
 		var name_flux = $('#addFluxPopup_flux_name').val();
 		
+		
+		//tags
+		var checkedTags = document.querySelectorAll('input[type=checkbox][name=addFluxURLPopup_tag]:checked');
+		
+		var TagsIDs = [];
+		for (var i = 0; i < checkedTags.length; i++) {
+			TagsIDs.push(checkedTags.item(i).id);
+		}
+		
 		errors = "";
 		
-		if(folder_id == undefined)
+		if(folder_id == undefined || folder_id == null)
 		{
 			errors += "Selectionnez un dossier <br/>";
 			
@@ -291,12 +315,37 @@ function startClicListeners()
 		
 		if(errors == "")
 		{
-			addFluxURL(folder_id, name_flux,  url_flux);
+			addFluxURL(folder_id, name_flux,  url_flux, TagsIDs);
 		}
 		else
 		{
 			html.append('<div class="informationBox warning">'+errors+'</div>');
 			$('informationBox').toggleClass('animation');
+		}
+		
+	});
+	
+	
+	//
+	//	click listener on .select_flux
+	//	Appartient à #popup_addflux
+	//	Ajoute un flux au dossier selectionné
+	//
+	$('#popup_addflux').on("click", '.select_flux',  function(){ 
+		var id_flux = $(this).find(".hidden_idflux").text();
+		var checkedFolder = $('input[type=radio][name=addFluxPopup_folder]:checked');
+		var folder_id = checkedFolder.attr('id');
+		
+				
+		if(folder_id == undefined || folder_id == null)
+		{
+			var html = $('body');
+			html.append('<div class="informationBox warning">Selectionnez un dossier</div>');
+			$('informationBox').toggleClass('animation');
+		}
+		else
+		{
+			addFlux(folder_id, id_flux);
 		}
 		
 	});
@@ -387,19 +436,22 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 
 //
 //	addFluxURL (AJAX)
-//	ajoute un flux à la base de données
+//	ajoute un flux à la base de données et dans un dossier
 // 	a partir de : id_dossier, nom_flux, url_flux et de l'user en session
+//  ajoute au flux les tags contenu dans "tagsIDs"
 //
-function addFluxURL(id_dossier, nom_flux, url_flux)
+function addFluxURL(id_dossier, nom_flux, url_flux, tagsIDs)
 {
 	jQuery.ajax({
 		type: 'POST',
 		url: 'srvAjax/addFluxUrl.php',
 		
 		data: {
+			dataType: "json",
 		  	iddossier: id_dossier,
 		  	nomflux: nom_flux,
 		  	urlflux: url_flux,
+		  	tagsids: JSON.stringify(tagsIDs),
 		}, 
 		success: function(data, textStatus, jqXHR) {
 			// La réponse du serveur est contenu dans la variable « data »
@@ -432,6 +484,55 @@ function addFluxURL(id_dossier, nom_flux, url_flux)
 		}
 	});
 }
+
+
+//
+//	addFlux (AJAX)
+//	ajoute un flux a un dossier depuis la DB
+// 	a partir de : id_dossier, id_flux et de l'user en session
+//
+function addFlux(id_dossier, id_flux)
+{
+	jQuery.ajax({
+		type: 'POST',
+		url: 'srvAjax/addFlux.php',
+		
+		data: {
+		  	iddossier: id_dossier,
+		  	idflux: id_flux,
+		}, 
+		success: function(data, textStatus, jqXHR) {
+
+			if(data=="ok")
+			{
+				var html = $('body');
+				html.append('<div class="informationBox info">Ajout OK :)</div>');
+				$('informationBox').toggleClass('animation');
+				
+				printDossier(); // update the left flap
+				
+				//close the popup
+				$.when( $('.popup_block').fadeOut())
+				   .done(function() { 
+						$('#fade').fadeOut();
+				   });
+			}
+			else
+			{
+				msg = '<div class="informationBox warning">'+data+'</div>';
+				
+				var html = $('body');
+				html.append(msg);
+				$('informationBox').toggleClass('animation');
+			}
+						
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("erreur addFlux");
+		}
+	});
+}
+
 
 
 //------------------------------------------------------//

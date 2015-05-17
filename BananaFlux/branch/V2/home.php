@@ -32,19 +32,98 @@ else
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-<script type="application/javascript">
-            var jLang = <?php echo json_encode($lang); ?>;
-            </script><script type="text/javascript">
+			<script type="application/javascript">
+            var jLang = "<?php echo json_encode($lang); ?>";
+            </script>
+            <script type="text/javascript">
+            
+            function shortcutAddFlux(title, url)
+			{
+				//document.getElementById("superTest").innerHTML = title+" "+url;
+				
+									
+				jQuery.ajax({
+					type: 'POST',
+					url: 'srvAjax/popupAddFluxURL.php',
+					data : {'name': title.replace(/ /gi,"-"), 'url': url},
+       				
+					
+					success: function(data, textStatus, jqXHR) {
+						showPopup("popup_addfluxURL", data, 650);
+					},
+										
+					error: function(jqXHR, textStatus, errorThrown) {
+						alert("erreur PopupAddFluxURL");
+					}
+				});
+			}
+							
+            var queryDDBLenght = 3;
+            
 			$(document).ready(function() {
 				$('#searchbar-input').on('input', function() {
 					var searchKeyword = $(this).val();
-					if (searchKeyword.length >= 3) {
+					if (searchKeyword.length < queryDDBLenght || document.getElementById("articles").style.display == "none") {
+						$('tr#searchbar-search-results').empty();
+						document.getElementById("articles").style.display = "initial";
+						//document.getElementById("searchbar-result-table").style.display = "none";
+					}
+					if (searchKeyword.length >= queryDDBLenght) {
+						
 						$.post('srvAjax/search.php', { keywords: searchKeyword }, function(data) {
-							$('tr#searchResults').empty()
-							$('tr#searchResults').append('<tr><td>' + "ID" + '</td>' + '<td>' + "Name" + '<td><tr>');
-							$.each(data, function() {
-								$('tr#searchResults').append('<tr><td>' + this.id + '</td>' + '<td>' + this.title + '<td><tr>');
-							});
+							
+							
+							if (data[0].searchStatus == "done")
+							{
+						
+								document.getElementById("articles").style.display = "none";
+								$('tr#searchbar-search-results').empty();
+								$('tr#searchbar-search-results').append("<p> <?php echo $lang['SEARCH_DETECTED_TYPE']; ?>" + data[0].type);
+								$('tr#searchbar-search-results').append('<tr><td>'+ "<?php echo $lang['SEARCH_FEED_NAME']; ?>" + '</td>' + '<td>' + "<?php echo $lang['SEARCH_FEED_URL']; ?>" + '</td>' + '<td>' + "<?php echo $lang['SEARCH_FEED_KARMA']; ?>" + '</td>' + '<td>' + "<?php echo $lang['SEARCH_OPTIONS']; ?>" + '<td><tr>');
+								$.each(data, function() {
+									$('tr#searchbar-search-results').append('<tr><td>' + this.title + '</td>' + 
+									'<td>' + this.url + '</td>' + 
+									'<td>' + this.karma + '</td>' + 
+									'<td>' + "<button class=\"boutonStyle\" onclick='shortcutAddFlux(\""+this.title+"\",\""+this.url+"\")'><?php echo $lang['SEARCH_ADD_THE_FEED']; ?></button>" +'</td>' + 
+									/*'<td>' + "<button class= 'boutonStyle' type='button' onclick='alert(\"I am an alert box!\")><?php //echo $lang['SEARCH_ADD_THE_FEED']; ?></button>" +'</td>' + */
+									/*'<td>' + "<p class='boutonStyle shortcutAddFlux'><?php //echo $lang['SEARCH_ADD_THE_FEED']; ?></p>" +'</td>' + */
+									'</td></tr>');
+									//showPopup("popup_addfluxURL", data, 650);
+									
+								});
+								
+								
+								
+								//var preFilledData = {preFillName:"test",preFillURL:"testURL"};
+								
+								/*$.post('srvAjax/popupAddFluxURL.php', { preFilledData: preFilledData }, function(data) {
+											showPopup("popup_addfluxURL", data, 650);
+										
+								}, "json");*/
+								
+								
+								/*$('.shortcutAddFlux').on('click', function(){
+									
+									 //prefilled Array
+									var preFilledData = {preFillName:"test",preFillURL:"testURL"}; 
+									
+									jQuery.ajax({
+										type: 'POST',
+										url: 'srvAjax/popupAddFluxURL.php',
+										data: preFilledData,
+					
+										success: function(data, textStatus, jqXHR) {
+											showPopup("popup_addfluxURL", data, 650);
+										},
+										
+										error: function(jqXHR, textStatus, errorThrown) {
+											alert("erreur PopupAddFluxURL");
+										}
+									});
+								});*/
+								
+							}
+							
 						}, "json");
 					}
 				});
@@ -52,6 +131,7 @@ else
 	</script>   </head>
 
    <body>
+   	<!--<p id="superTest">TEST</p>-->
 
        <div id="headbar">
            <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
@@ -78,9 +158,9 @@ else
        	</form>
        	</div>
        	
-       	<table align="center">
-    		<thead>
-        		<tr id="searchResults" align="center">
+       	<table id="searchbar-result-table">
+    		<thead id="searchbar-search-td">
+        		<tr id="searchbar-search-results">
         		</tr>
 		    </thead>
     	<tbody></tbody>

@@ -2,6 +2,7 @@
 	require_once "../header.php";
 	
 	require_once "../feed.php";
+	require_once "../folder.php";
 	
 	$nbShowed=@$_POST['nbshowed'];
 	$nbAdd=@$_POST['nbadd'];
@@ -19,6 +20,8 @@
 	else if(!empty($id_dossier) && empty($id_flux))
 	{
 		//afficher tout les flux du dossier
+		$folder = new folder($id_dossier, $db, $lang);
+		echo $folder->getArticlesFolderByDate($nbShowed, $nbShowed+$nbAdd);
 	}
     else
     {
