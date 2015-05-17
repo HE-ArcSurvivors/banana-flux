@@ -12,15 +12,19 @@ if (!empty($_POST['keywords'])) {
 	//URL SEARCH
 	if (strpos($keywords,"http://") !== false)
 	{
-		$arr = array();
-		$sql = "SELECT feed_title, feed_url FROM feed WHERE feed_url LIKE '%".$keywords."%'";
-		$result = $db->query($sql) or die($mysqli->error);
+		$slashCounter = substr_count($keywords, '/');
+		if ($slashCounter >= 3)
+		{
+			$arr = array();
+			$sql = "SELECT feed_title, feed_url FROM feed WHERE feed_url LIKE '%".$keywords."%'";
+			$result = $db->query($sql) or die($mysqli->error);
 		
-		if ($result->num_rows > 0) {
+			if ($result->num_rows > 0) {
 			
-			while ($obj = $result->fetch_object()){
-				$arr[] = array('type' => "URL", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma);
-				}
+				while ($obj = $result->fetch_object()){
+					$arr[] = array('type' => "URL", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma);
+					}
+			}
 		}
 		
 	}
