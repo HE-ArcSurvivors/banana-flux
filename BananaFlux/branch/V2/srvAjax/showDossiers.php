@@ -1,7 +1,6 @@
 <?php
 	require_once "../header.php";
 	
-	
 	function printFeed($user, $db)
 	{
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name`, `feed`.`feed_id`, `feed`.`feed_title`, `feed`.`feed_url` FROM `feed`, `feed_folder`, `folder`, `user`

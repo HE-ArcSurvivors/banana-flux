@@ -16,6 +16,7 @@ $(document).ready( function start(){
  	id_dossier=null;
  	
  	printDossier();
+    printTag();
  	addArticles(12, 0, id_flux, id_dossier);
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
@@ -507,6 +508,30 @@ function printDossier()
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			alert("erreure printDossier");
+		}
+	});
+}
+
+function printTag()
+{
+	jQuery.ajax({
+		type: 'POST',
+		url: 'srvAjax/manageTags.php',
+
+        
+        data : {
+            action: "print"
+        },
+        
+		
+		success: function(data, textStatus, jqXHR) {
+			// La réponse du serveur est contenu dans la variable « data »
+			// On peut faire ce qu'on veut avec ici
+			$('#filters').empty().append(data);
+						
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("Error > printTag");
 		}
 	});
 }

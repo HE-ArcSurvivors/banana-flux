@@ -61,6 +61,15 @@ else
            </div>
        </div>
        
+       <div id="headfilters">
+           <div id="filters">
+           
+           </div>
+           <div id="bottom">
+               <!--<span id="showfilters">D</span>-->
+           </div>
+       </div>
+       
        
 		<div id="searchbar" align="center">
 		<form method="post" role="form">
@@ -76,18 +85,6 @@ else
 		    </thead>
     	<tbody></tbody>
 		</table>
-
-      
-      <!--<div id="headfilters">
-      	
-      	<div id="filters">
-      	
-      	</div>
-      	<div id="bottom">
-      		<span id="showfilters">D</span>
-      	</div>
-      	
-      </div>-->
       
       <div id="leftFlap">
 		   <div id="leftFlap_Content">
