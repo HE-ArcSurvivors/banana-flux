@@ -16,7 +16,7 @@
 
             if (mysqli_affected_rows($db) > 0)
             {            
-                echo true;
+                echo "SUCCESS";
             }
             else 
             {

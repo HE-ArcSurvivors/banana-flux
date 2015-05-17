@@ -1,6 +1,5 @@
 function deleteFolder(id_dossier, parent)
 {
-    console.log(id_dossier);
     jQuery.ajax({
         type: 'POST',
         url: 'srvAjax/manageFolders.php',
@@ -11,7 +10,8 @@ function deleteFolder(id_dossier, parent)
         },
         
         success: function(data, textStatus, jqXHR) {
-            if(data == true)
+            
+            if(data == "SUCCESS")
             {
                 var html = $('body');
                 html.append('<div class="informationBox info">Le dossier a été supprimé avec succès</div>');

@@ -33,7 +33,7 @@ else
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
 			<script type="application/javascript">
-            var jLang = "<?php echo json_encode($lang); ?>";
+            var jLang = <?=json_encode($lang)?>;
             </script>
             <script type="text/javascript">
             
