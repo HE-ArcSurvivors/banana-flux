@@ -57,17 +57,76 @@ p{
 	display: none;
 }
 
+#searchbar-result-table{
+	margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /*-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border:solid black 1px;*/
+}
+
+#searchbar-search-results{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#searchbar-search-td{
+	
+}
+
 #headbar img { 
     height: 30px;
     margin : 10px;
 }
 
+/* TAGS */
+
 #headfilters{
 	width: 100%;
-	height: 10px;
+	height: 50px;
 	background-color: #dec8c8;
-	
 	overflow: hidden;
+}
+
+.tagBox {
+  background: #fffa94;
+  background-image: -webkit-linear-gradient(top, #fffa94, #ffe53d);
+  background-image: -moz-linear-gradient(top, #fffa94, #ffe53d);
+  background-image: -ms-linear-gradient(top, #fffa94, #ffe53d);
+  background-image: -o-linear-gradient(top, #fffa94, #ffe53d);
+  background-image: linear-gradient(to bottom, #fffa94, #ffe53d);
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #6b6b6b;
+  font-size: 9px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+
+    width:auto;
+    float: left;
+    margin: 2px;
+}
+
+.tagBox:hover {
+  background: #fada3c;
+  background-image: -webkit-linear-gradient(top, #fada3c, #ffdc4f);
+  background-image: -moz-linear-gradient(top, #fada3c, #ffdc4f);
+  background-image: -ms-linear-gradient(top, #fada3c, #ffdc4f);
+  background-image: -o-linear-gradient(top, #fada3c, #ffdc4f);
+  background-image: linear-gradient(to bottom, #fada3c, #ffdc4f);
+  text-decoration: none;
+}
+
+.tagName {
+    
+}
+
+.deleteTag { 
+    margin-left : 5px;
 }
 
 /*Volet*/
