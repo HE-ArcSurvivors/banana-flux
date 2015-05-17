@@ -57,6 +57,25 @@ p{
 	display: none;
 }
 
+#searchbar-result-table{
+	margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /*-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border:solid black 1px;*/
+}
+
+#searchbar-search-results{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#searchbar-search-td{
+	
+}
+
 #headbar img { 
     height: 30px;
     margin : 10px;

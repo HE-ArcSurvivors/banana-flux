@@ -32,19 +32,35 @@ else
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
-<script type="application/javascript">
+			<script type="application/javascript">
             var jLang = <?php echo json_encode($lang); ?>;
-            </script><script type="text/javascript">
+            </script>
+            <script type="text/javascript">
+            var queryDDBLenght = 3;
 			$(document).ready(function() {
 				$('#searchbar-input').on('input', function() {
 					var searchKeyword = $(this).val();
-					if (searchKeyword.length >= 3) {
+					if (searchKeyword.length < queryDDBLenght || document.getElementById("articles").style.display == "none") {
+						$('tr#searchbar-search-results').empty();
+						document.getElementById("articles").style.display = "initial";
+						//document.getElementById("searchbar-result-table").style.display = "none";
+					}
+					if (searchKeyword.length >= queryDDBLenght) {
+						
 						$.post('srvAjax/search.php', { keywords: searchKeyword }, function(data) {
-							$('tr#searchResults').empty()
-							$('tr#searchResults').append('<tr><td>' + "ID" + '</td>' + '<td>' + "Name" + '<td><tr>');
-							$.each(data, function() {
-								$('tr#searchResults').append('<tr><td>' + this.id + '</td>' + '<td>' + this.title + '<td><tr>');
-							});
+							if (data[0].searchStatus == "done")
+							{
+								//document.getElementById("searchbar-result-table").style.display = "initial";
+								document.getElementById("articles").style.display = "none";
+								$('tr#searchbar-search-results').empty();
+								$('tr#searchbar-search-results').append("<p> <?php echo $lang['SEARCH_DETECTED_TYPE']; ?>" + data[0].type);
+								$('tr#searchbar-search-results').append('<tr><td>'+ "<?php echo $lang['SEARCH_FEED_NAME']; ?>" + '</td>' + '<td>' + "<?php echo $lang['SEARCH_FEED_URL']; ?>" + '</td>' + '<td>' + "<?php echo $lang['SEARCH_FEED_KARMA']; ?>" + '</td>' + '<td>' + "<?php echo $lang['SEARCH_OPTIONS']; ?>" + '<td><tr>');
+								$.each(data, function() {
+									$('tr#searchbar-search-results').append('<tr><td>' + this.title + '</td>' + '<td>' + this.url + '</td>' + '<td>' + this.karma + '</td>' + '<td>' + "<p class='addFlux boutonStyle'><?php echo $lang['SEARCH_ADD_THE_FEED']; ?></p>" + '<td><tr>');
+								});
+								
+							}
+							
 						}, "json");
 					}
 				});
@@ -69,9 +85,9 @@ else
        	</form>
        	</div>
        	
-       	<table align="center">
-    		<thead>
-        		<tr id="searchResults" align="center">
+       	<table id="searchbar-result-table">
+    		<thead id="searchbar-search-td">
+        		<tr id="searchbar-search-results">
         		</tr>
 		    </thead>
     	<tbody></tbody>
