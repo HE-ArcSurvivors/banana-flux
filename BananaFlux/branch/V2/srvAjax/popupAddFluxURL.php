@@ -95,7 +95,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name" value = '.$prefilledName.' />
+	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name" value = '.$prefilledName.'></input>
 </p>
 </div>
 
@@ -105,7 +105,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url" value = '.$prefilledURL.' />
+	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url" value = '.$prefilledURL.'></input>
 </p>
 </div>
 
