@@ -140,6 +140,7 @@ class User {
     
     public function editIcon($icon)
     {
+    	//todo
        return true;
     }
     
