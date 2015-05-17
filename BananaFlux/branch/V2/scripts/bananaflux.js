@@ -143,8 +143,8 @@ function startClicListeners()
     
 	$('#popup_newFolder').on("click", '.createFolderValidate',  function(){ 	
  	 	
-        popup = $('#popup_editProfile');
-        folder_new_name = document.querySelector('#folder_newname').value;
+        popup = $('#popup_newFolder');
+        folder_new_name = popup.querySelector('#folder_newname').value;
 
         createFolder(folder_new_name);
         printDossier();
