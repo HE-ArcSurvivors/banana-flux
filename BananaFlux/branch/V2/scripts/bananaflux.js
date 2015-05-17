@@ -257,6 +257,8 @@ function startClicListeners()
 				
 		   });
 	});
+	
+	
 
 	//
 	//	click listener on .close_popup

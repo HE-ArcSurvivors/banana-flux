@@ -1,6 +1,11 @@
 <?php
 	require_once "../header.php";
 	
+/*	$prefilledName = $_POST['name'];*/
+	$prefilledName = $db->real_escape_string($_POST['name']);
+/*	$prefilledURL = $_POST['url'];*/
+	$prefilledURL = $db->real_escape_string($_POST['url']);
+	
 	function getFolders($user_id, $db)
 	{
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name` FROM `folder`, `user`
@@ -90,7 +95,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name"/>
+	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name" value = '.$prefilledName.' />
 </p>
 </div>
 
@@ -100,7 +105,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url"/>
+	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url" value = '.$prefilledURL.' />
 </p>
 </div>
 
