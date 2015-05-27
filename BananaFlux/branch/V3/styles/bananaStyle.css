@@ -88,6 +88,12 @@ p{
 	
 }
 
+#addFluxPopup-searchbar-input{
+	height: 40px;
+	width: 90%;
+	text-align: center;
+}
+
 #headbar img { 
     height: 30px;
     margin : 10px;
