@@ -273,6 +273,49 @@ function startClicListeners()
 			   });
 	});
 	
+	
+	
+	//
+	//	click listener on .popupSelectDossier_Ajouter
+	//	Appartient à #popup_selectDossier
+	//	Valide les entrées de l'utilisateur et soumet à "addFlux()"
+	//
+	$('#popup_selectDossier').on("click", '.popupSelectDossier_Ajouter',  function(){ 	
+		var popup = $('#popup_selectDossier');
+		var html = $('body');
+		
+		var checkedFolder = $('input[type=radio][name=popupSelectDossier_folder]:checked');
+		var folder_id = checkedFolder.attr('id');
+		
+		var id_flux = $('#popupSelectDossier_id').text();	
+		
+		errors = "";
+		
+		if(folder_id == undefined || folder_id == null)
+		{
+			errors += "Selectionnez un dossier <br/>";
+			
+		}
+		if(id_flux == "")
+		{
+			errors += "Feed invalide <br/>";
+		}
+		
+		if(errors == "")
+		{
+			addFlux(folder_id, id_flux);
+		}
+		else
+		{
+			html.append('<div class="informationBox warning">'+errors+'</div>');
+			$('informationBox').toggleClass('animation');
+		}
+		
+	});
+
+	
+	
+	
 	//
 	//	click listener on .addFluxURLpopup_Ajouter
 	//	Appartient à #popup_addfluxURL

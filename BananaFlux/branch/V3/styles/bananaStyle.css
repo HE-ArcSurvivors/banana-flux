@@ -559,7 +559,7 @@ input[type=password]:focus
 	font-size: 12px;
 	line-height: 15px;
 }
-#box_select_flux .select_flux .hidden_idflux{
+#box_select_flux .select_flux .hidden_idflux, #popupSelectDossier_id{
 	display: none;
 }
 
@@ -567,5 +567,4 @@ input[type=password]:focus
 	margin-left: 10px;
 	margin-right: 5px;
 }
-
 

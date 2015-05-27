@@ -37,19 +37,18 @@ else
             </script>
             <script type="text/javascript">
             
-            function shortcutAddFlux(title, url)
+            function shortcutAddFlux(title, url, id)
 			{
 				//document.getElementById("superTest").innerHTML = title+" "+url;
-				
-									
+								
 				jQuery.ajax({
 					type: 'POST',
-					url: 'srvAjax/popupAddFluxURL.php',
-					data : {'name': title.replace(/ /gi,"-"), 'url': url},
+					url: 'srvAjax/popupSelectDossier.php',
+					data : {'name': title.replace(/ /gi,"-"), 'url': url, 'id' : id},
        				
 					
 					success: function(data, textStatus, jqXHR) {
-						showPopup("popup_addfluxURL", data, 650);
+						showPopup("popup_selectDossier", data, 650);
 					},
 										
 					error: function(jqXHR, textStatus, errorThrown) {
@@ -84,7 +83,7 @@ else
 									$('tr#searchbar-search-results').append('<tr><td>' + this.title + '</td>' + 
 									'<td>' + this.url + '</td>' + 
 									'<td>' + this.karma + '</td>' + 
-									'<td>' + "<button class=\"boutonStyle\" onclick='shortcutAddFlux(\""+this.title+"\",\""+this.url+"\")'><?php echo $lang['SEARCH_ADD_THE_FEED']; ?></button>" +'</td>' + 
+									'<td>' + "<button class=\"boutonStyle\" onclick='shortcutAddFlux(\""+this.title+"\",\""+this.url+"\",\""+this.id+"\")'><?php echo $lang['SEARCH_ADD_THE_FEED']; ?></button>" +'</td>' + 
 									/*'<td>' + "<button class= 'boutonStyle' type='button' onclick='alert(\"I am an alert box!\")><?php //echo $lang['SEARCH_ADD_THE_FEED']; ?></button>" +'</td>' + */
 									/*'<td>' + "<p class='boutonStyle shortcutAddFlux'><?php //echo $lang['SEARCH_ADD_THE_FEED']; ?></p>" +'</td>' + */
 									'</td></tr>');
@@ -253,6 +252,8 @@ else
       <!-- Popups -->
      <div id="popup_addflux" class="popup_block"></div>
      <div id="popup_addfluxURL" class="popup_block"></div>
+     
+      <div id="popup_selectDossier" class="popup_block"></div>
        
      <!-- MANAGE FOLDERS -->
      <div id="popup_editFolder" class="popup_block"></div>
