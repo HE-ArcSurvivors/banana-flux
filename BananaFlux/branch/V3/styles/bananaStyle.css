@@ -23,14 +23,26 @@ p{
 #headbar{
 	width: 100%;
 	height: 50px;
-	background: #fff760;
+	background: #ffd426;
 }
 
 #headbar h1{
 	margin: 0;
 	padding: 0;
-	padding-top: 4px;
+	font-size:30px;
+	letter-spacing:0px;
+	line-height:50px;
+	vertical-align: top;
+	
+	/*text-shadow: 0 0px 2px #000000;*/
+	
+	display: inline-block;
+	color: #3f3f3f;
 }
+#headbar img{
+	display: inline-block;
+}
+
 
 #headbar-left {
     float: left;
