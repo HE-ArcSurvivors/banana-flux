@@ -134,10 +134,12 @@ else
    	<!--<p id="superTest">TEST</p>-->
 
        <div id="headbar">
-           <div id="headbar-left"><h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
+           <div id="headbar-left">
+           <img src="images/bananaLogo.png" height="45" width="45"/>
+           <h1><?php echo $lang["WEBSITE_NAME"]; ?></h1></div>
            <div id="headbar-right">
-               <img src="menu/editProfile.png" class="editProfileButton" />
-               <a href="index.php?action=disconnect"><img src="menu/exit.png" alt="Déconnection" /></a>
+               <img src="images/editProfile.png" class="editProfileButton" alt="logo" height="45" width="45" />
+               <a href="index.php?action=disconnect"><img src="images/exit.png" alt="Déconnection" height="45" width="45" /></a>
            </div>
        </div>
        
