@@ -426,6 +426,7 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 			}
 			
 			elemAdd.append(data);
+            printTag();
 			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
@@ -528,7 +529,7 @@ function addFlux(id_dossier, id_flux)
 						
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert("erreur addFlux");
+			alert("Error addFlux");
 		}
 	});
 }
@@ -621,15 +622,16 @@ function printTag()
 
         
         data : {
-            action: "print"
+            action: "print",
+            folder_id: id_dossier,
+            flux_id : id_flux
         },
         
 		
 		success: function(data, textStatus, jqXHR) {
 			// La réponse du serveur est contenu dans la variable « data »
 			// On peut faire ce qu'on veut avec ici
-			$('#filters').empty().append(data);
-						
+			$('#filters').empty().append(data);						
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			alert("Error > printTag");
