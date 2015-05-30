@@ -130,7 +130,7 @@ class User {
     
     public function getIcon()
     {
-        $sql = 'SELECT user_icon FROM user WHERE (user_login = "'.$this->_login.'")';
+        $sql = 'SELECT user_icon FROM user WHERE (user_login = "'.mysqli_escape_string($this->_db, $this->_login).'")';
         
         $result = mysqli_query($this->_db, $sql);
         $row = mysqli_fetch_array($result);
