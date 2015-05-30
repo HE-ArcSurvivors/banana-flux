@@ -37,41 +37,56 @@ class Article {
 		return $string;
 	}
 	
-    public function getApercu()
+    public function getApercu($feed_title)
     {
        	//Size of the strings
-		$lengthDescr = "50";
-		$lengthDescrSansImage = "1000";
-		$lengthTitle = "60";
+		$lengthDescr = "140";
+		$lengthTitle = "55";
 		
 		//Image ?
 		$showImg = "";
 		if(!empty($this->_img))
 		{
-			$showImg = '<div class="article_image"><img src="'.$this->_img.'" alt="'.$this->_title.'"></div>';
-			
-			$descr = $this->cutText($this->_description, $lengthDescr);
+			$showImg = '<img src="'.$this->_img.'" alt="'.$this->_title.'" />';
 		}
-		else
-		{
-			$descr = $this->cutText($this->_description, $lengthDescrSansImage);
-		}
+
+		$descr = htmlentities($this->cutText($this->_description, $lengthDescr));
 		
 		$descr.='[<a href="'.$this->_url.'" target="_blank">'.$this->_lang["ARTICLES_READ_NEXT"].'</a>]';
 		$title = $this->cutText($this->_title, $lengthTitle);
 		
 		//Return the constructed article
-		return '<div id="articles"><div class="article">
-	      		<div class="article_head">
-	      			<h1>'.$this->_title.'</h1>
-	      		</div>
-	      		'.$showImg.'
-	      		<div class="article_descritption">
-	      			<p>'.$this->_pubDate->format('d.m.Y H:i').'</p>
-	      			<p>'.$descr.'</p>
-	      			
-	      		</div>
-	      		</div></div>';
+
+	    return '<div class="article">
+	
+		  <div class="article_thumb">
+		      	'.$showImg.'
+		  </div>
+	  
+		  <div class="article_date">
+		    <span class="article_date_day">'.$this->_pubDate->format('m').'</span>
+		    <span class="article_date_month">'.$this->_pubDate->format('F').'</span>
+		  </div>
+		  
+		  <div class="article_body">
+	
+		    <div class="article_categories"><span class="article_category">Categorie</span> <span class="article_category" >Categorie</span> <span class="article_category" >Categorie</span></div>
+		    
+		    <h2 class="article_title"><a href="#">'.$title.'</a></h2>
+		    <div class="article_description">
+		    <p>
+		      '.$descr.'
+		    </p>
+		    <p class="article_description_category">Categorie | Categorie | Categorie</p>
+		    </div>
+		  </div>
+		
+		  <div class="article_footer">
+		  <hr/>
+			  <p>'.htmlentities($feed_title).' : '.$this->_pubDate->format('d.m.Y H:i').'</p>
+		  </div>
+	  
+	  </div>';
     }
     
     public function getCompareDate()

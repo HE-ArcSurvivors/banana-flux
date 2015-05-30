@@ -66,7 +66,7 @@ class Feed {
    		$i=$idfirst;
 	   	for($i; $i<$idlast; $i++)
 	   	{
-		   	$articles.=$this->_tabArticles[$i]->getApercu();
+		   	$articles.=$this->_tabArticles[$i]->getApercu($this->_title);
 	   	}
 	   	
 	   	return $articles;
