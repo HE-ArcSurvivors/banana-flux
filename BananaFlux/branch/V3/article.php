@@ -64,7 +64,7 @@ class Article {
 		  </div>
 	  
 		  <div class="article_date">
-		    <span class="article_date_day">'.$this->_pubDate->format('m').'</span>
+		    <span class="article_date_day">'.$this->_pubDate->format('d').'</span>
 		    <span class="article_date_month">'.$this->_pubDate->format('F').'</span>
 		  </div>
 		  
