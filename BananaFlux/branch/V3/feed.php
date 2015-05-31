@@ -132,6 +132,12 @@ class Feed {
             return false;
         }
     }
+    
+    public function getTagList()
+    {
+        return array_values($this->_tag);
+    }
+        
 }
 
 ?>

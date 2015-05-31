@@ -105,10 +105,21 @@ class Folder {
 	}
     
     
-    public function printFeedAccordingToTag($tag_id)
+  /* public function printFeedAccordingToTag($tag_id)
     {
         
-    }  
+    }  */
+    
+    public function getTagList()
+    {
+        $array = array();
+        foreach($this->_tabFeeds as $feed)
+        {
+            $arrayNEW = array_merge($array, $feed->getTagList());
+            $array = $arrayNEW;
+        }
+        return $array;
+    }
 }
 
 ?>
