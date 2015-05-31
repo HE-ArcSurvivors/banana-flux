@@ -2,8 +2,23 @@
 	require_once "../header.php";
 	
 	
-	function affFlux($db)
+	function affFlux($db, $filter)
 	{
+		
+		//print($filter.isset());
+		/*$arr = array();
+		$sql = "SELECT feed_id, feed_title, feed_url FROM feed WHERE feed_title LIKE '%".$keywords."%'";
+		$result = $db->query($sql) or die($mysqli->error);
+		
+		if ($result->num_rows > 0) {
+			
+			while ($obj = $result->fetch_object()){
+				$arr[] = array('type' => "FLUX TITLE", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma, 'id' => $obj->feed_id);
+				}
+		}*/
+		
+		/*if (filter.empty())*/
+		
 		$sql = "SELECT `feed_id`, `feed_title`, `feed_url` FROM `feed` ORDER BY `feed_title` ASC";
 		
 		$resource = mysqli_query($db, $sql);
@@ -28,6 +43,8 @@
 			return $flux;
 		}
 	}
+	
+	
 
 	function printflux($flux_id, $flux_title, $flux_url)
 	{
@@ -80,6 +97,23 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 		</div>
 		
 		<h2>'.$lang["SELECT_A_FLUX"].'</h2>
+		
+		<div id="searchbar" align="center">
+		<form method="post" role="form">
+       		<input type="text" id="addFluxPopup-searchbar-input" name="searchbar-input" placeholder="Filter with title" />
+       		<button id="searchbar-button" display="none">Search</button>
+       	</form>
+       	</div>
+       	
+       	<table id="searchbar-result-table">
+    		<thead id="searchbar-search-td">
+        		<tr id="searchbar-search-results">
+        		</tr>
+		    </thead>
+    	<tbody></tbody>
+		</table>
+		
+		<br/>
 		
 		<div class="popup_content" id = "box_select_flux">
 		<p>

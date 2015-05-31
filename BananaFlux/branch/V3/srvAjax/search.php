@@ -16,13 +16,13 @@ if (!empty($_POST['keywords'])) {
 		if ($slashCounter >= 3)
 		{
 			$arr = array();
-			$sql = "SELECT feed_title, feed_url FROM feed WHERE feed_url LIKE '%".$keywords."%'";
+			$sql = "SELECT feed_id, feed_title, feed_url FROM feed WHERE feed_url LIKE '%".$keywords."%'";
 			$result = $db->query($sql) or die($mysqli->error);
 		
 			if ($result->num_rows > 0) {
 			
 				while ($obj = $result->fetch_object()){
-					$arr[] = array('type' => "URL", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma);
+					$arr[] = array('type' => "URL", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma, 'id' => $obj->feed_id);
 					}
 			}
 		}
@@ -32,13 +32,13 @@ if (!empty($_POST['keywords'])) {
 	else
 	{
 		$arr = array();
-		$sql = "SELECT feed_title, feed_url FROM feed WHERE feed_title LIKE '%".$keywords."%'";
+		$sql = "SELECT feed_id, feed_title, feed_url FROM feed WHERE feed_title LIKE '%".$keywords."%'";
 		$result = $db->query($sql) or die($mysqli->error);
 		
 		if ($result->num_rows > 0) {
 			
 			while ($obj = $result->fetch_object()){
-				$arr[] = array('type' => "FLUX TITLE", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma);
+				$arr[] = array('type' => "FLUX TITLE", 'searchStatus' => "done", 'url' => $obj->feed_url, 'title' => $obj->feed_title, 'karma' => $karma, 'id' => $obj->feed_id);
 				}
 		}
 		
