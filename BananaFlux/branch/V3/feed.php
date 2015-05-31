@@ -8,8 +8,7 @@ class Feed {
     private $_title; 
     private $_url;
     
-    //private $_tag; //TODO ?
-    
+    private $_tag = array();
     private $_tabArticles = array();
     
     private $_db;
@@ -18,15 +17,12 @@ class Feed {
 
     public function __construct($id, $db, $lang)
     {
-    
     	$this->_db = $db;
     	$this->_id = $id;
     	$this->_lang = $lang;
     	
-    	
     	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".$id;
 		$resource = mysqli_query($db, $sql);
-		
 		
 		if(!$resource)
 		{
@@ -47,6 +43,8 @@ class Feed {
 		   		echo '<div class="informationBox warning">'.$this->_lang["FEED_NOT_FOUND"].'</div>';
 	   		}
 	   	}
+        
+        $this->_tag = $this->loadTag();
 	}
 	
 	public function getTabArticles()
@@ -89,6 +87,51 @@ class Feed {
        //todo
     }
     
+    private function loadTag()
+    {
+        if(isset($_SESSION["login"]))
+        {
+            $user = new User($this->_db, $this->_lang);
+            $user->loadUser();
+            
+            $sql = "SELECT DISTINCT tag.tag_id, tag.tag_name AS tag_name FROM tag, feed_folder_tag, feed_folder WHERE tag.tag_id = feed_folder_tag.tag_id 
+            && feed_folder_tag.feed_folder_id = feed_folder.feed_folder_id 
+            && feed_folder.feed_id = ".$this->_id;
+        }
+        else
+        {
+            $sql = "SELECT DISTINCT tag.tag_id, tag.tag_name AS tag_name FROM tag, feed_tag_defaut WHERE tag.tag_id = feed_folder_tag.tag_id 
+            && feed_tag_defaut.feed_id = ".$this->_id;
+        }
+        
+        $result = mysqli_query($this->_db, $sql);
+
+        if(!$result)
+        {
+            return $this->_lang["CONNECTION_FAILED"].mysqli_connect_errno();
+        }
+        else
+        {
+            $array[] = array();
+            while ($record = mysqli_fetch_assoc($result))
+            {
+                $array[$record["tag_id"]] = $record["tag_name"];
+            }
+            return $array;
+        }
+    }
+    
+    public function getTag($tag_id)
+    {
+        if(isset($this->_tag[$tag_id]))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 ?>
