@@ -2,6 +2,7 @@
 
 require_once "config.php";
 require_once "user.php";
+require_once "valid.inc";
 
 $lang = parse_ini_file("lang/FR-fr.ini");
     
