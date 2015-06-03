@@ -98,7 +98,7 @@ class Folder {
    		$i=$idfirst;
 	   	for($i; $i<$idlast; $i++)
 	   	{
-		   	$articles.=$tabArticles[$i]->getApercu();
+		   	$articles.=$tabArticles[$i]->getApercu("");
 	   	}
 	   	
 	   	return $articles;
