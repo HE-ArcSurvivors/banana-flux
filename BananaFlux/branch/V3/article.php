@@ -8,13 +8,15 @@ class Article {
     private $_img;
     private $_pubDate;
     private $_lang;
+    private $_titleFeed;
 
-    public function __construct($title, $description, $url, $img, $pubDate, $lang)
+    public function __construct($title, $description, $url, $img, $pubDate, $titleFeed, $lang)
     {
 	   $this->_title = $title;
 	   $this->_description = $description;
 	   $this->_url = $url;
 	   $this->_img = $img;
+	   $this->_titleFeed = $titleFeed;
 	   
 	   $this->_pubDate = new DateTime($pubDate);
 	   $this->_lang = $lang;
@@ -37,7 +39,7 @@ class Article {
 		return $string;
 	}
 	
-    public function getApercu($feed_title)
+    public function getApercu()
     {
        	//Size of the strings
 		$lengthDescr = "140";
@@ -83,7 +85,7 @@ class Article {
 		
 		  <div class="article_footer">
 		  <hr/>
-			  <p>'.htmlentities($feed_title).' : '.$this->_pubDate->format('d.m.Y H:i').'</p>
+			  <p>'.htmlentities($this->_titleFeed).' : '.$this->_pubDate->format('d.m.Y H:i').'</p>
 		  </div>
 	  
 	  </div>';
