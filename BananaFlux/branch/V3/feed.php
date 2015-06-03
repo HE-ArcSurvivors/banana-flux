@@ -64,7 +64,7 @@ class Feed {
    		$i=$idfirst;
 	   	for($i; $i<$idlast; $i++)
 	   	{
-		   	$articles.=$this->_tabArticles[$i]->getApercu($this->_title);
+		   	$articles.=$this->_tabArticles[$i]->getApercu();
 	   	}
 	   	
 	   	return $articles;
@@ -77,7 +77,7 @@ class Feed {
     
 		foreach($listflux->channel->item as $entry)
 		{   
-			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $entry->pubDate, $this->_lang);
+			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $entry->pubDate, $this->_title, $this->_lang);
 			array_push($this->_tabArticles, $article);
     	}
     }
