@@ -8,15 +8,19 @@ class Article {
     private $_img;
     private $_pubDate;
     private $_lang;
+    
     private $_titleFeed;
+    private $_tabTags = array();
 
-    public function __construct($title, $description, $url, $img, $pubDate, $titleFeed, $lang)
+    public function __construct($title, $description, $url, $img, $pubDate, $titleFeed, $tabTags , $lang)
     {
 	   $this->_title = $title;
 	   $this->_description = $description;
 	   $this->_url = $url;
 	   $this->_img = $img;
 	   $this->_titleFeed = $titleFeed;
+	   
+	   $this->_tabTags = $tabTags;
 	   
 	   $this->_pubDate = new DateTime($pubDate);
 	   $this->_lang = $lang;
@@ -37,6 +41,26 @@ class Article {
 		}
 		
 		return $string;
+	}
+	
+	private function printTags()
+	{
+		$tags = "";
+		foreach ($this->_tabTags as $tag){
+			$tags .= '<span class="article_category">'.$tag.'</span>';
+    	}
+		
+		return $tags;
+	}
+	
+	private function printFullTags()
+	{
+		$tags = " ";
+		foreach ($this->_tabTags as $tag){
+			$tags .= $tag.'|';
+    	}
+		
+		return substr($tag, -(strlen($tag)));
 	}
 	
     public function getApercu()
@@ -72,14 +96,14 @@ class Article {
 		  
 		  <div class="article_body">
 	
-		    <div class="article_categories"><span class="article_category">Categorie</span> <span class="article_category" >Categorie</span> <span class="article_category" >Categorie</span></div>
+		    <div class="article_categories">'.$this->printTags().'</div>
 		    
 		    <h2 class="article_title"><a href="#">'.$title.'</a></h2>
 		    <div class="article_description">
 		    <p>
 		      '.$descr.'
 		    </p>
-		    <p class="article_description_category">Categorie | Categorie | Categorie</p>
+		    <p class="article_description_category">'.$this->printFullTags().'</p>
 		    </div>
 		  </div>
 		
