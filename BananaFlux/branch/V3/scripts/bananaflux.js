@@ -142,11 +142,13 @@ function startClicListeners()
 	});
     
 	$('#popup_newFolder').on("click", '.createFolderValidate',  function(){ 	
- 	 	
+        
         popup = $('#popup_newFolder');
-        folder_new_name = popup.querySelector('#folder_newname').value;
+        
+        folder_new_name = document.getElementById('folder_newname').value;
 
         createFolder(folder_new_name);
+
         printDossier();
         
         $.when($('.popup_block').fadeOut()).done(function() { 

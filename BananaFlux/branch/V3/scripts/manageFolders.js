@@ -67,6 +67,7 @@ function editFolder(id_dossier, folder_new_name, parent)
 
 function createFolder(folder_new_name)
 {   
+    console.log("CREATEFOLDER");
     jQuery.ajax({
         type: 'POST',
         url: 'srvAjax/manageFolders.php',
@@ -77,6 +78,8 @@ function createFolder(folder_new_name)
         },
         
         success: function(data, textStatus, jqXHR) {
+            console.log("SUCCESS SECTION");
+            
             if(data == "SUCCESS")
             {               
                 var html = $('body');
@@ -101,14 +104,19 @@ function getEditFolderPopup(folderCurrentName, folderID)
     var data = '<h1>Renommer "';
     data += folderCurrentName;
     data+= '"</h1>';
-    data += '<div class="popup_content"><p><label>Nom du dossier : <input type="text" id="folder_newname" name="folder_newname" value="';
+    
+    data += '<div class="popup_content">';
+    data += '<p><label>Nom du dossier : <input type="text" id="folder_newname" name="folder_newname" value="';
     data += folderCurrentName;
     data += '" /></label></p></div>';
+    
     data += '<span class="iddossier_hidden">';
     data += folderID;
     data += '</span>';
+    
     data += '<p class="boutonStyle editFolderButton">Modifier</p>';
     data += '<p class="boutonStyle close_popup">Annuler</p>';
+    
     return data;
 }
 
@@ -119,10 +127,13 @@ function getDeleteFolderPopup(folderName, folderID)
     data += '"</h1>';
     
     data += '<div class="popup_content">';
+    
     data += '<p>Voulez-vous vraiment supprimer le dossier ';
     data += folderName;
     data += ' ?</p>';
     data += '<p><b>ATTENTION !</b> Vous serez désinscrit de tous les flux contenus dans le dossier!</p>';
+    
+    data += '</div>';
         
     data += '<span class="iddossier_hidden">';
     data += folderID;
@@ -140,7 +151,7 @@ function getNewFolderPopup()
     
     data += '<div class="popup_content">';
     
-    data += '<div class="popup_content"><p><label>Nom du dossier : ';
+    data += '<p><label>Nom du dossier : ';
     data += '<input type="text" id="folder_newname" name="folder_newname"/>';
     data += '</label></p></div>';
     
