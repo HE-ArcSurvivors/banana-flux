@@ -21,6 +21,8 @@ class Feed {
     	$this->_id = $id;
     	$this->_lang = $lang;
     	
+    	$this->_tag = $this->loadTag();
+    	
     	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".$id;
 		$resource = mysqli_query($db, $sql);
 		
@@ -44,7 +46,6 @@ class Feed {
 	   		}
 	   	}
         
-        $this->_tag = $this->loadTag();
 	}
 	
 	public function getTabArticles()
@@ -64,7 +65,7 @@ class Feed {
    		$i=$idfirst;
 	   	for($i; $i<$idlast; $i++)
 	   	{
-		   	$articles.=$this->_tabArticles[$i]->getApercu($this->_title);
+		   	$articles.=$this->_tabArticles[$i]->getApercu();
 	   	}
 	   	
 	   	return $articles;
@@ -77,7 +78,7 @@ class Feed {
     
 		foreach($listflux->channel->item as $entry)
 		{   
-			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $entry->pubDate, $this->_lang);
+			$article = new article($entry->title, $entry->description, $entry->link, $entry->image, $entry->pubDate, $this->_title, $this->_tag, $this->_lang);
 			array_push($this->_tabArticles, $article);
     	}
     }
@@ -112,7 +113,7 @@ class Feed {
         }
         else
         {
-            $array[] = array();
+            $array = array();
             while ($record = mysqli_fetch_assoc($result))
             {
                 $array[$record["tag_id"]] = $record["tag_name"];
