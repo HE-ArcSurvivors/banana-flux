@@ -62,15 +62,16 @@ else
 			$(document).ready(function() {
 				$('#searchbar-input').on('input', function() {
 					var searchKeyword = $(this).val();
-					if (searchKeyword.length < queryDDBLenght || document.getElementById("articles").style.display == "none") {
-						$('tr#searchbar-search-results').empty();
+					if (searchKeyword.length < queryDDBLenght/* || document.getElementById("articles").style.display == "none"*/) {
 						document.getElementById("articles").style.display = "initial";
+						$('tr#searchbar-search-results').empty();
 						//document.getElementById("searchbar-result-table").style.display = "none";
 					}
 					if (searchKeyword.length >= queryDDBLenght) {
 						
 						$.post('srvAjax/search.php', { keywords: searchKeyword }, function(data) {
-							
+							$('tr#searchbar-search-results').empty();
+							document.getElementById("articles").style.display = "initial";
 							
 							if (data[0].searchStatus == "done")
 							{
