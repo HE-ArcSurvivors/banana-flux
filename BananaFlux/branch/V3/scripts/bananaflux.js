@@ -157,7 +157,32 @@ function startClicListeners()
 	
     });
     
+    // ****** MANAGE FEEDS ****** //
+    // DELETE FEED
+    $('#dossiers_user').on("click", '.deleteFeed',function() { 
+        
+        id_feed = $(this).parent().parent().find(".idFeedFolder").text();
+        feed_name = $(this).parent().parent().find(".nameFeed").text();
+        popID = "popup_deleteFeed";
+        showPopup(popID,getDeleteFolderPopup(feed_name,id_feed),600); 
+    });
     
+    $('#popup_deleteFeed').on("click", '.deleteFeedValidate',  function(){ 	
+        
+        popup = $('#popup_deleteFeed');
+        feed_folder_id = popup.find('.idFeedFolder').text();
+
+        deleteFeed(feed_folder_id);
+
+        printDossier();
+        
+        $.when($('.popup_block').fadeOut()).done(function() { 
+            $('#fade').fadeOut();
+		});
+	
+    });
+    
+
     // ****** MANAGE PROFILE ****** //
     $("#headbar").on("click", '.editProfileButton', function() {
         
