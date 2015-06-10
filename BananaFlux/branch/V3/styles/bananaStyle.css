@@ -162,6 +162,7 @@ p{
 	padding: 0px;
 	margin: 0px;
 	
+	z-index: 99;
 }
 #leftFlap_Content{
 	height: 100%;
@@ -215,6 +216,8 @@ p{
 	
 	width: 30px;
 	height: 100px;
+	
+	
 	}
 
 #leftFlap_Bouton p{
@@ -343,7 +346,7 @@ p{
 	line-height: 13px;
 	font-weight: bold;
 
-	background-color: #d2d500;
+	background-color: #ffdd00;
 	border-radius: 50%;
 	border-bottom-left-radius: 50%
 }
@@ -390,7 +393,6 @@ p{
 
 .article_description{
 
-	
 	margin: 0;
 	padding: 0;
 	
@@ -453,7 +455,7 @@ p{
 .article_category{
 	
 	vertical-align: bottom;
-	background-color: #d2d500;
+	background-color: #ffdd00;
 	margin-right: 2px;
 	padding: 6px;
 }
