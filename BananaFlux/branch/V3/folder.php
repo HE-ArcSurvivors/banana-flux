@@ -13,12 +13,14 @@ class Folder {
     private $_lang;
     
     private $_tabFeeds = array();
+    private $_tabTagsHidden;
 
-    public function __construct($id, $db, $lang)
+    public function __construct($id, $db, $lang, $tagshidden)
     {
     	$this->_db = $db;
     	$this->_id = $id;
     	$this->_lang = $lang;
+    	$this->_tabTagsHidden = $tagshidden;
     	
     	$sql = "SELECT `folder_name`, `folder_color` FROM `folder` WHERE `folder_id` =".$id;
 		$resource = mysqli_query($db, $sql);
@@ -59,7 +61,11 @@ class Folder {
 	   		while ($record = mysqli_fetch_assoc ($resource))
 			{
 				$feed = new feed($record['feed_id'], $this->_db, $this->_lang);
-				array_push($this->_tabFeeds, $feed);
+				
+				if($feed->hasTags($this->_tabTagsHidden) == false)
+				{
+					array_push($this->_tabFeeds, $feed);
+				}
 			}
 	   	}
 	}

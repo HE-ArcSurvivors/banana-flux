@@ -55,12 +55,12 @@ class Article {
 	
 	private function printFullTags()
 	{
-		$tags = " ";
+		$tags = " |";
 		foreach ($this->_tabTags as $tag){
 			$tags .= $tag.'|';
     	}
 		
-		return substr($tag, -(strlen($tag)));
+		return $tags;
 	}
 	
     public function getApercu()

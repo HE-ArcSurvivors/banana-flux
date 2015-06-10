@@ -13,7 +13,7 @@ if($action == "print")
     
     if($flux_id == NULL)
     {
-        $sql = "SELECT DISTINCT tag.tag_name AS tag_name FROM tag, feed_folder_tag, feed_folder WHERE tag.tag_id = feed_folder_tag.tag_id 
+        $sql = "SELECT DISTINCT tag.tag_name AS tag_name, tag.tag_id AS id_tag FROM tag, feed_folder_tag, feed_folder WHERE tag.tag_id = feed_folder_tag.tag_id 
         && feed_folder_tag.feed_folder_id = feed_folder.feed_folder_id 
         && feed_folder.folder_id = ".$folder_id;
         
@@ -30,7 +30,7 @@ if($action == "print")
     }
     else if($folder_id == NULL)
     {
-        $sql = "SELECT DISTINCT tag.tag_name AS tag_name FROM tag, feed_folder_tag, feed_folder WHERE tag.tag_id = feed_folder_tag.tag_id 
+        $sql = "SELECT DISTINCT tag.tag_name AS tag_name, tag.tag_id AS id_tag FROM tag, feed_folder_tag, feed_folder WHERE tag.tag_id = feed_folder_tag.tag_id 
         && feed_folder_tag.feed_folder_id = feed_folder.feed_folder_id 
         && feed_folder.feed_id = ".$flux_id;
     }
@@ -47,6 +47,7 @@ if($action == "print")
         {
             echo '<div class="tagBox">';
             echo $record["tag_name"];
+            echo '<div class="hidden_idTag">'.$record["id_tag"].'</div>';
             
             if($flux_id == NULL) { echo '<span class="deleteTag fa fa-times"></span>'; }
             echo '</div>';

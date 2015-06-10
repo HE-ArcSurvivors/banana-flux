@@ -10,6 +10,7 @@ class Feed {
     
     private $_tag = array();
     private $_tabArticles = array();
+	private $_tagid = array();
     
     private $_db;
     private $_lang;
@@ -21,7 +22,7 @@ class Feed {
     	$this->_id = $id;
     	$this->_lang = $lang;
     	
-    	$this->_tag = $this->loadTag();
+    	$this->loadTag();
     	
     	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".$id;
 		$resource = mysqli_query($db, $sql);
@@ -113,25 +114,39 @@ class Feed {
         }
         else
         {
-            $array = array();
             while ($record = mysqli_fetch_assoc($result))
             {
-                $array[$record["tag_id"]] = $record["tag_name"];
+                array_push($this->_tagid, $record["tag_id"]);
+                array_push($this->_tag, $record["tag_name"]);
             }
-            return $array;
         }
     }
     
-    public function getTag($tag_id)
+    public function hasTags($tagsHidden)
     {
-        if(isset($this->_tag[$tag_id]))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    	$hasAllTags = true;
+    	
+    	foreach($this->_tagid as $tag)
+    	{
+    		if(in_array($tag, $tagsHidden))
+    		{
+	    		$hasAllTags = $hasAllTags && true;
+	    	}
+	    	else
+	    	{
+		    	$hasAllTags = false;
+	    	}
+    	}
+    	
+    	if(sizeof($this->_tagid)==0)
+    	{
+	    	$hasAllTags = false;
+    	}
+    	
+    	//print_r($tagsHidden);
+    	//print_r($this->_tagid);
+    	
+    	return $hasAllTags;
     }
     
     public function getTagList()

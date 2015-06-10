@@ -5,6 +5,8 @@ var id_dossier;
 var leftFlap_initialposLeft;
 
 
+var NoDisplayTag = [];
+
 //
 //	$(document).ready
 //	Se produit à la fin du rechargement du DOM
@@ -17,7 +19,7 @@ $(document).ready( function start(){
  	
  	printDossier();
     printTag();
- 	addArticles(12, 0, id_flux, id_dossier);
+ 	addArticles(12, 0, id_flux, id_dossier, NoDisplayTag);
  	
  	leftFlap_initialposLeft = $("#leftFlap").css("left");
 
@@ -64,8 +66,10 @@ function startClicListeners()
          
 		id_flux = $(this).children(".idflux_hidden").text();
 		id_dossier=null;
+		NoDisplayTag = [];
+		printTag();
 		
-		addArticles(12, 0, id_flux, id_dossier);
+		addArticles(12, 0, id_flux, id_dossier, NoDisplayTag);
          
 	 });
 	 
@@ -76,10 +80,12 @@ function startClicListeners()
 	 $('#dossiers_user').on("click", '.dossierHead', function() {
          
 		id_flux = null;
+		NoDisplayTag = [];
 		id_dossier = $(this).find(".iddossier_hidden").text();
+		printTag();
 		//alert (id_dossier);
 		
-		addArticles(12, 0, id_flux, id_dossier);
+		addArticles(12, 0, id_flux, id_dossier, NoDisplayTag);
          
 	 });
 	 
@@ -392,6 +398,22 @@ function startClicListeners()
 		}
 		
 	});
+	
+	
+	//
+	//	click listener on .tagBox
+	//	Appartient à .tagBox .deleteTag
+	//	Ajoute un flux au dossier selectionné
+	//
+	$('#filters').on("click", '.deleteTag',  function()
+	{ 
+		var parent = $(this).parent();
+		var id = parent.find('.hidden_idTag').text();
+		parent.remove();
+		
+		NoDisplayTag.push(id);
+		addArticles(12, 0, id_flux, id_dossier, NoDisplayTag);
+	});
 }
 
 //
@@ -408,7 +430,7 @@ function spyScroll() {
         if ($win.height() + $win.scrollTop() == $(document).height())
         {
         	//alert("t'en veux plus ??");
-            addArticles(12, $(".article").length, id_flux, id_dossier);
+            addArticles(12, $(".article").length, id_flux, id_dossier, NoDisplayTag);
         }
         
         //Move the leftFlap
@@ -445,7 +467,7 @@ function spyResizeWindow(){
 //  nbShowed 			: nombre d'aricle déjà affiché sur la page
 //	id_flux, id_dossier : quoi afficher
 //
-function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
+function addArticles(nbToAdd, nbShowed, id_flux, id_dossier, hiddenTags)
 {
 	jQuery.ajax({
 		type: 'POST',
@@ -456,6 +478,7 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 		  nbshowed: nbShowed,
 		  idflux: id_flux,
 		  iddossier: id_dossier,
+		  tagshidden: JSON.stringify(hiddenTags),
 		}, 
 		success: function(data, textStatus, jqXHR) {
 			// La réponse du serveur est contenu dans la variable « data »
@@ -469,7 +492,7 @@ function addArticles(nbToAdd, nbShowed, id_flux, id_dossier)
 			}
 			
 			elemAdd.append(data);
-            printTag();
+            //printTag();
 			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {

@@ -146,6 +146,7 @@ else
        <div id="headfilters">
            <div id="filters">
            
+           		<!--TAGS HERE->
            </div>
            <div id="bottom">
                <!--<span id="showfilters">D</span>-->
