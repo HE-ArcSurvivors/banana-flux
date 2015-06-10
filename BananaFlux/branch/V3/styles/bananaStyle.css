@@ -264,6 +264,11 @@ p{
 	display: none;
 }
 
+.hidden{
+  	display: none;
+}
+  
+
 .flux p, .dossierHead p{
 	padding-left: 5px;
 	display: inline-block;

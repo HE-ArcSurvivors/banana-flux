@@ -26,15 +26,19 @@ else
    	        
    	        <link rel="stylesheet" href="styles/font-awesome.min.css"/>
    	        <link rel="stylesheet" href="styles/bananaStyle.css"/>
+    
    	        <script type="text/javascript" src="scripts/jquery-2.1.3.min.js"></script>
    	        <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
    	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    	        
             <script type="text/javascript" src="scripts/manageFolders.js"></script>
+            <script type="text/javascript" src="scripts/manageFeeds.js"></script>
    	        <script type="text/javascript" src="scripts/bananaflux.js"></script>
+    
 			<script type="application/javascript">
             var jLang = <?=json_encode($lang)?>;
             </script>
+    
             <script type="text/javascript">
             
             function shortcutAddFlux(title, url, id)
@@ -261,8 +265,11 @@ else
      <div id="popup_deleteFolder" class="popup_block"></div> 
      <div id="popup_newFolder" class="popup_block"></div>
        
-      <!-- MANAGE PROFIEL -->
-       <div id="popup_editProfile" class="popup_block"></div>
+      <!-- MANAGE PROFIL -->
+      <div id="popup_editProfile" class="popup_block"></div>
+       
+      <!-- MANAGE FEED -->
+      <div id="popup_deleteFeed" class="popup_block"></div>
 
 </body>
 </html>
