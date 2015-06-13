@@ -224,7 +224,7 @@ else
 			   <p class="addFlux boutonStyle"><?php echo $lang["ADD_A_FEED"]; ?></p>
 			   <p class="addFolder boutonStyle"><?php echo $lang["CREATE_A_FOLDER"]; ?></p>
 			   
-			   <h1><?php echo $lang["FLUX_FLUX"]; ?></h1>
+			   <!--<h1><?php echo $lang["FLUX_FLUX"]; ?></h1>-->
 			   
 			   <!--
 			   <div class="flux">
