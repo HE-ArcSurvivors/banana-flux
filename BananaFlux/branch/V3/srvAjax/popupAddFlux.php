@@ -6,20 +6,15 @@
 	
 	$(document).ready(function() {
 		
-		//$('p#searchResult').append("<?php //affFlux($db) ?>");
-		
-		var searchKeyword = 0;
-		
+		var searchKeyword;
+						
 		$.post('srvAjax/popupAddFluxSearch.php', { keywords: searchKeyword }, function(data) {
-							
 			$('p#searchResult').empty();
-			
 			$.each(data, function()
 			{
-				$('p#searchResult').append('<div class="select_flux"><h1>' + this.title + '</h1><p>' + this.url + '</p><div class="hidden_idflux">' + this.id + '</div></div>');
-			
+			$('p#searchResult').append('<div class="select_flux"><h1>' + this.title + '</h1><p>' + this.url + '</p><div class="hidden_idflux">' + this.id + '</div></div>');
 			});
-		
+							
 		}, "json");
 		
 		$('#addFluxPopup-searchbar-input').on('input', function() {
@@ -27,10 +22,9 @@
 			
 			if (searchKeyword.length > 0)
 			{
-			$('p#searchResult').empty();
-						
+			
 				$.post('srvAjax/popupAddFluxSearch.php', { keywords: searchKeyword }, function(data) {
-						
+					$('p#searchResult').empty();
 					$.each(data, function()
 					{
 					$('p#searchResult').append('<div class="select_flux"><h1>' + this.title + '</h1><p>' + this.url + '</p><div class="hidden_idflux">' + this.id + '</div></div>');
@@ -62,7 +56,7 @@
 		if (!isset($filter))
 		{
 		
-			$sql = "SELECT `feed_id`, `feed_title`, `feed_url` FROM `feed` ORDER BY `feed_title` ASC";
+			$sql = "SELECT feed_id, feed_title, feed_url FROM feed WHERE feed_title ORDER BY feed_title ASC";
 		
 			$resource = mysqli_query($db, $sql);
 		
