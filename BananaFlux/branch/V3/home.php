@@ -146,9 +146,9 @@ else
        <div id="headfilters">
            <div id="filters">
            
-           		<!--TAGS HERE->
+           		<!--TAGS HERE-->
            </div>
-           <div id="bottom">
+           <div id="filters-bottom">
                <!--<span id="showfilters">D</span>-->
            </div>
        </div>

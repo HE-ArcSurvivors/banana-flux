@@ -45,12 +45,11 @@ if($action == "print")
     {
         while ($record = mysqli_fetch_assoc ($result))
         {
-            echo '<div class="tagBox">';
+            echo '<div class="tagBox"><p>';
             echo $record["tag_name"];
-            echo '<div class="hidden_idTag">'.$record["id_tag"].'</div>';
             
             if($flux_id == NULL) { echo '<span class="deleteTag fa fa-times"></span>'; }
-            echo '</div>';
+            echo '</p><div class="hidden_idTag">'.$record["id_tag"].'</div></div>';
         }
     }
 }

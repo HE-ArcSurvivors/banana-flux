@@ -407,13 +407,38 @@ function startClicListeners()
 	//
 	$('#filters').on("click", '.deleteTag',  function()
 	{ 
-		var parent = $(this).parent();
+		var parent = $(this).parent().parent();
 		var id = parent.find('.hidden_idTag').text();
 		parent.remove();
 		
 		NoDisplayTag.push(id);
 		addArticles(12, 0, id_flux, id_dossier, NoDisplayTag);
 	});
+	
+	//
+	//	click listener on #filters-bottom
+	//	Ouvre ou ferme #filters
+	//
+	$('#filters-bottom').on("click",  function()
+	{ 
+		var filters = $('#filters');
+		var defaultHeight = filters.height();
+		filters.css('height', 'auto');
+		var autoHeight = filters.height();
+		
+		if(defaultHeight == autoHeight) //he is open, close it
+		{
+			filters.animate({height: 0}, 200);
+		}
+		else //open it
+		{
+			filters.css('height', defaultHeight);
+			filters.animate({height: autoHeight}, 200);
+		}
+
+		
+	});
+	
 }
 
 //

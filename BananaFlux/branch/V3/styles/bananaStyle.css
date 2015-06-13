@@ -21,7 +21,7 @@ p{
 /**STRUCTURE PAGE**/
 #headbar{
 	width: 100%;
-	height: 50px;
+	height: 55px;
 	background: #ffd426;
 }
 
@@ -37,6 +37,7 @@ p{
 	
 	display: inline-block;
 	color: #3f3f3f;
+	
 }
 #headbar img{
 	display: inline-block;
@@ -102,40 +103,66 @@ p{
 
 #headfilters{
 	width: 100%;
-	height: 50px;
+	margin: 0px;
+	
 	background-color: #E1E1E1;
 	overflow: hidden;
 }
 
-.tagBox {
-  background: #fffa94;
-  background-image: -webkit-linear-gradient(top, #fffa94, #ffe53d);
-  background-image: -moz-linear-gradient(top, #fffa94, #ffe53d);
-  background-image: -ms-linear-gradient(top, #fffa94, #ffe53d);
-  background-image: -o-linear-gradient(top, #fffa94, #ffe53d);
-  background-image: linear-gradient(to bottom, #fffa94, #ffe53d);
-  -webkit-border-radius: 10;
-  -moz-border-radius: 10;
-  border-radius: 10px;
-  font-family: Arial;
-  color: #6b6b6b;
-  font-size: 9px;
-  padding: 5px 10px 5px 10px;
-  text-decoration: none;
+#filters{
+	overflow: hidden;
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	
+	height: 0px;
+}
 
-    width:auto;
-    float: left;
+#filters-bottom{
+	background-color: red;
+	height: 10px;
+	cursor: pointer;
+}
+
+.tagBox {
+	background: #fffa94;
+	background-image: -webkit-linear-gradient(top, #fffa94, #ffe53d);
+	background-image: -moz-linear-gradient(top, #fffa94, #ffe53d);
+	background-image: -ms-linear-gradient(top, #fffa94, #ffe53d);
+	background-image: -o-linear-gradient(top, #fffa94, #ffe53d);
+	background-image: linear-gradient(to bottom, #fffa94, #ffe53d);
+	-webkit-border-radius: 10;
+	-moz-border-radius: 10;
+	border-radius: 10px;
+	font-family: Arial;
+	color: #6b6b6b;
+	font-size: 9px;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none;
+
+    width: auto;
+    display: inline-block;
     margin: 2px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    cursor: default;
 }
 
 .tagBox:hover {
-  background: #fada3c;
-  background-image: -webkit-linear-gradient(top, #fada3c, #ffdc4f);
-  background-image: -moz-linear-gradient(top, #fada3c, #ffdc4f);
-  background-image: -ms-linear-gradient(top, #fada3c, #ffdc4f);
-  background-image: -o-linear-gradient(top, #fada3c, #ffdc4f);
-  background-image: linear-gradient(to bottom, #fada3c, #ffdc4f);
-  text-decoration: none;
+	background: #fada3c;
+	background-image: -webkit-linear-gradient(top, #fada3c, #ffdc4f);
+	background-image: -moz-linear-gradient(top, #fada3c, #ffdc4f);
+	background-image: -ms-linear-gradient(top, #fada3c, #ffdc4f);
+	background-image: -o-linear-gradient(top, #fada3c, #ffdc4f);
+	background-image: linear-gradient(to bottom, #fada3c, #ffdc4f);
+	text-decoration: none;
+}
+
+.tagBox p{
+	font-size: 12px;
+	padding: 0px;
+	line-height: 10px;
+	display: inline-block;
 }
 
 .tagName {
@@ -144,6 +171,9 @@ p{
 
 .deleteTag { 
     margin-left : 5px;
+    width: 10px;
+	height: 10px;
+    cursor: pointer;
 }
 
 /*Volet*/
@@ -152,7 +182,7 @@ p{
 
 	/*Interaction JS*/
 	left : -220px;
-	top: 50px;
+	top: 55px;
 	
 	width: 250px;
 	height: 100px;
@@ -699,8 +729,4 @@ input[type=password]:focus
 .folder_radioInput, .tags_checkboxInput{
 	margin-left: 10px;
 	margin-right: 5px;
-}
-.deleteTag{
-	width: 10px;
-	height: 10px;
 }
