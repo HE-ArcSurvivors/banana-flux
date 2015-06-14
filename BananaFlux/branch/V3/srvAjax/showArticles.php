@@ -10,8 +10,6 @@
 	$id_dossier=@$_POST['iddossier'];
 	$tagshidden=@json_decode($_POST['tagshidden']);
 
-	//http://www.20min.ch/rss/rss.tmpl?type=rubrik&get=313&lang=ro
-	//http://www.jeuxvideo.com/rss/rss.xml
     
 	if(empty($id_dossier) && !empty($id_flux))
 	{

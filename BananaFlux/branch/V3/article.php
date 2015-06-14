@@ -47,7 +47,7 @@ class Article {
 	{
 		$tags = "";
 		foreach ($this->_tabTags as $tag){
-			$tags .= '<span class="article_category">'.$tag.'</span>';
+			$tags .= '<span class="article_category">'.htmlentities($tag).'</span>';
     	}
 		
 		return $tags;
@@ -57,7 +57,7 @@ class Article {
 	{
 		$tags = " |";
 		foreach ($this->_tabTags as $tag){
-			$tags .= $tag.'|';
+			$tags .= htmlentities($tag).'|';
     	}
 		
 		return $tags;
@@ -73,12 +73,12 @@ class Article {
 		$showImg = "";
 		if(!empty($this->_img))
 		{
-			$showImg = '<img src="'.$this->_img.'" alt="'.$this->_title.'" />';
+			$showImg = '<img src="'.htmlentities($this->_img).'" alt="'.htmlentities($this->_title).'" />';
 		}
 
 		$descr = htmlentities($this->cutText($this->_description, $lengthDescr));
 		
-		$descr.='[<a href="'.$this->_url.'" target="_blank">'.$this->_lang["ARTICLES_READ_NEXT"].'</a>]';
+		$descr.='[<a href="'.htmlentities($this->_url).'" target="_blank">'.$this->_lang["ARTICLES_READ_NEXT"].'</a>]';
 		$title = $this->cutText($this->_title, $lengthTitle);
 		
 		//Return the constructed article
@@ -98,7 +98,7 @@ class Article {
 	
 		    <div class="article_categories">'.$this->printTags().'</div>
 		    
-		    <h2 class="article_title"><a href="#">'.$title.'</a></h2>
+		    <h2 class="article_title"><a href="#">'.htmlentities($title).'</a></h2>
 		    <div class="article_description">
 		    <p>
 		      '.$descr.'

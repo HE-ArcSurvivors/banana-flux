@@ -1,14 +1,14 @@
 <?php
 	require_once "../header.php";
 	
-/*	$prefilledName = $_POST['name'];*/
-	$prefilledName = $db->real_escape_string($_POST['name']);
-/*	$prefilledURL = $_POST['url'];*/
-	$prefilledURL = $db->real_escape_string($_POST['url']);
-	$prefilledID = $_POST['id'];
+	$prefilledName = @$_POST['name'];
+	$prefilledURL = @$_POST['url'];
+	$prefilledID = @$_POST['id'];
 	
 	function getFolders($user_id, $db)
 	{
+		$user_id = mysqli_escape_string($db, $user_id);
+		
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name` FROM `folder`, `user`
 WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_id.'" ORDER BY `folder`.`folder_name` ASC';
 	
@@ -24,8 +24,8 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 			
 			while ($record = mysqli_fetch_assoc ($resource))
 			{
-				$folder_id =$record['folder_id'];
-				$folder_name =$record['folder_name'];
+				$folder_id =htmlentities($record['folder_id']);
+				$folder_name =htmlentities($record['folder_name']);
 				
 				$folders.='<input type="radio" id="'.$folder_id.'" class="folder_radioInput" name="popupSelectDossier_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
 			}
@@ -50,14 +50,12 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	'.$prefilledName.'<br/>
-	'.$prefilledURL.'
+	'.htmlentities($prefilledName).'<br/>
+	'.htmlentities($prefilledURL).'
 </p>
 </div>
 
-<p id="popupSelectDossier_id">
-	'.$prefilledID.'
-</p>
+<p id="popupSelectDossier_id">'.htmlentities($prefilledID).'</p>
 
 <h2>'.$lang["FOLDER"].'</h2>
 

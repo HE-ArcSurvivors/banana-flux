@@ -24,7 +24,7 @@ class Feed {
     	
     	$this->loadTag();
     	
-    	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".$id;
+    	$sql = "SELECT `feed_url`, `feed_title`  FROM `feed` WHERE `feed_id`=".mysqli_escape_string($db, $id);
 		$resource = mysqli_query($db, $sql);
 		
 		if(!$resource)
@@ -98,12 +98,12 @@ class Feed {
             
             $sql = "SELECT DISTINCT tag.tag_id, tag.tag_name AS tag_name FROM tag, feed_folder_tag, feed_folder WHERE tag.tag_id = feed_folder_tag.tag_id 
             && feed_folder_tag.feed_folder_id = feed_folder.feed_folder_id 
-            && feed_folder.feed_id = ".$this->_id;
+            && feed_folder.feed_id = ".mysqli_escape_string($this->_db, $this->_id);
         }
         else
         {
             $sql = "SELECT DISTINCT tag.tag_id, tag.tag_name AS tag_name FROM tag, feed_tag_defaut WHERE tag.tag_id = feed_folder_tag.tag_id 
-            && feed_tag_defaut.feed_id = ".$this->_id;
+            && feed_tag_defaut.feed_id = ".mysqli_escape_string($$this->_db, $this->_id);
         }
         
         $result = mysqli_query($this->_db, $sql);

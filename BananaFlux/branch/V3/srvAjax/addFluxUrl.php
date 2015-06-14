@@ -6,7 +6,6 @@
 	$flux_URL=@$_POST['urlflux'];
 	
 	$tags=@json_decode($_POST['tagsids']);
-
 	
 	
 	if(isset($_SESSION["login"]))
@@ -25,6 +24,11 @@
 	
 	function addFluxURL($user_name, $db, $lang, $flux_name, $flux_URL, $flux_dossier_id, $tags)
 	{
+	
+		$flux_URL = mysqli_escape_string($db, $flux_URL);
+		$flux_name = mysqli_escape_string($db, $flux_name);
+		$flux_dossier_id = mysqli_escape_string($db, $flux_dossier_id);
+	
 		$sql= "INSERT INTO `bananafluxbdd`.`feed` (`feed_id`, `feed_title`, `feed_url`) VALUES (NULL, '$flux_name', '$flux_URL');";
 	
 		$resource = mysqli_query($db, $sql);
@@ -35,6 +39,7 @@
 		}
 		else
 		{
+		
 			$sql="INSERT INTO `bananafluxbdd`.`feed_folder` (`feed_folder_id`, `feed_id`, `folder_id`) VALUES (NULL, (SELECT `feed_id` FROM `feed` WHERE `feed_url` = '$flux_URL'), '$flux_dossier_id');";
 			
 			$resource = mysqli_query($db, $sql);
@@ -49,6 +54,8 @@
 				$error ="";
 				foreach ($tags as $tag_id)
 				{
+					$tag_id = mysqli_escape_string($db, $tag_id);
+				
 					$sql = "INSERT INTO `bananafluxbdd`.`feed_tag_defaut` (`feed_tag_id`, `tag_id`, `feed_id`) VALUES (NULL, '$tag_id', (SELECT `feed_id` FROM `feed` WHERE `feed_url` = '$flux_URL'));";
 					
 					$resource = mysqli_query($db, $sql);

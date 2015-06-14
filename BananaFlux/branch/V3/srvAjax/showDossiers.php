@@ -6,7 +6,7 @@
 	{
 		//Folder with feed
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name`, `feed`.`feed_id`, `feed`.`feed_title`, `feed`.`feed_url`, `feed_folder`.`feed_folder_id` FROM `feed`, `feed_folder`, `folder`, `user`
-	WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` = `folder`.`folder_id` AND `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user->getUsername().'" ORDER BY `folder`.`folder_name` ASC';
+	WHERE `feed`.`feed_id` = `feed_folder`.`feed_id` AND `feed_folder`.`folder_id` = `folder`.`folder_id` AND `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.mysqli_escape_string($db, $user->getUsername()).'" ORDER BY `folder`.`folder_name` ASC';
 	
 		$resource = mysqli_query($db, $sql);
 		
@@ -36,26 +36,25 @@
 						//new folder
                         $toShow .='<div class="dossier">
                            <div class="dossierHead">
-                                <p class="nameFolder">'.$record['folder_name'].'</p>
+                                <p class="nameFolder">'.htmlentities($record['folder_name']).'</p>
                                 <span class="control_elementLeftFlap">
                                     <span class="open fa fa-plus-square-o"></span>
                                     <span class="editFolder edit fa fa-pencil-square-o"></span>
                                     <span class="deleteFolder suppr fa fa-times"></span>
                                 </span>
-                                <span class="iddossier_hidden">'.$record['folder_id'].'</span>
+                                <span class="iddossier_hidden">'.htmlentities($record['folder_id']).'</span>
                            </div>';
 					}
 					
 					//print flux
-					
 					$toShow .='<div class="flux">
-					   		<p class="nameFeed">'.$record['feed_title'].'</p>
+					   		<p class="nameFeed">'.htmlentities($record['feed_title']).'</p>
 					   		<span class="control_elementLeftFlap">
 					   			<span class="editFeed edit fa fa-pencil-square-o"></span>
 					   			<span class="deleteFeed suppr fa fa-times"></span>
 					   		</span>
-					   		<span class="idflux_hidden">'.$record['feed_id'].'</span>
-                            <span class="idFeedFolder hidden">'.$record['feed_folder_id'].'</span>
+					   		<span class="idflux_hidden">'.htmlentities($record['feed_id']).'</span>
+                            <span class="idFeedFolder hidden">'.htmlentities($record['feed_folder_id']).'</span>
 					   		</div>';
 					 
 				}
@@ -66,7 +65,7 @@
 			
 			//empty folders
 			$sql = 'SELECT `folder`.`folder_id`, `folder`.`folder_name` FROM `folder`, `user`
-	WHERE  `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user->getUsername().'" AND (`folder`.`folder_id` NOT IN (SELECT `folder_id` FROM `feed_folder`)) ORDER BY `folder`.`folder_name` ASC';
+	WHERE  `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.mysqli_escape_string($db, $user->getUsername()).'" AND (`folder`.`folder_id` NOT IN (SELECT `folder_id` FROM `feed_folder`)) ORDER BY `folder`.`folder_name` ASC';
 	
 			$resource = mysqli_query($db, $sql);
 		
@@ -83,22 +82,17 @@
 					
 					while ($record = mysqli_fetch_assoc ($resource))
 					{
-												
-						$curentFolder_id =$record['folder_id'];
-						
-						//new folder
                         $toShow .='<div class="dossier">
                            <div class="dossierHead">
-                                <p class="nameFolder">'.$record['folder_name'].'</p>
+                                <p class="nameFolder">'.htmlentities($record['folder_name']).'</p>
                                 <span class="control_elementLeftFlap">
                                     <span class="open fa fa-plus-square-o"></span>
                                     <span class="editFolder edit fa fa-pencil-square-o"></span>
                                     <span class="deleteFolder suppr fa fa-times"></span>
                                 </span>
-                                <span class="iddossier_hidden">'.$record['folder_id'].'</span>
+                                <span class="iddossier_hidden">'.htmlentities($record['folder_id']).'</span>
                            </div>
                            </div>';
-	
 					}
 					
 				}

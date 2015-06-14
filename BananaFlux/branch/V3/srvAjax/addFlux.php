@@ -7,6 +7,9 @@
 	
 	function addFlux($user_id, $db, $flux_id, $flux_dossier_id)
 	{
+		$flux_dossier_id = mysqli_escape_string($db, $flux_dossier_id);
+		$flux_id = mysqli_escape_string($db, $flux_id);
+		
 		$sql="INSERT INTO `bananafluxbdd`.`feed_folder` (`feed_folder_id`, `feed_id`, `folder_id`) VALUES (NULL, '$flux_id', '$flux_dossier_id');";
 		
 		$resource = mysqli_query($db, $sql);

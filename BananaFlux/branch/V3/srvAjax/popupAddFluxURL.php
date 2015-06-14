@@ -2,12 +2,13 @@
 	require_once "../header.php";
 	
 /*	$prefilledName = $_POST['name'];*/
-	$prefilledName = $db->real_escape_string($_POST['name']);
+	$prefilledName = @$_POST['name'];
 /*	$prefilledURL = $_POST['url'];*/
-	$prefilledURL = $db->real_escape_string($_POST['url']);
+	$prefilledURL = @$_POST['url'];
 	
 	function getFolders($user_id, $db)
 	{
+		$user_id = mysqli_escape_string($db, $user_id);
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name` FROM `folder`, `user`
 WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_id.'" ORDER BY `folder`.`folder_name` ASC';
 	
@@ -23,8 +24,8 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 			
 			while ($record = mysqli_fetch_assoc ($resource))
 			{
-				$folder_id =$record['folder_id'];
-				$folder_name =$record['folder_name'];
+				$folder_id =htmlentities($record['folder_id']);
+				$folder_name =htmlentities($record['folder_name']);
 				
 				$folders.='<input type="radio" id="'.$folder_id.'" class="folder_radioInput" name="addFluxURLPopup_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
 			}
@@ -49,8 +50,8 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 			
 			while ($record = mysqli_fetch_assoc ($resource))
 			{
-				$tag_id =$record['tag_id'];
-				$tag_name =$record['tag_name'];
+				$tag_id =htmlentities($record['tag_id']);
+				$tag_name =htmlentities($record['tag_name']);
 				
 				$tags.='<input type="checkbox" id="'.$tag_id.'" class="tags_checkboxInput" name="addFluxURLPopup_tag" value="'.$tag_id.'"/><label for="'.$tag_id.'">'.$tag_name.'</label>';
 			}
@@ -95,7 +96,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name" value = '.$prefilledName.'></input>
+	<input type="text" id="addFluxPopup_flux_name" class="inputTextStyle" name="flux_name" value = '.htmlentities($prefilledName).'></input>
 </p>
 </div>
 
@@ -105,7 +106,7 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 
 <div class="popup_content">
 <p>
-	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url" value = '.$prefilledURL.'></input>
+	<input type="text" id="addFluxPopup_flux_url" class="inputTextStyle" name="flux_url" value = '.htmlentities($prefilledURL).'></input>
 </p>
 </div>
 

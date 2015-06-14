@@ -22,7 +22,7 @@ class Folder {
     	$this->_lang = $lang;
     	$this->_tabTagsHidden = $tagshidden;
     	
-    	$sql = "SELECT `folder_name`, `folder_color` FROM `folder` WHERE `folder_id` =".$id;
+    	$sql = "SELECT `folder_name`, `folder_color` FROM `folder` WHERE `folder_id` =".mysqli_escape_string($this->_db, $this->_id);
 		$resource = mysqli_query($db, $sql);
 
 		if(!$resource)
@@ -48,7 +48,7 @@ class Folder {
 	
 	private function getFeeds()
 	{
-		$sql = "SELECT `feed_id` FROM `feed_folder` WHERE `folder_id` =".$this->_id;
+		$sql = "SELECT `feed_id` FROM `feed_folder` WHERE `folder_id` =".mysqli_escape_string($this->_db, $this->_id);
 		
 		$resource = mysqli_query($this->_db, $sql);
 		

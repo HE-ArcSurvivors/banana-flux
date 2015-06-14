@@ -70,9 +70,9 @@
 			
 				while ($record = mysqli_fetch_assoc ($resource))
 				{
-					$flux_id =$record['feed_id'];
-					$flux_title =$record['feed_title'];
-					$flux_url =$record['feed_url'];
+					$flux_id = $record['feed_id'];
+					$flux_title = $record['feed_title'];
+					$flux_url = $record['feed_url'];
 				
 					$flux .= printflux($flux_id, $flux_title, $flux_url);
 				}
@@ -89,11 +89,12 @@
 
 	function printflux($flux_id, $flux_title, $flux_url)
 	{
-		return '<div class="select_flux"><h1>'.$flux_title.'</h1><p>'.$flux_url.'</p><div class="hidden_idflux">'.$flux_id.'</div></div>';
+		return '<div class="select_flux"><h1>'.htmlentities($flux_title).'</h1><p>'.htmlentities($flux_url).'</p><div class="hidden_idflux">'.htmlentities($flux_id).'</div></div>';
 	}
 	
 	function getFolders($user_id, $db)
 	{
+		$user_id = mysqli_escape_string($db, $user_id);
 		$sql= 'SELECT `folder`.`folder_id`, `folder`.`folder_name` FROM `folder`, `user`
 WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_id.'" ORDER BY `folder`.`folder_name` ASC';
 	
@@ -110,8 +111,8 @@ WHERE `folder`.`user_id` = `user`.`user_id` AND `user`.`user_login` = "'.$user_i
 			$curentFolder_id=null;
 			while ($record = mysqli_fetch_assoc ($resource))
 			{
-				$folder_id =$record['folder_id'];
-				$folder_name =$record['folder_name'];
+				$folder_id =htmlentities($record['folder_id']);
+				$folder_name =htmlentities($record['folder_name']);
 				
 				$folders.='<input type="radio" id="'.$folder_id.'" class="folder_radioInput" name="addFluxPopup_folder" value="'.$folder_id.'"/><label for="'.$folder_id.'">'.$folder_name.'</label>';
 			}
